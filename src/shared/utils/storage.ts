@@ -3,7 +3,7 @@ import type { Entity } from '@/shared/types/entity'
 import type { Id } from '../types/id'
 import { LocalStorage } from '@oleksii-pavlov/storages'
 
-export abstract class Storage<IEntity extends Entity, IRecord extends Entity> {
+export abstract class Storage<IEntity extends Entity, IRecord extends Entity = IEntity> {
   private readonly key: string
   private readonly storage: LocalStorage<IRecord[]>
 
