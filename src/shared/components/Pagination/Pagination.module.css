@@ -1,0 +1,44 @@
+.Pagination {
+  --size: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.Item {
+  flex: 0 0 var(--size);
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--black);
+
+  cursor: pointer;
+  user-select: none;
+  transition: 0.3s;
+}
+
+.Item.Active {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.ItemPrev img {
+  display: block;
+  transform: rotateZ(180deg);
+}
+
+.Item.Disabled {
+  background-color: var(--grey-900);
+}
+.Item.Disabled img {
+  opacity: 0.3;
+}

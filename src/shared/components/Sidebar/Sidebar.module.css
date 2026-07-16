@@ -1,0 +1,20 @@
+.Sidebar {
+  width: 100%;
+  min-height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--sidebar-z-index);
+
+  background-color: var(--white);
+
+  padding-top: 80px;
+  padding-bottom: 100px;
+
+  transition: 0.3s;
+}
+
+.Sidebar:not(.Opened) {
+  transform: translateX(-110%);
+}

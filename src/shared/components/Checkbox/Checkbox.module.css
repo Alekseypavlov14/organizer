@@ -1,0 +1,60 @@
+.Checkbox {
+  --size: 20px;
+
+  display: block;
+  width: var(--size);
+  height: var(--size);
+  flex: 0 0 var(--size);
+
+  background-color: var(--white);
+  border-radius: 4px;
+  overflow: hidden;
+  
+  position: relative;
+}
+
+.Control {
+  position: absolute;
+  left: 0;
+  top: 0;
+  
+  display: block;
+  width: 100%;
+  height: 100%;
+  
+  opacity: 0;
+}
+
+.Fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  
+  display: block;
+  width: 100%;
+  height: 100%;
+  
+  background-color: var(--white);
+  border: 1px solid var(--grey-700);
+  border-radius: 4px;
+}
+
+.Control:checked + .Fill {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.Check {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.Control:not(:checked) + .Check {
+  opacity: 0;
+}
