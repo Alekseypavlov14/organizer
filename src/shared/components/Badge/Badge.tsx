@@ -3,6 +3,7 @@ import { badgeStatusBase, mapBadgeStatusToClassName, type BadgeStatus } from './
 import styles from './Badge.module.css'
 import clsx from 'clsx'
 
+
 interface BadgeProps extends ComponentProps<'div'> {
   status?: BadgeStatus
 }

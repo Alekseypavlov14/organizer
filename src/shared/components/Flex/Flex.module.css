@@ -1,0 +1,21 @@
+.Flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.DirectionVertical {
+  flex-direction: column;
+}
+.DirectionHorizontal {
+  flex-direction: row;
+}
+
+.GapLarge {
+  gap: 16px;
+}
+.GapMedium {
+  gap: 12px;
+}
+.GapSmall {
+  gap: 8px;
+}
