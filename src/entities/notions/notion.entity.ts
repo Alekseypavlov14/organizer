@@ -6,9 +6,16 @@ export interface NotionEntity extends Entity {
   title: string
   description: Nullable<string>
 
+  // for plans
+  date: Nullable<number>
+  time: Nullable<number>
+  duration: Nullable<number>
+
+  // for todos
   deadline: Nullable<number>
   done: Nullable<boolean>
 
+  // for meta info
   priority: Nullable<NotionPriority>
   progress: Nullable<NotionProgress>
   level: Nullable<NotionLevel>
