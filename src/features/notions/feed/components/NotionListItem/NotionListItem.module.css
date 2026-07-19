@@ -1,0 +1,26 @@
+.NotionItem {
+  padding: 10px;
+}
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 10px;
+}
+.Body {
+  margin-top: 5px;
+}
+
+.Title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--grey-100);
+}
+.Date {
+  font-size: 8px;
+  color: var(--grey-500);
+}
+.Description {
+  font-size: 10px;
+  color: var(--grey-500);
+}
