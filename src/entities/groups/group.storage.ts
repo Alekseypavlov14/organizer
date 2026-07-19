@@ -19,3 +19,5 @@ export class GroupEntityStorage extends Storage<GroupEntity, GroupRecord> {
     return ({ ...record, notions})
   }
 }
+
+export const groupEntityStorage = new GroupEntityStorage('entities/groups')
