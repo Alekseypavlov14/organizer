@@ -1,11 +1,12 @@
-import { notionFeedVariantList, type NotionFeedVariant } from '../../constants'
 import type { NotionEntity } from '@/entities/notions'
+import { notionFeedVariantList, type NotionFeedVariant } from '../../constants'
+import { NotionItems } from '../NotionItems'
 import styles from './NotionFeed.module.css'
 
 interface NotionFeedProps {
   notions: NotionEntity[]
   variant?: NotionFeedVariant
-  onNotionClick?: () => void
+  onNotionClick?: (notion: NotionEntity) => void
 }
 
 export function NotionFeed({
@@ -15,9 +16,11 @@ export function NotionFeed({
 }: NotionFeedProps) {
   return (
     <div className={styles.NotionFeed}>
-      <div className={styles.Items}>
-        
-      </div>
+      <NotionItems 
+        notions={notions} 
+        variant={variant}
+        onNotionClick={onNotionClick}
+      />
     </div>
   )
 }

@@ -1,6 +1,8 @@
-.NotionItem {
+.NotionListItem {
   padding: 10px;
+  border-radius: 10px;
 }
+
 .Header {
   display: flex;
   justify-content: space-between;

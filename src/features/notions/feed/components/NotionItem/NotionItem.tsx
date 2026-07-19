@@ -1,14 +1,23 @@
 import type { AbstractNotionItemProps } from '../../interfaces/AbstractNotionItemProps'
-import styles from './NotionListItem.module.css'
+import { notionFeedVariantBlock, notionFeedVariantList, type NotionFeedVariant } from '../../constants'
+import { NotionBlockItem } from '../NotionBlockItem'
+import { NotionListItem } from '../NotionListItem'
 
-interface NotionItemProps extends AbstractNotionItemProps {}
+interface NotionItemProps extends AbstractNotionItemProps {
+  variant: NotionFeedVariant
+}
 
-export function NotionListItem({
-
-}: NotionListItemProps) {
-  return (
-    <div className={styles.NotionListItem}>
-
-    </div>
+export function NotionItem({ 
+  notion, 
+  onClick, 
+  variant
+}: NotionItemProps) {
+  if (variant === notionFeedVariantList) return (
+    <NotionListItem notion={notion} onClick={onClick} />
   )
+  if (variant === notionFeedVariantBlock) return (
+    <NotionBlockItem notion={notion} onClick={onClick} />
+  )
+
+  return null
 }

@@ -1,16 +1,16 @@
 import type { AbstractNotionItemProps } from '../../interfaces/AbstractNotionItemProps'
 import { Palette } from '@/shared/components/Palette'
-import styles from './NotionItem.module.css'
+import styles from './NotionListItem.module.css'
 
-interface NotionItemProps extends AbstractNotionItemProps {}
+interface NotionListItemProps extends AbstractNotionItemProps {}
 
-export function NotionItem({
+export function NotionListItem({
   notion,
   onClick = () => {}
-}: NotionItemProps) {
+}: NotionListItemProps) {
   return (
     <Palette 
-      className={styles.NotionItem} 
+      className={styles.NotionListItem} 
       onClick={onClick}
     >
       <div className={styles.Header}>

@@ -1,21 +1,22 @@
 import type { AbstractNotionItemProps } from '../../interfaces/AbstractNotionItemProps'
 import { Palette } from '@/shared/components/Palette'
-import styles from './NotionItem.module.css'
+import styles from './NotionBlockItem.module.css'
 
-interface NotionItemProps extends AbstractNotionItemProps {}
+interface NotionBlockItemProps extends AbstractNotionItemProps {}
 
-export function NotionItem({
+export function NotionBlockItem({
   notion,
   onClick = () => {}
-}: NotionItemProps) {
+}: NotionBlockItemProps) {
   return (
     <Palette 
-      className={styles.NotionItem} 
+      className={styles.NotionBlockItem} 
       onClick={onClick}
     >
       <div className={styles.Header}>
         <div className={styles.Title}>{notion.title}</div>
       </div>
+
       <div className={styles.Body}>
         <div className={styles.Description}>
           {notion.description}

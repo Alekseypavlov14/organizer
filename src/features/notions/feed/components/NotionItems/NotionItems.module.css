@@ -1,0 +1,14 @@
+.NotionItems {
+  width: 100%;
+}
+
+.FeedList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.FeedBlock {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
