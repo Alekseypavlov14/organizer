@@ -1,6 +1,6 @@
 import { useRef, useState, type ComponentProps, type ReactNode } from 'react'
 import { LucideChevronDown } from 'lucide-react'
-import { useOutsideClick } from '@/shared/hooks/use-outside-click'
+import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import styles from './Select.module.css'
 import clsx from 'clsx'
 
