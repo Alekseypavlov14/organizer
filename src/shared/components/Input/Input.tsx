@@ -1,4 +1,4 @@
-import { useState, type ComponentProps } from 'react'
+import { useId, useState, type ComponentProps } from 'react'
 import { merge } from '@/shared/utils/functions'
 import styles from './Input.module.css'
 import clsx from 'clsx'
@@ -10,31 +10,52 @@ interface InputProps extends ComponentProps<'input'> {
 }
 
 export function Input({ 
-  className,
-
   value = '',
   onValueChange = () => {},
   format = (value) => value, 
+  placeholder = '',
   
+  onChange = () => {},
   onFocus = () => {},
   onBlur = () => {},
-
+  
+  className,
   ...props 
 }: InputProps) {
+  const internalId = useId()
+
   const [focused, setFocused] = useState<boolean>(false)
 
+  const changeHandler = merge(onChange, (e) => onValueChange(e.target.value))
+  const focusHandler = merge(onFocus, () => setFocused(true))
+  const blurHandler = merge(onFocus, () => setFocused(false))
+
+  const inputClassNames = clsx(
+    styles.Input, 
+    focused && styles.Focused, 
+    value.length === 0 && styles.Empty, 
+    className
+  )
+  
+  const displayValue = value.length ? format(value) : placeholder
+
   return (
-    <div className={clsx(styles.Input, className)}>
+    <label 
+      className={inputClassNames}
+      htmlFor={internalId} 
+    >
       <input
-        className={clsx(styles.Control, !focused && styles.Hidden)} 
-        onFocus={merge(onFocus, () => setFocused(true))}
-        onBlur={merge(onBlur, () => setFocused(false))}
+        id={internalId}
+        className={styles.Control} 
+        onChange={changeHandler}
+        onFocus={focusHandler}
+        onBlur={blurHandler}
         {...props} 
       />
 
-      <div className={clsx(styles.Label, focused && styles.Hidden)}>
-        {format(value)}
+      <div className={styles.Label}>
+        {displayValue}
       </div>
-    </div>
+    </label>
   )
 }
