@@ -13,8 +13,8 @@ interface NotionItemsProps {
 
 export function NotionItems({
   notions,
+  onNotionClick,
   variant,
-  onNotionClick
 }: NotionItemsProps) {
   return (
     <div className={clsx(styles.NotionItems, mapNotionFeedVariantToClassName[variant])}>
