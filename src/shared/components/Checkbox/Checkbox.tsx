@@ -1,40 +1,38 @@
-import { useId, type ChangeEvent } from 'react'
+import { useId, type ComponentProps } from 'react'
 import { LucideCheck } from 'lucide-react'
+import { merge } from '@/shared/utils/functions'
 import clsx from 'clsx'
 import styles from './Checkbox.module.css'
 
-interface CheckboxProps {
-  id?: string
-  className?: string
-  isChecked?: boolean
-  onChange?: (isChecked: boolean) => void
+interface CheckboxProps extends ComponentProps<'input'> {
+  onCheckedChange?: (checked: boolean) => void
 }
 
 export function Checkbox({ 
-  id,
-  className, 
-  isChecked, 
+  checked,
+  onCheckedChange = () => {},
   onChange = () => {},
+
+  className,
+  ...props
 }: CheckboxProps) {
-  const generatedId = useId()
+  const internalId = useId()
 
-  function changeHandler(e: ChangeEvent<HTMLInputElement>) {
-    onChange(e.target.checked)
-  }
-
-  const controlId = id ? id : generatedId
+  const changeHandler = merge(onChange, (e) => onCheckedChange(e.target.checked))
 
   return (
     <label 
-      className={clsx(styles.Checkbox, className)}
-      htmlFor={controlId} 
+      className={clsx(styles.Checkbox, checked && styles.Checked, className)}
+      htmlFor={internalId} 
     >
       <input 
-        id={controlId}
+        id={internalId}
         className={styles.Control}
         onChange={changeHandler}
-        checked={isChecked}
+        checked={checked}
         type='checkbox' 
+        hidden
+        {...props}
       />
 
       <div className={styles.Fill} />

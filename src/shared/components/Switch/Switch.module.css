@@ -7,12 +7,16 @@
   flex: 0 0 var(--width);
 
   border-radius: calc(var(--padding) + var(--dot));
-  border: 1px solid var(--primary);
+  border: 1px solid var(--grey-700);
 
   padding-block: var(--padding);
   padding-inline: calc(var(--padding) + var(--dot) / 2);
 
   position: relative;
+  transition: var(--transition);
+}
+.Switch.Checked {
+  border-color: var(--primary);
 }
 
 .Switch .Control {
@@ -45,8 +49,10 @@
   height: var(--dot);
   border-radius: var(--dot);
 
-  background-color: var(--primary);
+  background-color: var(--grey-600);
+  transition: var(--transition);
 }
-.Control:checked + .Content .Dot {
+.Switch.Checked .Dot {
   left: 100%;
+  background-color: var(--primary);
 }

@@ -6,23 +6,28 @@
   height: var(--size);
   flex: 0 0 var(--size);
 
-  background-color: var(--grey-700);
+  border: 1px solid var(--grey-700);
   border-radius: 4px;
-  overflow: hidden;
   
+  overflow: hidden;
   position: relative;
+}
+.Checkbox.Checked {
+  border-color: var(--primary);
 }
 
 .Control {
-  position: absolute;
-  left: 0;
-  top: 0;
-  
-  display: block;
-  width: 100%;
-  height: 100%;
-  
+  width: 0px;
+  height: 0px;
+
+  appearance: none;
+  pointer-events: none;
+  visibility: hidden;
   opacity: 0;
+
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .Fill {
@@ -34,27 +39,23 @@
   width: 100%;
   height: 100%;
   
-  background-color: var(--white);
-  border: 1px solid var(--grey-700);
-  border-radius: 4px;
+  background-color: transparent;
 }
-
-.Control:checked + .Fill {
+.Checkbox.Checked .Fill {
   background-color: var(--primary);
-  border-color: var(--primary);
 }
 
 .Check {
   display: block;
-  width: 100%;
-  height: 100%;
+  height: 80%;
 
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-}
 
-.Control:not(:checked) + .Check {
+  color: var(--white);
+}
+.Checkbox:not(.Checked) .Check {
   opacity: 0;
 }
