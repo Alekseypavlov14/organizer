@@ -35,9 +35,9 @@ export function Checkbox({
         {...props}
       />
 
-      <div className={styles.Fill} />
-
-      <LucideCheck className={styles.Check} />
+      <div className={styles.Fill}>
+        <LucideCheck className={styles.Check} size={12} />  
+      </div>
     </label>
   )
 }

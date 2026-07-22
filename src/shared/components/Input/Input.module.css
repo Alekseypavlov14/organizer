@@ -1,16 +1,10 @@
 .Input {
-  --padding-block: 6px;
-  --padding-inline: 8px;
-
-  --font-size: 12px;
-  --line-height: 16px;
-
   display: block;
   width: 100%;
 
-  background-color: var(--white);
-  border: 1px solid var(--grey-700);
-  border-radius: 8px;
+  background-color: var(--control-background-color);
+  border: 1px solid var(--control-border-color);
+  border-radius: var(--control-border-radius);
 
   position: relative;
   overflow: hidden;
@@ -20,11 +14,13 @@
   display: block;
   width: 100%;
   
-  padding-block: var(--padding-block);
-  padding-inline: var(--padding-inline);
+  padding-block: var(--control-padding-block);
+  padding-inline: var(--control-padding-inline);
 
-  font-size: var(--font-size);
-  font-weight: 500;
+  font-size: var(--control-font-size);
+  line-height: var(--control-line-height);
+  color: var(--control-text-color);
+  font-weight: var(--control-font-weight);
 }
 
 .Label {
@@ -38,17 +34,21 @@
   display: flex;
   align-items: center;
 
-  padding-block: var(--padding-block);
-  padding-inline: var(--padding-inline);
+  padding-block: var(--control-padding-block);
+  padding-inline: var(--control-padding-inline);
 
-  background-color: var(--white);
+  background-color: var(--control-background-color);
 
-  font-size: var(--font-size);
-  font-weight: 500;
+  font-size: var(--control-font-size);
+  line-height: var(--control-line-height);
+  color: var(--control-text-color);
+  font-weight: var(--control-font-weight);
+
+  pointer-events: none;
 }
 .Input.Focused .Label {
   display: none;
 }
 .Input.Empty .Label {
-  color: var(--grey-500);
+  color: var(--control-placeholder-color);
 }

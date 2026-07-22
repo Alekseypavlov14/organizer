@@ -12,6 +12,7 @@ interface InputProps extends ComponentProps<'input'> {
 export function Input({ 
   value = '',
   onValueChange = () => {},
+  
   format = (value) => value, 
   placeholder = '',
   
@@ -36,7 +37,7 @@ export function Input({
     value.length === 0 && styles.Empty, 
     className
   )
-  
+
   const displayValue = value.length ? format(value) : placeholder
 
   return (

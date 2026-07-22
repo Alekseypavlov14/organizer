@@ -21,8 +21,23 @@
   --header-z-index: 10;
   --sidebar-z-index: 5;
   --action-button-z-index: 3;
+  --dropdown-z-index: 2;
 
   --transition: 0.3s;
+  
+  /* theme */
+  --control-background-color: var(--white);
+  --control-border-color: var(--grey-700);
+  --control-border-radius: 8px;
+
+  --control-font-size: 12px;
+  --control-line-height: 16px;
+  --control-text-color: var(--grey-100);
+  --control-font-weight: 500;
+
+  --control-placeholder-color: var(--grey-500);
+  --control-padding-block: 6px;
+  --control-padding-inline: 8px;
 }
 
 * {
