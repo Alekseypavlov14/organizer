@@ -1,12 +1,12 @@
 .Checkbox {
-  --size: 20px;
+  --size: 16px;
 
   display: block;
   width: var(--size);
   height: var(--size);
   flex: 0 0 var(--size);
 
-  background-color: var(--white);
+  background-color: var(--grey-700);
   border-radius: 4px;
   overflow: hidden;
   

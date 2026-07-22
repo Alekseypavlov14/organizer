@@ -1,0 +1,52 @@
+.Switch {
+  --width: 32px;
+  --dot: 10px;
+  --padding: 2px;
+
+  width: var(--width);
+  flex: 0 0 var(--width);
+
+  border-radius: calc(var(--padding) + var(--dot));
+  border: 1px solid var(--primary);
+
+  padding-block: var(--padding);
+  padding-inline: calc(var(--padding) + var(--dot) / 2);
+
+  position: relative;
+}
+
+.Switch .Control {
+  width: 0px;
+  height: 0px;
+
+  appearance: none;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Switch .Content {
+  position: relative;
+  width: 100%;
+  height: var(--dot);
+}
+
+.Switch .Dot {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateX(-50%) translateY(-50%);
+
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: var(--dot);
+
+  background-color: var(--primary);
+}
+.Control:checked + .Content .Dot {
+  left: 100%;
+}
