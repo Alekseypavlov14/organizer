@@ -1,8 +1,16 @@
-import { hoursRange, minutesRange, timeRegex } from './constants'
+import type { TimeModel } from './time.model'
+import { timeRegex, timeRange, hoursRange, minutesRange } from './constants'
 import { ModelValidator } from '@/entities/shared/utils/validation'
 
-export class TimeValidator extends ModelValidator {
-  public validate(value: string): boolean {
+export class TimeValidator extends ModelValidator<TimeModel> {
+  public validateModelValue(time: TimeModel): boolean {
+    if (!Number.isInteger(time.value)) return false
+    if (!timeRange.containsValue(time.value)) return false
+  
+    return true
+  }
+
+  public validateControlValue(value: string): boolean {
     if (!timeRegex.test(value)) return false
 
     const [ hours, minutes ] = value.split(':').map(Number)

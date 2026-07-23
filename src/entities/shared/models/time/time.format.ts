@@ -17,7 +17,7 @@ export class TimeFormat extends ModelFormat<TimeModel> {
     const [ hours, minutes ] = value.split(':').map(Number)
 
     const today = new DateTime().normalizeDate()
-    const moment = new DateTime({ 
+    const moment = today.getDateTimeAfter({
       hours, 
       minutes,
     })
