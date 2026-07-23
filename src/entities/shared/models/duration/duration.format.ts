@@ -16,12 +16,9 @@ export class DurationFormat extends ModelFormat<DurationModel> {
     const minutes = Math.floor(remainder / MILLISECONDS_PER_MINUTE)
     remainder -= minutes * MILLISECONDS_PER_MINUTE
 
-    let representation = String(minutes)
-
-    if (days > 0 || hours > 0) representation = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
-    if (days > 0) representation = `${days}:${representation}`
-
-    return representation
+    if (days > 0) return `${days}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+    if (hours > 0) return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+    return String(minutes)
   }
 
   public toModel(value: string): DurationModel {

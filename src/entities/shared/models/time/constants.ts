@@ -1,7 +1,7 @@
-import { dateFormatter, MILLISECONDS_PER_DAY } from '@/shared/utils/datetime'
+import { baseFormatter, MILLISECONDS_PER_DAY } from '@/shared/utils/datetime'
 import { Range } from '@oleksii-pavlov/ranges'
 
-export const timeFormatter = dateFormatter.createFormatter('hh:mm')
+export const timeFormatter = baseFormatter.createFormatter('hh:mm')
 
 export const timeRegex = /^\d{1,2}\:\d{2}$/
 
