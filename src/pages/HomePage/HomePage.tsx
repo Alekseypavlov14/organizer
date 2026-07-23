@@ -44,7 +44,8 @@ export function HomePage() {
           value={selectValue}
           options={options}
           onValueChange={(value) => setSelectValue(value)}
-          placeholder='Priority'
+          format={(option) => `Level: ${option.label}`}
+          placeholder='Level'
         />
       </Container>
     </Wrapper>

@@ -5,14 +5,14 @@ import styles from './NotionFeed.module.css'
 
 interface NotionFeedProps {
   notions: NotionEntity[]
-  variant?: NotionFeedVariant
   onNotionClick?: (notion: NotionEntity) => void
+  variant?: NotionFeedVariant
 }
 
 export function NotionFeed({
   notions,
-  variant = notionFeedVariantList,
   onNotionClick = () => {},
+  variant = notionFeedVariantList,
 }: NotionFeedProps) {
   return (
     <div className={styles.NotionFeed}>

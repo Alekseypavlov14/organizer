@@ -1,4 +1,8 @@
 import type { NotionEntity, NotionLevel, NotionPriority, NotionProgress } from '@/entities/notions'
+import type { DurationModel } from '@/entities/shared/models/duration'
+import type { MomentModel } from '@/entities/shared/models/moment'
+import type { TimeModel } from '@/entities/shared/models/time'
+import type { DateModel } from '@/entities/shared/models/date'
 import type { Nullable } from '@/shared/types/nullable'
 import { defaultNotionFormData } from './constants'
 import { create } from 'zustand'
@@ -11,11 +15,11 @@ export interface NotionFormActions {
   updateTitle: (title: string) => void
   updateDescription: (description: Nullable<string>) => void
 
-  updateDate: (date: Nullable<number>) => void
-  updateTime: (time: Nullable<number>) => void
-  updateDuration: (duration: Nullable<number>) => void
+  updateDate: (date: Nullable<DateModel>) => void
+  updateTime: (time: Nullable<TimeModel>) => void
+  updateDuration: (duration: Nullable<DurationModel>) => void
   
-  updateDeadline: (deadline: Nullable<number>) => void
+  updateDeadline: (deadline: Nullable<MomentModel>) => void
   updateDone: (done: Nullable<boolean>) => void
 
   updatePriority: (priority: NotionPriority) => void
@@ -31,11 +35,11 @@ export const useNotionFormStore = create<NotionFormStore>(set => ({
   updateTitle: (title: string) => set(state => ({ ...state, notion: { ...state.notion, title } })),
   updateDescription: (description: Nullable<string>) => set(state => ({ ...state, notion: { ...state.notion, description } })),
 
-  updateDate: (date: Nullable<number>) => set(state => ({ ...state, notion: { ...state.notion, date } })),
-  updateTime: (time: Nullable<number>) => set(state => ({ ...state, notion: { ...state.notion, time } })),
-  updateDuration: (duration: Nullable<number>) => set(state => ({ ...state, notion: { ...state.notion, duration } })),
+  updateDate: (date: Nullable<DateModel>) => set(state => ({ ...state, notion: { ...state.notion, date } })),
+  updateTime: (time: Nullable<TimeModel>) => set(state => ({ ...state, notion: { ...state.notion, time } })),
+  updateDuration: (duration: Nullable<DurationModel>) => set(state => ({ ...state, notion: { ...state.notion, duration } })),
 
-  updateDeadline: (deadline: Nullable<number>) => set(state => ({ ...state, notion: { ...state.notion, deadline } })),
+  updateDeadline: (deadline: Nullable<MomentModel>) => set(state => ({ ...state, notion: { ...state.notion, deadline } })),
   updateDone: (done: Nullable<boolean>) => set(state => ({ ...state, notion: { ...state.notion, done } })),
 
   updatePriority: (priority: NotionPriority) => set(state => ({ ...state, notion: { ...state.notion, priority } })),
