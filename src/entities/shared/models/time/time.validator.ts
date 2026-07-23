@@ -13,3 +13,5 @@ export class TimeValidator extends ModelValidator {
     return true
   }
 }
+
+export const timeValidator = new TimeValidator()

@@ -6,22 +6,24 @@ import { DateTime } from '@oleksii-pavlov/date-time'
 
 export class TimeFormat extends ModelFormat<TimeModel> {
   public toControl(time: TimeModel): string {
-    const date = new DateTime(time.value)
+    const date = new DateTime().normalizeDate().getDateTimeAfter({
+      milliseconds: time.value
+    })
+
     return timeFormatter(date.getTimeInMilliseconds())
   }
 
   public toModel(value: string): TimeModel {
     const [ hours, minutes ] = value.split(':').map(Number)
 
-    const date = new DateTime({ 
-      years: 0,
-      months: 0,
-      days: 0,
+    const today = new DateTime().normalizeDate()
+    const moment = new DateTime({ 
       hours, 
       minutes,
     })
 
-    return createTimeModel(date.getTimeInMilliseconds())
+    const time = moment.getTimeInMilliseconds() - today.getTimeInMilliseconds()
+    return createTimeModel(time)
   }
 
   public displayControl(value: string): string {
@@ -32,3 +34,5 @@ export class TimeFormat extends ModelFormat<TimeModel> {
     return this.displayControl(this.toControl(time))
   }
 }
+
+export const timeFormat = new TimeFormat()
