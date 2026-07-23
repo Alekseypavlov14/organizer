@@ -1,9 +1,9 @@
 import type { GroupEntity, GroupRecord } from './group.entity'
 import type { Id } from '@/shared/types/id'
 import { notionEntityStorage, type NotionEntity } from '@/entities/notions'
-import { Storage } from '@/shared/utils/storage'
+import { EntityStorage } from '@/shared/utils/storages'
 
-export class GroupEntityStorage extends Storage<GroupEntity, GroupRecord> {
+export class GroupEntityStorage extends EntityStorage<GroupEntity, GroupRecord> {
   public deserialize(record: GroupRecord): GroupEntity {
     const notions: NotionEntity[] = record.notions
       .map(id => notionEntityStorage.getById(id))

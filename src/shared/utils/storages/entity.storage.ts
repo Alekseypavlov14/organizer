@@ -1,9 +1,9 @@
 import type { Nullable } from '@/shared/types/nullable'
 import type { Entity } from '@/shared/types/entity'
-import type { Id } from '../types/id'
+import type { Id } from '@/shared/types/id'
 import { LocalStorage } from '@oleksii-pavlov/storages'
 
-export abstract class Storage<IEntity extends Entity, IRecord extends Entity = IEntity> {
+export abstract class EntityStorage<IEntity extends Entity, IRecord extends Entity = IEntity> {
   private readonly key: string
   private readonly storage: LocalStorage<IRecord[]>
 

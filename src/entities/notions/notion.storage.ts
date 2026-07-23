@@ -1,7 +1,7 @@
 import type { NotionEntity } from './notion.entity'
-import { Storage } from '@/shared/utils/storage'
+import { EntityStorage } from '@/shared/utils/storages'
 
-export class NotionEntityStorage extends Storage<NotionEntity> {
+export class NotionEntityStorage extends EntityStorage<NotionEntity> {
   public deserialize(record: NotionEntity): NotionEntity {
     return record
   }
