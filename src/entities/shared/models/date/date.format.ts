@@ -19,8 +19,8 @@ export class DateFormat extends ModelFormat<DateModel> {
     return value
   }
 
-  public displayModel(value: DateModel): string {
-    return this.displayControl(this.toControl(value))
+  public displayModel(date: DateModel): string {
+    return this.displayControl(this.toControl(date))
   }
 }
 

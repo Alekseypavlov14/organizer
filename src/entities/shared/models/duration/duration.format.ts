@@ -50,8 +50,8 @@ export class DurationFormat extends ModelFormat<DurationModel> {
     return segments.join(' ')
   }
   
-  public displayModel(value: DurationModel): string {
-    return this.displayControl(this.toControl(value))
+  public displayModel(duration: DurationModel): string {
+    return this.displayControl(this.toControl(duration))
   }
 }
 
