@@ -1,1 +1,1 @@
-export const momentRegex = /^\.+ \.+$/
+export const momentRegex = /^(\S)+ (\S)+$/

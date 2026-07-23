@@ -1,4 +1,4 @@
-import { useId, useState, type ComponentProps } from 'react'
+import { useEffect, useId, useState, type ComponentProps } from 'react'
 import { merge } from '@/shared/utils/functions'
 import styles from './Input.module.css'
 import clsx from 'clsx'
@@ -6,15 +6,22 @@ import clsx from 'clsx'
 interface InputProps extends ComponentProps<'input'> {
   value?: string
   onValueChange?: (value: string) => void
+
+  validate?: (value: string) => boolean
   format?: (value: string) => string
+
+  hint?: string
 }
 
 export function Input({ 
   value = '',
   onValueChange = () => {},
   
+  validate = () => true,
   format = (value) => value, 
+
   placeholder = '',
+  hint = '',
   
   onChange = () => {},
   onFocus = () => {},
@@ -23,13 +30,26 @@ export function Input({
   className,
   ...props 
 }: InputProps) {
-  const internalId = useId()
-
+  const [internalValue, setInternalValue] = useState<string>(value)
   const [focused, setFocused] = useState<boolean>(false)
 
-  const changeHandler = merge(onChange, (e) => onValueChange(e.target.value))
-  const focusHandler = merge(onFocus, () => setFocused(true))
-  const blurHandler = merge(onFocus, () => setFocused(false))
+  useEffect(() => setInternalValue(value), [value])
+  const internalId = useId()
+
+  const changeHandler = merge(onChange, (e) => {
+    const value = e.target.value
+    setInternalValue(value)
+  })
+
+  const focusHandler = merge(onFocus, () => {
+    setInternalValue(value)
+    setFocused(true)
+  })
+
+  const blurHandler = merge(onFocus, () => {
+    if (validate(internalValue)) onValueChange(internalValue)
+    setFocused(false)
+  })
 
   const inputClassNames = clsx(
     styles.Input, 
@@ -47,10 +67,12 @@ export function Input({
     >
       <input
         id={internalId}
+        value={internalValue}
         className={styles.Control} 
         onChange={changeHandler}
         onFocus={focusHandler}
         onBlur={blurHandler}
+        placeholder={hint}
         {...props} 
       />
 

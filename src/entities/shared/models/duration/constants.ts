@@ -1,1 +1,1 @@
-export const durationRegex = /^(\d+:){1,2}\d+$/
+export const durationRegex = /^(\d+\:){0,2}\d+$/

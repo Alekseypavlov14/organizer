@@ -10,7 +10,7 @@ export class DateFormat extends ModelFormat<DateModel> {
   }
 
   public toModel(value: string): DateModel {
-    const [ days, months, years ] = value.split(':').map(Number)
+    const [ days, months, years ] = value.split('.').map(Number)
     const date = new DateTime({ years, months, days }).normalizeDate()
     return createDateModel(date.getTimeInMilliseconds())
   }
