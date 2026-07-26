@@ -1,7 +1,7 @@
 import type { DurationModel } from './duration.model'
 import { MILLISECONDS_PER_DAY, MILLISECONDS_PER_HOUR, MILLISECONDS_PER_MINUTE } from '@/shared/utils/datetime'
 import { createDurationModel } from './duration.constructor'
-import { ModelFormat } from '@/entities/shared/utils/formatting'
+import { ModelFormat } from '@/entities/shared'
 
 export class DurationFormat extends ModelFormat<DurationModel> {
   public toControl(duration: DurationModel): string {

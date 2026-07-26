@@ -1,7 +1,8 @@
-import { useEffect, useId, useState, type ComponentProps } from 'react'
+import { useEffect, useId, useRef, useState, type ComponentProps } from 'react'
 import { merge } from '@/shared/utils/functions'
 import styles from './Input.module.css'
 import clsx from 'clsx'
+import { useEnterPressed } from '@/shared/hooks/useEnterPressed'
 
 interface InputProps extends ComponentProps<'input'> {
   value?: string
@@ -33,10 +34,13 @@ export function Input({
   const [internalValue, setInternalValue] = useState<string>(value)
   const [focused, setFocused] = useState<boolean>(false)
 
-  useEffect(() => setInternalValue(value), [value])
+  const inputRef = useRef<HTMLInputElement>(null)
   const internalId = useId()
 
-  const changeHandler = merge(onChange, (e) => {
+  useEffect(() => setInternalValue(value), [value])
+  useEnterPressed(inputRef, updateHandler)
+
+  const internalChangeHandler = merge(onChange, (e) => {
     const value = e.target.value
     setInternalValue(value)
   })
@@ -46,10 +50,12 @@ export function Input({
     setFocused(true)
   })
 
-  const blurHandler = merge(onFocus, () => {
+  function updateHandler() {
     if (validate(internalValue)) onValueChange(internalValue)
     setFocused(false)
-  })
+  }
+
+  const blurHandler = merge(onFocus, updateHandler)
 
   const inputClassNames = clsx(
     styles.Input, 
@@ -69,10 +75,11 @@ export function Input({
         id={internalId}
         value={internalValue}
         className={styles.Control} 
-        onChange={changeHandler}
+        onChange={internalChangeHandler}
         onFocus={focusHandler}
         onBlur={blurHandler}
         placeholder={hint}
+        ref={inputRef}
         {...props} 
       />
 

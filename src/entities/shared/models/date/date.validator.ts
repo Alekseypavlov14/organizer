@@ -1,5 +1,5 @@
 import type { DateModel } from './date.model'
-import { ModelValidator } from '@/entities/shared/utils/validation'
+import { ModelValidator } from '@/entities/shared'
 import { dateRegex } from './constants'
 
 export class DateValidator extends ModelValidator<DateModel> {

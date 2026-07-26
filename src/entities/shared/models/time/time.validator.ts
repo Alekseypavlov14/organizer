@@ -1,6 +1,6 @@
 import type { TimeModel } from './time.model'
 import { timeRegex, timeRange, hoursRange, minutesRange } from './constants'
-import { ModelValidator } from '@/entities/shared/utils/validation'
+import { ModelValidator } from '@/entities/shared'
 
 export class TimeValidator extends ModelValidator<TimeModel> {
   public validateModelValue(time: TimeModel): boolean {

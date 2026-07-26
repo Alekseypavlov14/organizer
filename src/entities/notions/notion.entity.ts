@@ -1,8 +1,5 @@
+import type { DateModel, TimeModel, DurationModel, MomentModel } from '../shared'
 import type { NotionLevel, NotionPriority, NotionProgress } from './constants'
-import type { DurationModel } from '@/entities/shared/models/duration'
-import type { MomentModel } from '@/entities/shared/models/moment'
-import type { TimeModel } from '@/entities/shared/models/time'
-import type { DateModel } from '@/entities/shared/models/date'
 import type { Nullable } from '@/shared/types/nullable'
 import type { Entity } from '@/shared/types/entity'
 

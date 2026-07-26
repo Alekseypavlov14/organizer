@@ -1,7 +1,7 @@
 import type { TimeModel } from './time.model'
 import { createTimeModel } from './time.constructor'
 import { timeFormatter } from './constants'
-import { ModelFormat } from '@/entities/shared/utils/formatting'
+import { ModelFormat } from '@/entities/shared'
 import { DateTime } from '@oleksii-pavlov/date-time'
 
 export class TimeFormat extends ModelFormat<TimeModel> {

@@ -1,6 +1,6 @@
 import type { MomentModel } from './moment.model'
 import { createMomentModel } from './moment.constructor'
-import { ModelFormat } from '@/entities/shared/utils/formatting'
+import { ModelFormat } from '@/entities/shared'
 import { dateFormat } from '../date'
 import { timeFormat } from '../time'
 

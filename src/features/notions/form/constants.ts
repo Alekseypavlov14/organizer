@@ -8,9 +8,9 @@ export const defaultNotionFormData: NotionEntity = {
   title: '',
   description: null,
 
-  date: 0,
-  time: 0,
-  duration: 0,
+  date: null,
+  time: null,
+  duration: null,
 
   deadline: null,
   done: null,

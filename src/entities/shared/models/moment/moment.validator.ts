@@ -1,5 +1,5 @@
 import type { MomentModel } from './moment.model'
-import { ModelValidator } from '@/entities/shared/utils/validation'
+import { ModelValidator } from '@/entities/shared'
 import { dateValidator } from '../date'
 import { timeValidator } from '../time'
 import { momentRegex } from './constants'

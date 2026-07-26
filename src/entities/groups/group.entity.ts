@@ -1,5 +1,5 @@
 import type { NotionEntity } from '@/entities/notions'
-import type { ColorModel } from '@/entities/shared/models/color'
+import type { ColorModel } from '../shared'
 import type { Entity } from '@/shared/types/entity'
 import type { Id } from '@/shared/types/id'
 

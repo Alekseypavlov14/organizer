@@ -1,6 +1,6 @@
 import type { DateModel } from './date.model'
 import { dateFormatter } from './constants'
-import { ModelFormat } from '@/entities/shared/utils/formatting'
+import { ModelFormat } from '@/entities/shared'
 import { DateTime } from '@oleksii-pavlov/date-time'
 import { createDateModel } from './date.constructor'
 
