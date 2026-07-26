@@ -6,6 +6,7 @@ import { createTimeModel, timeFormat, timeValidator, type TimeModel } from '@/en
 import { createDurationModel, durationFormat, durationValidator, type DurationModel } from '@/entities/shared/models/duration'
 import { createDateModel, dateFormat, dateValidator, type DateModel } from '@/entities/shared/models/date'
 import { createMomentModel, momentFormat, momentValidator, type MomentModel } from '@/entities/shared/models/moment'
+import { Pagination } from '@/shared/components/Pagination'
 
 export function HomePage() {
   const [dateValue, setDateValue] = useState<DateModel>(createDateModel(Date.now()))
@@ -50,6 +51,11 @@ export function HomePage() {
           validate={momentValidator.validateControlValue}
           placeholder='Moment'
           hint="DD.MM.YYYY hh:mm"
+        />
+
+        <Pagination 
+          currentPageIndex={6}
+          totalPagesAmount={7}
         />
       </Container>
     </Wrapper>

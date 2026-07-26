@@ -1,6 +1,6 @@
 import { useRef, useState, type ComponentProps } from 'react'
-import { LucideChevronDown } from 'lucide-react'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
+import { Icon } from '../Icon'
 import styles from './Select.module.css'
 import clsx from 'clsx'
 
@@ -50,7 +50,7 @@ export function Select<T>({
     >
       <div className={styles.Control}>
         <div className={styles.Label}>{selectLabel}</div>
-        <LucideChevronDown className={styles.Chevron} />
+        <Icon name='chevron-down' className={styles.Chevron} />
       </div>
 
       <div className={styles.Dropdown}>

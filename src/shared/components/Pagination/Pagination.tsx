@@ -1,35 +1,35 @@
 import type { ComponentProps } from 'react'
-import { LucideChevronDown } from 'lucide-react'
 import { Palette } from '../Palette'
 import { clamp } from '@/shared/utils/math'
+import { Icon } from '../Icon'
 import styles from './Pagination.module.css'
 import clsx from 'clsx'
 
 interface PaginationProps extends Omit<ComponentProps<'div'>, 'children'> {
   totalPagesAmount: number
-  currentPage: number
-  onCurrentPageChange?: (currentPage: number) => void
+  currentPageIndex: number
+  onCurrentPageChange?: (currentPageIndex: number) => void
   hideForSinglePage?: boolean
 }
 
 export function Pagination({
   totalPagesAmount,
-  currentPage,
+  currentPageIndex,
   onCurrentPageChange = () => {},
   hideForSinglePage,
 
   className,
   ...props
 }: PaginationProps) {
-  const isNavigationBackAvailable = currentPage > 0
-  const isNavigationForwardAvailable = currentPage < (totalPagesAmount - 1)
+  const isNavigationBackAvailable = currentPageIndex > 0
+  const isNavigationForwardAvailable = currentPageIndex < (totalPagesAmount - 1)
 
   function navigateNextPage() {
-    onCurrentPageChange(clamp(0, currentPage + 1, totalPagesAmount))
+    onCurrentPageChange(clamp(0, currentPageIndex + 1, totalPagesAmount - 1))
   }
 
   function navigatePreviousPage() {
-    onCurrentPageChange(clamp(0, currentPage - 1, totalPagesAmount))
+    onCurrentPageChange(clamp(0, currentPageIndex - 1, totalPagesAmount - 1))
   }
 
   if (totalPagesAmount <= 0) return null
@@ -44,12 +44,12 @@ export function Pagination({
         className={clsx(styles.Item, styles.ItemPrev, !isNavigationBackAvailable && styles.Disabled)}
         onClick={navigatePreviousPage}
       >
-        <LucideChevronDown />
+        <Icon className={styles.ArrowLeft} name='chevron-down' />
       </Palette>
       
       {new Array(totalPagesAmount).fill(0).map((_, index) => (
         <Palette 
-          className={clsx(styles.Item, (index === currentPage) && styles.Active)}
+          className={clsx(styles.Item, (index === currentPageIndex) && styles.Active)}
           onClick={() => onCurrentPageChange(index)}
           key={index}
         >
@@ -61,7 +61,7 @@ export function Pagination({
         className={clsx(styles.Item, styles.ItemNext, !isNavigationForwardAvailable && styles.Disabled)}
         onClick={navigateNextPage}
       >
-        <LucideChevronDown />
+        <Icon className={styles.ArrowRight} name='chevron-down' />
       </Palette>
     </div>
   )

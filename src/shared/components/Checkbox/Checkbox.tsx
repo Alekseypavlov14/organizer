@@ -1,6 +1,7 @@
 import { useId, type ComponentProps } from 'react'
-import { LucideCheck } from 'lucide-react'
+import { iconSizeSmall } from '../Icon/constants'
 import { merge } from '@/shared/utils/functions'
+import { Icon } from '../Icon'
 import clsx from 'clsx'
 import styles from './Checkbox.module.css'
 
@@ -36,7 +37,11 @@ export function Checkbox({
       />
 
       <div className={styles.Fill}>
-        <LucideCheck className={styles.Check} size={12} />  
+        <Icon 
+          name='check' 
+          className={styles.Check} 
+          size={iconSizeSmall}
+        />  
       </div>
     </label>
   )

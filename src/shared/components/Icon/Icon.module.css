@@ -1,0 +1,18 @@
+.Icon {
+  --size: 0px;
+
+  color: inherit;
+
+  width: var(--size);
+  height: var(--size);
+}
+
+.Icon.SizeSmall {
+  --size: 12px;
+}
+.Icon.SizeMedium {
+  --size: 14px;
+}
+.Icon.SizeLarge {
+  --size: 18px;
+}
