@@ -1,6 +1,5 @@
 .Flex {
   display: flex;
-  flex-wrap: wrap;
 }
 
 .DirectionVertical {
@@ -11,7 +10,7 @@
 }
 
 .GapLarge {
-  gap: 16px;
+  gap: 24px;
 }
 .GapMedium {
   gap: 12px;

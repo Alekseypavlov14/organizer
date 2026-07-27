@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react'
-import { FlexDirectionHorizontal, FlexGapSmall, mapFlexDirectionToClassName, mapFlexGapToClassName, type FlexDirection, type FlexGap } from './constants'
+import { flexDirectionHorizontal, flexGapSmall, mapFlexDirectionToClassName, mapFlexGapToClassName, type FlexDirection, type FlexGap } from './constants'
 import styles from './Flex.module.css'
 import clsx from 'clsx'
 
@@ -9,8 +9,8 @@ interface FlexProps extends ComponentProps<'div'> {
 }
 
 export function Flex({
-  direction = FlexDirectionHorizontal,
-  gap = FlexGapSmall,
+  direction = flexDirectionHorizontal,
+  gap = flexGapSmall,
 
   className,
   children,

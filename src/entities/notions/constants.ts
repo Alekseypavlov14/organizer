@@ -11,6 +11,6 @@ export const notionLevelHard: NotionLevel = 'hard'
 
 export type NotionProgress = 'created' | 'processing' | 'completed'
 
-export const notionStatusCreated: NotionProgress = 'created'
-export const notionStatusProcessing: NotionProgress = 'processing'
-export const notionStatusCompleted: NotionProgress = 'completed'
+export const notionProgressCreated: NotionProgress = 'created'
+export const notionProgressProcessing: NotionProgress = 'processing'
+export const notionProgressCompleted: NotionProgress = 'completed'

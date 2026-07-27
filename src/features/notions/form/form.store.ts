@@ -12,6 +12,8 @@ export interface NotionFormState {
 }
 
 export interface NotionFormActions {
+  updateNotion: (notion: NotionEntity) => void
+
   updateTitle: (title: string) => void
   updateDescription: (description: Nullable<string>) => void
 
@@ -22,7 +24,7 @@ export interface NotionFormActions {
   updateDeadline: (deadline: Nullable<MomentModel>) => void
   updateDone: (done: Nullable<boolean>) => void
 
-  updatePriority: (priority: NotionPriority) => void
+  updatePriority: (priority: Nullable<NotionPriority>) => void
   updateProgress: (progress: Nullable<NotionProgress>) => void
   updateLevel: (level: Nullable<NotionLevel>) => void
 }
@@ -31,6 +33,8 @@ export interface NotionFormStore extends NotionFormState, NotionFormActions {}
 
 export const useNotionFormStore = create<NotionFormStore>(set => ({
   notion: defaultNotionFormData,
+
+  updateNotion: (notion: NotionEntity) => set(state => ({ ...state, notion })),
 
   updateTitle: (title: string) => set(state => ({ ...state, notion: { ...state.notion, title } })),
   updateDescription: (description: Nullable<string>) => set(state => ({ ...state, notion: { ...state.notion, description } })),
@@ -42,12 +46,14 @@ export const useNotionFormStore = create<NotionFormStore>(set => ({
   updateDeadline: (deadline: Nullable<MomentModel>) => set(state => ({ ...state, notion: { ...state.notion, deadline } })),
   updateDone: (done: Nullable<boolean>) => set(state => ({ ...state, notion: { ...state.notion, done } })),
 
-  updatePriority: (priority: NotionPriority) => set(state => ({ ...state, notion: { ...state.notion, priority } })),
+  updatePriority: (priority: Nullable<NotionPriority>) => set(state => ({ ...state, notion: { ...state.notion, priority } })),
   updateProgress: (progress: Nullable<NotionProgress>) => set(state => ({ ...state, notion: { ...state.notion, progress } })),
   updateLevel: (level: Nullable<NotionLevel>) => set(state => ({ ...state, notion: { ...state.notion, level } })),
 }))
 
 export const notionSelector = (store: NotionFormStore) => store.notion
+
+export const updateNotionSelector = (store: NotionFormStore) => store.updateNotion
 
 export const updateTitleSelector = (store: NotionFormStore) => store.updateTitle
 export const updateDescriptionSelector = (store: NotionFormStore) => store.updateDescription

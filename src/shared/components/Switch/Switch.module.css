@@ -7,7 +7,7 @@
   flex: 0 0 var(--width);
 
   border-radius: calc(var(--padding) + var(--dot));
-  border: 1px solid var(--grey-700);
+  border: 1px solid var(--control-border-color);
 
   padding-block: var(--padding);
   padding-inline: calc(var(--padding) + var(--dot) / 2);

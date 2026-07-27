@@ -12,6 +12,8 @@
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
+  
+  background-color: var(--white);
 
   display: flex;
   align-items: center;
@@ -20,7 +22,7 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--black);
-
+  
   cursor: pointer;
   user-select: none;
   transition: 0.3s;

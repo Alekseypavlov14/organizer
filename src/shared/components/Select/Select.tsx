@@ -1,18 +1,17 @@
-import { useRef, useState, type ComponentProps } from 'react'
+import type { Option } from '@/shared/types/option'
+import { useRef, useState, type ComponentProps, type MouseEvent } from 'react'
+import { Flex, flexGapSmall } from '../Flex'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import { Icon } from '../Icon'
 import styles from './Select.module.css'
 import clsx from 'clsx'
 
-export interface Option<T> {
-  label: string
-  value: T
-}
-
 interface SelectProps<T> extends ComponentProps<'div'> {
   value: T
   options?: Option<T>[]
+
   onValueChange?: (value: T) => void
+  onValueReset?: () => void
 
   format?: (value: Option<T>) => string
   placeholder?: string
@@ -21,7 +20,9 @@ interface SelectProps<T> extends ComponentProps<'div'> {
 export function Select<T>({
   value,
   options = [],
+
   onValueChange = () => {},
+  onValueReset = () => {},
 
   format = (value) => value.label,
   placeholder = '',
@@ -34,23 +35,40 @@ export function Select<T>({
 
   useOutsideClick(selectRef, () => setOpened(false))
 
+  const selectedOption = options.find(option => option.value === value) ?? null
+  const isOptionSelected = selectedOption !== null
+  
+  const selectLabel = selectedOption ? format(selectedOption) : placeholder
+  
   function toggleSelect() {
     setOpened(isOpened => !isOpened)
   }
-
-  const selectedOption = options.find(option => option.value === value)
-  const selectLabel = selectedOption ? format(selectedOption) : placeholder
+  function resetHandler(e: MouseEvent<SVGSVGElement>) {
+    e.stopPropagation()
+    onValueReset()
+  }
 
   return (
     <div 
-      className={clsx(styles.Select, className, isOpened && styles.Opened)}
+      className={clsx(styles.Select, className, isOpened && styles.Opened, !isOptionSelected && styles.Empty)}
       onClick={toggleSelect}
       ref={selectRef}
       {...props}
     >
       <div className={styles.Control}>
         <div className={styles.Label}>{selectLabel}</div>
-        <Icon name='chevron-down' className={styles.Chevron} />
+        
+        <Flex gap={flexGapSmall}>
+          <Icon name='chevron-down' className={styles.Chevron} />
+  
+          {isOptionSelected ? (
+            <Icon 
+              className={styles.Cross} 
+              onClick={resetHandler}
+              name='x' 
+            />
+          ) : null}
+        </Flex>
       </div>
 
       <div className={styles.Dropdown}>

@@ -1,0 +1,45 @@
+import type { NotionLevel, NotionPriority, NotionProgress } from '@/entities/notions'
+import type { Nullable } from '@/shared/types/nullable'
+import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
+import { useNotionSettingsOptions } from '../../hooks/useNotionSettingsOptions'
+import { useNotionFormStore } from '../../form.store'
+import { Select } from '@/shared/components/Select'
+
+export function NotionSettingsFormStatusGroup() {
+  const { notionPriorityOptions, notionProgressOptions, notionLevelOptions } = useNotionSettingsOptions()
+  const { notion, updatePriority, updateProgress, updateLevel } = useNotionFormStore()
+
+  return (
+    <Flex 
+      direction={flexDirectionVertical} 
+      gap={flexGapMedium}
+    >
+      <Select<Nullable<NotionPriority>>
+        value={notion.priority}
+        options={notionPriorityOptions}
+        onValueChange={updatePriority}
+        onValueReset={() => updatePriority(null)}
+        format={(option) => `Priority: ${option.label}`}
+        placeholder='Priority'
+      />
+
+      <Select<Nullable<NotionProgress>>
+        value={notion.progress}
+        options={notionProgressOptions}
+        onValueChange={updateProgress}
+        onValueReset={() => updateProgress(null)}
+        format={(option) => `Progress: ${option.label}`}
+        placeholder='Progress'
+      />
+
+      <Select<Nullable<NotionLevel>>
+        value={notion.level}
+        options={notionLevelOptions}
+        onValueChange={updateLevel}
+        onValueReset={() => updateLevel(null)}
+        format={(option) => `Level: ${option.label}`}
+        placeholder='Level'
+      />
+    </Flex>
+  )
+}

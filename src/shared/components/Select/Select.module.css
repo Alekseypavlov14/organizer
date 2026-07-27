@@ -33,7 +33,16 @@
   color: var(--control-text-color);
   font-weight: var(--control-font-weight);
 }
+.Empty .Label {
+  color: var(--control-placeholder-color);
+}
+
 .Chevron {
+  height: var(--control-line-height);
+  width: var(--control-line-height);
+  color: var(--control-text-color);
+}
+.Cross {
   height: var(--control-line-height);
   width: var(--control-line-height);
   color: var(--control-text-color);
@@ -44,6 +53,7 @@
   width: 100%;
 
   position: absolute;
+  z-index: var(--dropdown-z-index);
   top: 100%;
 
   padding-block: var(--control-padding-block);

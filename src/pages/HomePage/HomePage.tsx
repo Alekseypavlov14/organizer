@@ -7,6 +7,7 @@ import { createDurationModel, durationFormat, durationValidator, type DurationMo
 import { createDateModel, dateFormat, dateValidator, type DateModel } from '@/entities/shared/models/date'
 import { createMomentModel, momentFormat, momentValidator, type MomentModel } from '@/entities/shared/models/moment'
 import { Pagination } from '@/shared/components/Pagination'
+import { NotionSettingsForm } from '@/features/notions/form'
 
 export function HomePage() {
   const [dateValue, setDateValue] = useState<DateModel>(createDateModel(Date.now()))
@@ -57,6 +58,8 @@ export function HomePage() {
           currentPageIndex={6}
           totalPagesAmount={7}
         />
+
+        <NotionSettingsForm />
       </Container>
     </Wrapper>
   )
