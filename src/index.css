@@ -77,7 +77,7 @@ button {
   outline: none;
   cursor: pointer;
 }
-input {
+input, textarea {
   border: none;
   outline: none;
   padding: none;

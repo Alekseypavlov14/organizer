@@ -1,3 +1,4 @@
+export * from './widgets/NotionContentForm'
 export * from './widgets/NotionSettingsForm'
 
-export * from './hooks/useNotionSettingsForm'
+export * from './hooks/useNotionForm'
