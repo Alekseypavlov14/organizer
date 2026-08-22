@@ -1,10 +1,10 @@
+import type { ModelFormat } from '@/entities/shared'
 import type { TimeModel } from './time.model'
 import { createTimeModel } from './time.constructor'
 import { timeFormatter } from './constants'
-import { ModelFormat } from '@/entities/shared'
 import { DateTime } from '@oleksii-pavlov/date-time'
 
-export class TimeFormat extends ModelFormat<TimeModel> {
+export class TimeFormat implements ModelFormat<TimeModel> {
   public toControl(time: TimeModel): string {
     const date = new DateTime().normalizeDate().getDateTimeAfter({
       milliseconds: time.value

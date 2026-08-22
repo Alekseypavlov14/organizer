@@ -1,9 +1,9 @@
 import type { DurationModel } from './duration.model'
+import type { ModelFormat } from '@/entities/shared'
 import { MILLISECONDS_PER_DAY, MILLISECONDS_PER_HOUR, MILLISECONDS_PER_MINUTE } from '@/shared/utils/datetime'
 import { createDurationModel } from './duration.constructor'
-import { ModelFormat } from '@/entities/shared'
 
-export class DurationFormat extends ModelFormat<DurationModel> {
+export class DurationFormat implements ModelFormat<DurationModel> {
   public toControl(duration: DurationModel): string {
     let remainder = duration.value
 

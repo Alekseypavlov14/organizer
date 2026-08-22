@@ -1,10 +1,10 @@
+import type { ModelFormat } from '@/entities/shared'
 import type { DateModel } from './date.model'
 import { dateFormatter } from './constants'
-import { ModelFormat } from '@/entities/shared'
 import { DateTime } from '@oleksii-pavlov/date-time'
 import { createDateModel } from './date.constructor'
 
-export class DateFormat extends ModelFormat<DateModel> {
+export class DateFormat implements ModelFormat<DateModel> {
   public toControl(date: DateModel): string {
     return dateFormatter(date.value)
   }

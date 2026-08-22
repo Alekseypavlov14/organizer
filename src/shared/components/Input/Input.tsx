@@ -1,8 +1,8 @@
 import { useEffect, useId, useRef, useState, type ComponentProps } from 'react'
+import { useEnterPressed } from '@/shared/hooks/useEnterPressed'
 import { merge } from '@/shared/utils/functions'
 import styles from './Input.module.css'
 import clsx from 'clsx'
-import { useEnterPressed } from '@/shared/hooks/useEnterPressed'
 
 interface InputProps extends ComponentProps<'input'> {
   value?: string

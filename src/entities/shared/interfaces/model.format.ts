@@ -1,7 +1,7 @@
-export abstract class ModelFormat<Model> {
-  public abstract toControl(model: Model): string
-  public abstract toModel(value: string): Model
+export interface ModelFormat<Model> {
+  toControl: (model: Model) => string
+  toModel: (value: string) => Model
 
-  public abstract displayControl(value: string): string
-  public abstract displayModel(model: Model): string
+  displayControl: (value: string) => string
+  displayModel: (model: Model) => string
 }

@@ -1,10 +1,10 @@
+import type { ModelFormat } from '@/entities/shared'
 import type { MomentModel } from './moment.model'
 import { createMomentModel } from './moment.constructor'
-import { ModelFormat } from '@/entities/shared'
 import { dateFormat } from '../date'
 import { timeFormat } from '../time'
 
-export class MomentFormat extends ModelFormat<MomentModel> {
+export class MomentFormat implements ModelFormat<MomentModel> {
   public toControl(moment: MomentModel): string {
     return `${dateFormat.toControl(moment.date)} ${timeFormat.toControl(moment.time)}`
   }

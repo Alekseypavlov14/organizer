@@ -1,10 +1,10 @@
+import type { ModelValidator } from '@/entities/shared'
 import type { MomentModel } from './moment.model'
-import { ModelValidator } from '@/entities/shared'
 import { dateValidator } from '../date'
 import { timeValidator } from '../time'
 import { momentRegex } from './constants'
 
-export class MomentValidator extends ModelValidator<MomentModel> {
+export class MomentValidator implements ModelValidator<MomentModel> {
   public validateModelValue(moment: MomentModel): boolean {
     return (
       dateValidator.validateModelValue(moment.date) &&

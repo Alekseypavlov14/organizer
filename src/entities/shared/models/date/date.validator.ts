@@ -1,8 +1,8 @@
+import type { ModelValidator } from '../../interfaces/model.validator'
 import type { DateModel } from './date.model'
-import { ModelValidator } from '@/entities/shared'
 import { dateRegex } from './constants'
 
-export class DateValidator extends ModelValidator<DateModel> {
+export class DateValidator implements ModelValidator<DateModel> {
   public validateModelValue(date: DateModel): boolean {
     if (!Number.isInteger(date.value)) return false
     if (date.value < 0) return false

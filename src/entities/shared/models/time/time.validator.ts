@@ -1,8 +1,8 @@
+import type { ModelValidator } from '@/entities/shared'
 import type { TimeModel } from './time.model'
 import { timeRegex, timeRange, hoursRange, minutesRange } from './constants'
-import { ModelValidator } from '@/entities/shared'
 
-export class TimeValidator extends ModelValidator<TimeModel> {
+export class TimeValidator implements ModelValidator<TimeModel> {
   public validateModelValue(time: TimeModel): boolean {
     if (!Number.isInteger(time.value)) return false
     if (!timeRange.containsValue(time.value)) return false
