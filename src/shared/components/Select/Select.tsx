@@ -1,6 +1,6 @@
 import type { Option } from '@/shared/types/option'
 import { useRef, useState, type ComponentProps, type MouseEvent } from 'react'
-import { Flex, flexGapSmall } from '../Flex'
+import { Flex, flexAlignCenter, flexGapSmall } from '../Flex'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import { Icon } from '../Icon'
 import styles from './Select.module.css'
@@ -58,7 +58,7 @@ export function Select<T>({
       <div className={styles.Control}>
         <div className={styles.Label}>{selectLabel}</div>
         
-        <Flex gap={flexGapSmall}>
+        <Flex align={flexAlignCenter} gap={flexGapSmall}>
           <Icon name='chevron-down' className={styles.Chevron} />
   
           {isOptionSelected ? (

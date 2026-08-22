@@ -9,6 +9,32 @@
   flex-direction: row;
 }
 
+.AlignStretch {
+  align-items: stretch;
+}
+.AlignStart {
+  align-items: flex-start;
+}
+.AlignCenter {
+  align-items: center;
+}
+.AlignEnd {
+  align-items: flex-end;
+}
+
+.JustifyStart {
+  justify-content: flex-start;
+}
+.JustifyCenter {
+  justify-content: center;
+}
+.JustifyEnd {
+  justify-content: flex-end;
+}
+.JustifySpaceBetween {
+  justify-content: space-between;
+}
+
 .GapLarge {
   gap: 24px;
 }

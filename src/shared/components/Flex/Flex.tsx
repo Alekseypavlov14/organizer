@@ -1,15 +1,20 @@
+import type { FlexAlign, FlexDirection, FlexGap, FlexJustify } from './constants'
 import type { ComponentProps } from 'react'
-import { flexDirectionHorizontal, flexGapSmall, mapFlexDirectionToClassName, mapFlexGapToClassName, type FlexDirection, type FlexGap } from './constants'
+import { flexAlignStretch, flexDirectionHorizontal, flexGapSmall, flexJustifyStart, mapFlexAlignToClassName, mapFlexDirectionToClassName, mapFlexGapToClassName, mapFlexJustifyToClassName } from './constants'
 import styles from './Flex.module.css'
 import clsx from 'clsx'
 
 interface FlexProps extends ComponentProps<'div'> {
   direction?: FlexDirection
+  align?: FlexAlign
+  justify?: FlexJustify
   gap?: FlexGap
 }
 
 export function Flex({
   direction = flexDirectionHorizontal,
+  align = flexAlignStretch,
+  justify = flexJustifyStart,
   gap = flexGapSmall,
 
   className,
@@ -17,12 +22,18 @@ export function Flex({
   ...props
 }: FlexProps) {
   return (
-    <div 
-      className={clsx(styles.Flex, className, mapFlexDirectionToClassName[direction], mapFlexGapToClassName[gap])}
+    <div
+      className={clsx(
+        styles.Flex,
+        mapFlexDirectionToClassName[direction],
+        mapFlexAlignToClassName[align],
+        mapFlexJustifyToClassName[justify],
+        mapFlexGapToClassName[gap],
+        className
+      )}
       {...props}
     >
       {children}
     </div>
   )
 }
- 

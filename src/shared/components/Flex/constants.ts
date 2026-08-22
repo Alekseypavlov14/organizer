@@ -10,6 +10,34 @@ export const mapFlexDirectionToClassName: Record<FlexDirection, string> = {
   horizontal: styles.DirectionHorizontal
 }
 
+export type FlexAlign = 'stretch' | 'start' | 'center' | 'end'
+
+export const flexAlignStretch: FlexAlign = 'stretch'
+export const flexAlignStart: FlexAlign = 'start'
+export const flexAlignCenter: FlexAlign = 'center'
+export const flexAlignEnd: FlexAlign = 'end'
+
+export const mapFlexAlignToClassName: Record<FlexAlign, string> = {
+  stretch: styles.AlignStretch,
+  start: styles.AlignStart,
+  center: styles.AlignCenter,
+  end: styles.AlignEnd
+}
+
+export type FlexJustify = 'start' | 'center' | 'end' | 'between'
+
+export const flexJustifyStart: FlexJustify = 'start'
+export const flexJustifyCenter: FlexJustify = 'center'
+export const flexJustifyEnd: FlexJustify = 'end'
+export const flexJustifySpaceBetween: FlexJustify = 'between'
+
+export const mapFlexJustifyToClassName: Record<FlexJustify, string> = {
+  start: styles.JustifyStart,
+  center: styles.JustifyCenter,
+  end: styles.JustifyEnd,
+  between: styles.JustifySpaceBetween
+}
+
 export type FlexGap = 's' | 'm' | 'l'
 
 export const flexGapSmall: FlexGap = 's'

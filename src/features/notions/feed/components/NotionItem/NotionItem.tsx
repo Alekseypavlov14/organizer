@@ -8,15 +8,14 @@ interface NotionItemProps extends AbstractNotionItemProps {
 }
 
 export function NotionItem({ 
-  notion, 
-  onClick, 
-  variant
+  variant,
+  ...props
 }: NotionItemProps) {
   if (variant === notionFeedVariantList) return (
-    <NotionListItem notion={notion} onClick={onClick} />
+    <NotionListItem {...props} />
   )
   if (variant === notionFeedVariantBlock) return (
-    <NotionBlockItem notion={notion} onClick={onClick} />
+    <NotionBlockItem {...props} />
   )
 
   return null
