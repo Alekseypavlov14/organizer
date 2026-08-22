@@ -21,10 +21,18 @@ npm run dev
 ├── public/               
 └── src/
     ├── app/              
-    │   ├── navigation/      # shortcuts for app redirects
-    │   └── routing/         # configuration of app routing         
+    │   ├── navigation/         # shortcuts for app redirects
+    │   ├── notifications/      # notifications within the app
+    │   └── routing/            # configuration of app routing         
     ├── entities/
+    │   ├── groups/          
+    │   └── notions/         
     ├── features/
+    │   └── notions/ 
+    │       ├── display/  
+    │       ├── edition/ 
+    │       ├── feed/ 
+    │       └── form/       
     ├── pages/
     ├── shared/
     └── widgets/
