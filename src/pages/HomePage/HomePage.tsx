@@ -1,16 +1,16 @@
 import type { NotionEntity } from '@/entities/notions'
 import { type DateModel, createDateModel, type TimeModel, createTimeModel, type DurationModel, createDurationModel, type MomentModel, createMomentModel, dateFormat, dateValidator, timeFormat, timeValidator, durationFormat, durationValidator, momentFormat, momentValidator } from '@/entities/shared'
 import { NotionFeed, notionFeedVariantList, type NotionFeedVariant } from '@/features/notions/feed'
-import { floatingActionVariantPrimary } from '@/shared/components/FloatingAction/constants'
+import { FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
 import { NotionSettingsForm } from '@/features/notions/form'
 import { FloatingActions } from '@/shared/components/FloatingActions'
-import { FloatingAction } from '@/shared/components/FloatingAction'
 import { Pagination } from '@/shared/components/Pagination'
 import { Container } from '@/shared/components/Container'
 import { useState } from 'react'
 import { Wrapper } from '@/shared/components/Wrapper'
 import { Input } from '@/shared/components/Input'
 import { Icon } from '@/shared/components/Icon'
+import { Button, buttonVariantDanger, buttonVariantPrimary } from '@/shared/components/Button'
 
 const notions: NotionEntity[] = [
   {
@@ -191,6 +191,14 @@ export function HomePage() {
           placeholder='Moment'
           hint="DD.MM.YYYY hh:mm"
         />
+
+        <Button variant={buttonVariantPrimary}>Primary</Button>
+        <Button variant={buttonVariantDanger}>Danger</Button>
+        <Button block>Base</Button>
+
+        <Button variant={buttonVariantPrimary} size='l'>Primary</Button>
+        <Button variant={buttonVariantDanger} size='l'>Danger</Button>
+        <Button block size='l'>Base</Button>
 
         <Pagination 
           currentPageIndex={6}

@@ -1,0 +1,44 @@
+.Button {
+  display: inline-flex;
+  justify-content: center;
+  gap: 5px;
+}
+.Button.Block {
+  width: 100%;
+  flex: 1 1 auto;
+}
+
+.SizeSmall {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+}
+.SizeMedium {
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.SizeLarge {
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.VariantBase {
+  background-color: var(--white);
+  border: 1px solid var(--control-border-color);
+  color: var(--grey-100);
+}
+.VariantPrimary {
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  color: var(--white);
+}
+.VariantDanger {
+  background-color: var(--white);
+  border: 1px solid var(--red);
+  color: var(--red);
+}
