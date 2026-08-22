@@ -1,3 +1,4 @@
+import type { Id } from '@/shared/types/id'
 import { useNavigate } from 'react-router-dom'
 
 export function useNavigation() {
@@ -5,5 +6,7 @@ export function useNavigation() {
 
   return ({
     navigateHomePage: () => navigate('/'),
+    navigateNotionDisplayPage: (id: Id) => navigate(`/notions/${id}`),
+    navigateNotionEditionPage: (id: Id) => navigate(`/notions/${id}/edit`),
   })
 }

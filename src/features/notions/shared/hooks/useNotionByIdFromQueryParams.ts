@@ -1,23 +1,27 @@
-import { defaultEntityIdParam } from '@/app/routing/constants'
-import { useNotionActions } from '@/entities/notions'
+import { useNotionActions, type NotionEntity } from '@/entities/notions'
 import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export interface UseNotionByIdFromQueryParamsProps {
+  success?: (notionEntity: NotionEntity) => void
+  failure?: () => void
   param?: string
-  fallback?: () => void
 }
 
 export function useNotionByIdFromQueryParams({
-  fallback = () => {},
-  param = defaultEntityIdParam,
-}: UseNotionByIdFromQueryParamsProps) {
+  success = () => {},
+  failure = () => {},
+  param = 'id',
+}: UseNotionByIdFromQueryParamsProps = {}) {
   const { getNotionById } = useNotionActions()
-
   const id = Number(useParams()[param])
-  if (!id) return fallback()
-  
-  const notion = getNotionById(id)
-  if (!notion) return fallback()
 
-  return notion
+  useEffect(() => {
+    if (!id) return failure()
+    
+    const notion = getNotionById(id)
+    if (!notion) return failure()
+  
+    success(notion)
+  }, [])
 }
