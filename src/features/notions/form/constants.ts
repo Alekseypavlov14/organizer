@@ -2,8 +2,6 @@ import type { NotionEntity } from '@/entities/notions'
 
 export const defaultNotionFormData: NotionEntity = {
   id: 0,
-  createdAt: 0,
-  updatedAt: 0,
 
   title: '',
   description: null,

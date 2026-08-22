@@ -1,0 +1,21 @@
+.Text {
+  display: block;
+  letter-spacing: -0.03em;
+}
+
+.TextSmall {
+  font-size: 10px;
+}
+.TextMedium {
+  font-size: 14px;
+}
+.TextLarge {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.TextExtraLarge {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}

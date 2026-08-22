@@ -3,6 +3,7 @@ import { notionFeedDefaultTitle, notionFeedVariantList, type NotionFeedVariant }
 import { Flex, flexAlignCenter, flexDirectionVertical, flexGapMedium, flexJustifySpaceBetween } from '@/shared/components/Flex'
 import { NotionItems } from '../NotionItems'
 import styles from './NotionFeed.module.css'
+import { Text } from '@/shared/components/Text'
 
 interface NotionFeedProps {
   title?: string
@@ -31,7 +32,7 @@ export function NotionFeed({
         justify={flexJustifySpaceBetween}
         align={flexAlignCenter}
       >
-        <div className={styles.Title}>{title}</div>
+        <Text size='l'>{title}</Text>
       </Flex>
 
       <NotionItems 
