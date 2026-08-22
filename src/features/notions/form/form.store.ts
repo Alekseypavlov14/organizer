@@ -1,10 +1,9 @@
-import type { NotionEntity, NotionLevel, NotionPriority, NotionProgress } from '@/entities/notions'
+import { defaultNotionEntity, type NotionEntity, type NotionLevel, type NotionPriority, type NotionProgress } from '@/entities/notions'
 import type { DurationModel } from '@/entities/shared/models/duration'
 import type { MomentModel } from '@/entities/shared/models/moment'
 import type { TimeModel } from '@/entities/shared/models/time'
 import type { DateModel } from '@/entities/shared/models/date'
 import type { Nullable } from '@/shared/types/nullable'
-import { defaultNotionFormData } from './constants'
 import { create } from 'zustand'
 
 export interface NotionFormState {
@@ -32,7 +31,7 @@ export interface NotionFormActions {
 export interface NotionFormStore extends NotionFormState, NotionFormActions {}
 
 export const useNotionFormStore = create<NotionFormStore>(set => ({
-  notion: defaultNotionFormData,
+  notion: defaultNotionEntity,
 
   updateNotion: (notion: NotionEntity) => set(state => ({ ...state, notion })),
 

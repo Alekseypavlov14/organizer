@@ -1,3 +1,4 @@
+import { defaultEntityIdParam } from './constants'
 import { createBrowserRouter } from 'react-router-dom'
 import { NotionDisplayPage } from '@/pages/NotionDisplayPage'
 import { NotionEditionPage } from '@/pages/NotionEditionPage'
@@ -10,11 +11,11 @@ export const routing = createBrowserRouter([
   },
 
   {
-    path: '/notions/:id',
+    path: `/notions/:${defaultEntityIdParam}`,
     element: <NotionDisplayPage />
   },
   {
-    path: '/notions/edit',
+    path: `/notions/:${defaultEntityIdParam}/edit`,
     element: <NotionEditionPage />
   }
 ])

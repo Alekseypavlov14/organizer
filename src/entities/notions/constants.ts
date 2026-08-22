@@ -1,3 +1,5 @@
+import type { NotionEntity } from './notion.entity'
+
 export type NotionPriority = 'base' | 'important'
 
 export const notionPriorityBase: NotionPriority = 'base'
@@ -31,3 +33,21 @@ export const notionProgressOptions: NotionProgress[] = [
   notionProgressProcessing,
   notionProgressCompleted,
 ]
+
+export const defaultNotionEntity: NotionEntity = {
+  id: 0,
+
+  title: '',
+  description: null,
+
+  date: null,
+  time: null,
+  duration: null,
+
+  deadline: null,
+  done: null,
+
+  priority: null,
+  progress: null,
+  level: null
+}
