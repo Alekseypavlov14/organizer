@@ -1,9 +1,6 @@
-import { defaultNotionEntity, type NotionEntity, type NotionLevel, type NotionPriority, type NotionProgress } from '@/entities/notions'
-import type { DurationModel } from '@/entities/shared/models/duration'
-import type { MomentModel } from '@/entities/shared/models/moment'
-import type { TimeModel } from '@/entities/shared/models/time'
-import type { DateModel } from '@/entities/shared/models/date'
+import type { DateModel, DurationModel, MomentModel, TimeModel } from '@/entities/shared'
 import type { Nullable } from '@/shared/types/nullable'
+import { defaultNotionEntity, type NotionEntity, type NotionLevel, type NotionPriority, type NotionProgress } from '@/entities/notions'
 import { create } from 'zustand'
 
 export interface NotionFormState {

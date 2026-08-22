@@ -1,10 +1,10 @@
 import type { NotionEntity } from '@/entities/notions'
 import { notionFeedDefaultTitle, notionFeedVariantList, type NotionFeedVariant } from '../../constants'
 import { Flex, flexAlignCenter, flexDirectionVertical, flexGapMedium, flexJustifySpaceBetween } from '@/shared/components/Flex'
-import { NotionItems } from '../NotionItems'
-import styles from './NotionFeed.module.css'
-import { Text } from '@/shared/components/Text'
 import { NotionVariantControl } from '../NotionVariantControl'
+import { NotionItems } from '../NotionItems'
+import { Text } from '@/shared/components/Text'
+import styles from './NotionFeed.module.css'
 
 interface NotionFeedProps {
   title?: string

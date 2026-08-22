@@ -1,2 +1,2 @@
-export * from './display.store'
+export * from './widgets/NotionDisplay'
 export * from './hooks/useNotionDisplay'

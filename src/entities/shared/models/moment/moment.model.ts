@@ -1,5 +1,5 @@
-import type { DateModel } from '@/entities/shared/models/date'
-import type { TimeModel } from '@/entities/shared/models/time'
+import type { DateModel } from '@/entities/shared'
+import type { TimeModel } from '@/entities/shared'
 
 export interface MomentModel {
   date: DateModel
