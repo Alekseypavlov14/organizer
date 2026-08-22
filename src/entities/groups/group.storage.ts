@@ -9,14 +9,14 @@ export class GroupEntityStorage extends EntityStorage<GroupEntity, GroupRecord> 
       .map(id => notionEntityStorage.getById(id))
       .filter(Boolean) as NotionEntity[]
 
-    return ({ ...record, notions})
+    return ({ ...record, notions })
   }
 
   public serialize(record: GroupEntity): GroupRecord {
     const notions: Id[] = record.notions
       .map(notion => notion.id)
 
-    return ({ ...record, notions})
+    return ({ ...record, notions })
   }
 }
 

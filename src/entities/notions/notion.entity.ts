@@ -4,6 +4,7 @@ import type { Nullable } from '@/shared/types/nullable'
 import type { Entity } from '@/shared/types/entity'
 
 export interface NotionEntity extends Entity {
+  // content
   title: string
   description: Nullable<string>
 
