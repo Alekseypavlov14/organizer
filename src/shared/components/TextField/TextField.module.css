@@ -1,0 +1,14 @@
+.TextField {
+  display: block;
+  width: 100%;
+
+  border: 1px solid var(--control-border-color);
+  border-radius: var(--control-border-radius);
+
+  font-size: var(--control-font-size);
+  font-weight: var(--control-font-weight);
+  line-height: var(--control-line-height);
+  
+  padding: var(--control-padding-inline);
+  resize: none;
+}

@@ -1,1 +1,1 @@
-export const entityNameRegex = /^[A-Za-z0-9._-]+$/
+export const entityTitleRegex = /^[A-Za-z0-9._-]+$/

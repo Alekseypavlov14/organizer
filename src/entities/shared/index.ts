@@ -8,4 +8,6 @@ export * from './models/duration'
 export * from './models/moment'
 export * from './models/time'
 
+export * from './validators/title.validator'
+
 export * from './constants'
