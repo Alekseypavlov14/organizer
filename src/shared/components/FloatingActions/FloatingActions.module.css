@@ -1,0 +1,11 @@
+.FloatingActions {
+  position: fixed;
+  z-index: var(--action-button-z-index);
+  
+  bottom: 60px;
+  right: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

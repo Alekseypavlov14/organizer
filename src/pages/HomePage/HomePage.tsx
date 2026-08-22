@@ -1,13 +1,17 @@
+import { createDurationModel, durationFormat, durationValidator, type DurationModel } from '@/entities/shared/models/duration'
+import { createMomentModel, momentFormat, momentValidator, type MomentModel } from '@/entities/shared/models/moment'
+import { createDateModel, dateFormat, dateValidator, type DateModel } from '@/entities/shared/models/date'
+import { createTimeModel, timeFormat, timeValidator, type TimeModel } from '@/entities/shared/models/time'
+import { NotionSettingsForm } from '@/features/notions/form'
+import { Pagination } from '@/shared/components/Pagination'
 import { Container } from '@/shared/components/Container'
 import { useState } from 'react'
 import { Wrapper } from '@/shared/components/Wrapper'
 import { Input } from '@/shared/components/Input'
-import { createTimeModel, timeFormat, timeValidator, type TimeModel } from '@/entities/shared/models/time'
-import { createDurationModel, durationFormat, durationValidator, type DurationModel } from '@/entities/shared/models/duration'
-import { createDateModel, dateFormat, dateValidator, type DateModel } from '@/entities/shared/models/date'
-import { createMomentModel, momentFormat, momentValidator, type MomentModel } from '@/entities/shared/models/moment'
-import { Pagination } from '@/shared/components/Pagination'
-import { NotionSettingsForm } from '@/features/notions/form'
+import { FloatingActions } from '@/shared/components/FloatingActions'
+import { FloatingAction } from '@/shared/components/FloatingAction'
+import { floatingActionVariantPrimary } from '@/shared/components/FloatingAction/constants'
+import { Icon } from '@/shared/components/Icon'
 
 export function HomePage() {
   const [dateValue, setDateValue] = useState<DateModel>(createDateModel(Date.now()))
@@ -60,6 +64,11 @@ export function HomePage() {
         />
 
         <NotionSettingsForm />
+
+        <FloatingActions>
+          <FloatingAction><Icon name="plus" size='l' /></FloatingAction>
+          <FloatingAction variant={floatingActionVariantPrimary}><Icon name="list" size='l' /></FloatingAction>
+        </FloatingActions>
       </Container>
     </Wrapper>
   )

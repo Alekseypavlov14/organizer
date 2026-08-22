@@ -1,0 +1,24 @@
+.FloatingAction {
+  --size: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 var(--size);
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--size);
+
+  font-size: 18px;
+  box-shadow: var(--shadow);
+}
+
+.VariantBase {
+  background-color: var(--white);
+  color: var(--grey-100);
+}
+.VariantPrimary {
+  background-color: var(--primary);
+  color: var(--white);
+}
