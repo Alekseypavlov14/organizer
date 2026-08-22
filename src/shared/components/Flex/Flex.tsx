@@ -1,6 +1,6 @@
 import type { FlexAlign, FlexDirection, FlexGap, FlexJustify } from './constants'
 import type { ComponentProps } from 'react'
-import { flexAlignStretch, flexDirectionHorizontal, flexGapSmall, flexJustifyStart, mapFlexAlignToClassName, mapFlexDirectionToClassName, mapFlexGapToClassName, mapFlexJustifyToClassName } from './constants'
+import { flexAlignStretch, flexDirectionHorizontal, flexGapZero, flexJustifyStart, mapFlexAlignToClassName, mapFlexDirectionToClassName, mapFlexGapToClassName, mapFlexJustifyToClassName } from './constants'
 import styles from './Flex.module.css'
 import clsx from 'clsx'
 
@@ -15,7 +15,7 @@ export function Flex({
   direction = flexDirectionHorizontal,
   align = flexAlignStretch,
   justify = flexJustifyStart,
-  gap = flexGapSmall,
+  gap = flexGapZero,
 
   className,
   children,

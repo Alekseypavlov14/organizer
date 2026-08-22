@@ -1,19 +1,19 @@
+import type { NotionEntity } from '@/entities/notions'
 import { createDurationModel, durationFormat, durationValidator, type DurationModel } from '@/entities/shared/models/duration'
 import { createMomentModel, momentFormat, momentValidator, type MomentModel } from '@/entities/shared/models/moment'
 import { createDateModel, dateFormat, dateValidator, type DateModel } from '@/entities/shared/models/date'
 import { createTimeModel, timeFormat, timeValidator, type TimeModel } from '@/entities/shared/models/time'
+import { NotionFeed, notionFeedVariantList, type NotionFeedVariant } from '@/features/notions/feed'
+import { floatingActionVariantPrimary } from '@/shared/components/FloatingAction/constants'
 import { NotionSettingsForm } from '@/features/notions/form'
+import { FloatingActions } from '@/shared/components/FloatingActions'
+import { FloatingAction } from '@/shared/components/FloatingAction'
 import { Pagination } from '@/shared/components/Pagination'
 import { Container } from '@/shared/components/Container'
 import { useState } from 'react'
 import { Wrapper } from '@/shared/components/Wrapper'
 import { Input } from '@/shared/components/Input'
-import { FloatingActions } from '@/shared/components/FloatingActions'
-import { FloatingAction } from '@/shared/components/FloatingAction'
-import { floatingActionVariantPrimary } from '@/shared/components/FloatingAction/constants'
 import { Icon } from '@/shared/components/Icon'
-import { NotionFeed } from '@/features/notions/feed'
-import type { NotionEntity } from '@/entities/notions'
 
 const notions: NotionEntity[] = [
   {
@@ -154,6 +154,8 @@ export function HomePage() {
   const [durationValue, setDurationValue] = useState<DurationModel>(createDurationModel(0))
   const [momentValue, setMomentValue] = useState<MomentModel>(createMomentModel(createDateModel(Date.now()), createTimeModel(0)))
 
+  const [variant, setVariant] = useState<NotionFeedVariant>(notionFeedVariantList)
+
   return (
     <Wrapper>
       <Container>
@@ -208,6 +210,8 @@ export function HomePage() {
         <NotionFeed 
           title='Custom notion feed title'
           notions={notions}
+          variant={variant}
+          onVariantChange={setVariant}
         />
       </Container>
     </Wrapper>

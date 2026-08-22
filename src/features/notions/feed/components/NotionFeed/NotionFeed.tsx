@@ -4,6 +4,7 @@ import { Flex, flexAlignCenter, flexDirectionVertical, flexGapMedium, flexJustif
 import { NotionItems } from '../NotionItems'
 import styles from './NotionFeed.module.css'
 import { Text } from '@/shared/components/Text'
+import { NotionVariantControl } from '../NotionVariantControl'
 
 interface NotionFeedProps {
   title?: string
@@ -12,6 +13,7 @@ interface NotionFeedProps {
   onNotionClick?: (notion: NotionEntity) => void
   
   variant?: NotionFeedVariant
+  onVariantChange?: (variant: NotionFeedVariant) => void
 }
 
 export function NotionFeed({
@@ -21,6 +23,7 @@ export function NotionFeed({
   onNotionClick = () => {},
   
   variant = notionFeedVariantList,
+  onVariantChange = () => {},
 }: NotionFeedProps) {
   return (
     <Flex 
@@ -33,6 +36,11 @@ export function NotionFeed({
         align={flexAlignCenter}
       >
         <Text size='l'>{title}</Text>
+
+        <NotionVariantControl 
+          variant={variant}
+          onChange={onVariantChange}
+        />
       </Flex>
 
       <NotionItems 

@@ -1,0 +1,29 @@
+.Control {
+  --control-radius: 8px;
+  --option-padding: 8px;
+
+  background-color: var(--control-background-color);
+  border-radius: var(--control-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.Option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--option-padding);
+
+  background-color: var(--grey-900);
+  color: var(--grey-700);
+
+  cursor: pointer;
+}
+.Option:not(:last-child) {
+  border-right: 1px solid var(--control-border-color);
+}
+
+.Option.Active {
+  background-color: var(--white);
+  color: var(--grey-100);
+}

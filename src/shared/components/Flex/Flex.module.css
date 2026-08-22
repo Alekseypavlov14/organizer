@@ -44,3 +44,6 @@
 .GapSmall {
   gap: 8px;
 }
+.GapZero {
+  gap: 0px;
+}
