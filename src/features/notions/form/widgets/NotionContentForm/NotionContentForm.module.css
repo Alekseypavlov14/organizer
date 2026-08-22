@@ -1,5 +1,6 @@
 .NotionContentForm {
-  align-self: stretch;
+  width: 100%;
+  flex: 1 1 auto;
 }
 
 .TextField {

@@ -2,12 +2,19 @@ import type { ComponentProps } from 'react'
 import styles from './Container.module.css'
 import clsx from 'clsx'
 
-interface ContainerProps extends ComponentProps<'div'> {}
+interface ContainerProps extends ComponentProps<'div'> {
+  stretch?: boolean
+}
 
-export function Container({ className, children, ...props }: ContainerProps) {
+export function Container({ 
+  stretch,
+  className, 
+  children, 
+  ...props 
+}: ContainerProps) {
   return (
     <div 
-      className={clsx(styles.Container, className)}
+      className={clsx(styles.Container, className, stretch && styles.Stretch)}
       {...props}
     >
       {children}
