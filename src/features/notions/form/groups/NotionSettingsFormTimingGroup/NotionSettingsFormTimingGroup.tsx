@@ -1,5 +1,5 @@
 import { dateFormat, timeFormat, durationFormat, dateValidator, timeValidator, durationValidator } from '@/entities/shared'
-import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
+import { Flex, flexDirectionVertical, flexGapSmall } from '@/shared/components/Flex'
 import { useNotionFormStore } from '../../form.store'
 import { Input } from '@/shared/components/Input'
 
@@ -33,7 +33,7 @@ export function NotionSettingsFormTimingGroup() {
   return (
     <Flex 
       direction={flexDirectionVertical} 
-      gap={flexGapMedium}
+      gap={flexGapSmall}
     >
       <Input 
         value={dateValue}

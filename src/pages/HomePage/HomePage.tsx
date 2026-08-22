@@ -12,6 +12,7 @@ import { FloatingActions } from '@/shared/components/FloatingActions'
 import { FloatingAction } from '@/shared/components/FloatingAction'
 import { floatingActionVariantPrimary } from '@/shared/components/FloatingAction/constants'
 import { Icon } from '@/shared/components/Icon'
+import { NotionFeed } from '@/features/notions/feed'
 
 export function HomePage() {
   const [dateValue, setDateValue] = useState<DateModel>(createDateModel(Date.now()))
@@ -69,6 +70,11 @@ export function HomePage() {
           <FloatingAction><Icon name="plus" size='l' /></FloatingAction>
           <FloatingAction variant={floatingActionVariantPrimary}><Icon name="list" size='l' /></FloatingAction>
         </FloatingActions>
+
+        <NotionFeed 
+          title='Custom notion feed title'
+          notions={[]}
+        />
       </Container>
     </Wrapper>
   )

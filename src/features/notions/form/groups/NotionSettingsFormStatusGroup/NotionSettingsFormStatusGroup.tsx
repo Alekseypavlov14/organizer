@@ -1,6 +1,6 @@
 import type { NotionLevel, NotionPriority, NotionProgress } from '@/entities/notions'
 import type { Nullable } from '@/shared/types/nullable'
-import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
+import { Flex, flexDirectionVertical, flexGapSmall } from '@/shared/components/Flex'
 import { useNotionSettingsOptions } from '../../hooks/useNotionSettingsOptions'
 import { useNotionFormStore } from '../../form.store'
 import { Select } from '@/shared/components/Select'
@@ -12,7 +12,7 @@ export function NotionSettingsFormStatusGroup() {
   return (
     <Flex 
       direction={flexDirectionVertical} 
-      gap={flexGapMedium}
+      gap={flexGapSmall}
     >
       <Select<Nullable<NotionPriority>>
         value={notion.priority}

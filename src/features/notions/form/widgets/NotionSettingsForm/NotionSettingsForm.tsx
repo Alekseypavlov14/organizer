@@ -1,4 +1,4 @@
-import { Flex, flexDirectionVertical, flexGapLarge } from '@/shared/components/Flex'
+import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { NotionSettingsFormTimingGroup } from '../../groups/NotionSettingsFormTimingGroup'
 import { NotionSettingsFormStatusGroup } from '../../groups/NotionSettingsFormStatusGroup'
 import { Separation } from '@/shared/components/Separation'
@@ -9,7 +9,7 @@ export function NotionSettingsForm() {
     <Flex 
       direction={flexDirectionVertical} 
       className={styles.NotionSettingsForm}
-      gap={flexGapLarge}
+      gap={flexGapMedium}
     >
       <NotionSettingsFormTimingGroup />
 
