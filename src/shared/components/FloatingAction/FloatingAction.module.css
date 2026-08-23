@@ -22,3 +22,7 @@
   background-color: var(--primary);
   color: var(--white);
 }
+.VariantDanger {
+  background-color: var(--red);
+  color: var(--white);
+}

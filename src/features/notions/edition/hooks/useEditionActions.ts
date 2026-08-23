@@ -1,3 +1,4 @@
+import type { Id } from '@/shared/types/id'
 import { useNotionActions, type NotionEntity } from '@/entities/notions'
 import { useEditionContextHandler } from './useEditionContextHandler'
 import { useNotifications } from '@/app/notifications'
@@ -16,8 +17,8 @@ export function useEditionActions() {
     handlers.resetContext()
   }
 
-  function deleteNotion(notion: NotionEntity) {
-    const deleted = notionActions.deleteNotionById(notion.id)
+  function deleteNotionById(id: Id) {
+    const deleted = notionActions.deleteNotionById(id)
 
     if (deleted) notifications.createInfoNotification('The notion is deleted')
     else return notifications.createErrorNotification('The notion is not deleted')
@@ -32,7 +33,7 @@ export function useEditionActions() {
 
   return ({ 
     saveNotion,
-    deleteNotion,
+    deleteNotionById,
     cancel,
   })
 }

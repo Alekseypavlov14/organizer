@@ -1,7 +1,7 @@
 import type { NotionEntity } from '@/entities/notions'
 import { type DateModel, createDateModel, type TimeModel, createTimeModel, type DurationModel, createDurationModel, type MomentModel, createMomentModel, dateFormat, dateValidator, timeFormat, timeValidator, durationFormat, durationValidator, momentFormat, momentValidator } from '@/entities/shared'
 import { NotionFeed, notionFeedVariantList, type NotionFeedVariant } from '@/features/notions/feed'
-import { FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
+import { FloatingAction, floatingActionVariantDanger, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
 import { NotionSettingsForm } from '@/features/notions/form'
 import { FloatingActions } from '@/shared/components/FloatingActions'
 import { Pagination } from '@/shared/components/Pagination'
@@ -210,8 +210,9 @@ export function HomePage() {
         <NotionSettingsForm />
 
         <FloatingActions>
-          <FloatingAction onClick={() => createSuccessNotification("Works")}><Icon name="plus" size='l' /></FloatingAction>
-          <FloatingAction variant={floatingActionVariantPrimary}><Icon name="list" size='l' /></FloatingAction>
+          <FloatingAction onClick={() => createSuccessNotification("Works")}><Icon name="rotate-ccw" size='l' /></FloatingAction>
+          <FloatingAction variant={floatingActionVariantDanger}><Icon name='trash' size='l' /></FloatingAction>
+          <FloatingAction variant={floatingActionVariantPrimary}><Icon name="check" size='l' /></FloatingAction>
         </FloatingActions>
 
         <NotionFeed 

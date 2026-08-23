@@ -1,20 +1,22 @@
-import { Flex, flexDirectionVertical, flexGapLarge } from '@/shared/components/Flex'
-import { NotionEditionActions, useEditionActions } from '@/features/notions/edition'
+import { FloatingAction, floatingActionVariantDanger, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
 import { NotionContentForm, useNotionForm } from '@/features/notions/form'
 import { useNotionByIdFromQueryParams } from '@/features/notions/shared'
+import { useEditionActions } from '@/features/notions/edition'
 import { useNotifications } from '@/app/notifications'
+import { FloatingActions } from '@/shared/components/FloatingActions'
 import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
 import { useNavigation } from '@/app/navigation'
 import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
 import { Main } from '@/shared/components/Main'
+import { Icon } from '@/shared/components/Icon'
 
 export function NotionEditionPage() {
   const { createErrorNotification } = useNotifications()
   const { navigateHomePage } = useNavigation()
 
   const { notion, updateFormNotion } = useNotionForm()
-  const { cancel } = useEditionActions()
+  const actions = useEditionActions()
 
   useNotionByIdFromQueryParams({
     success: (notion) => updateFormNotion(notion),
@@ -24,27 +26,50 @@ export function NotionEditionPage() {
     }
   })
 
-  useOnPageClosed(() => cancel())
+  useOnPageClosed(() => actions.cancel())
+
+  function saveNotionHandler() {
+    actions.saveNotion(notion)
+    navigateHomePage()
+  }
+
+  function deleteNotionHandler() {
+    actions.deleteNotionById(notion.id)
+    navigateHomePage()
+  }
+
+  function cancelHandler() {
+    actions.cancel()
+    navigateHomePage()
+  }
 
   return (
     <PageLayout>
       <Main>
         <Container stretch>
-          <Flex 
-            direction={flexDirectionVertical}
-            gap={flexGapLarge}
-          >
-            <NotionContentForm />
-  
-            <NotionEditionActions 
-              notion={notion} 
-              onSave={navigateHomePage}
-              onDelete={navigateHomePage}
-              onCancel={navigateHomePage}  
-            />
-          </Flex>
+          <NotionContentForm />
         </Container>
       </Main>
+      
+      <FloatingActions>
+        <FloatingAction onClick={cancelHandler}>
+          <Icon name='rotate-cw' size='l' />
+        </FloatingAction>
+        
+        <FloatingAction 
+          variant={floatingActionVariantDanger}
+          onClick={deleteNotionHandler}
+        >
+          <Icon name='trash' size='l' />
+        </FloatingAction>
+        
+        <FloatingAction 
+          variant={floatingActionVariantPrimary}
+          onClick={saveNotionHandler}
+        >
+          <Icon name='check' size='l' />
+        </FloatingAction>
+      </FloatingActions>
     </PageLayout>
   )
 }

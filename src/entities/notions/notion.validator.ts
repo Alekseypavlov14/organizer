@@ -1,5 +1,5 @@
 import type { NotionEntity } from './notion.entity'
-import { type EntityValidator, dateValidator, durationValidator, momentValidator, timeValidator, validateEntityTitle } from '../shared'
+import { type EntityValidator, dateValidator, durationValidator, momentValidator, timeValidator } from '../shared'
 import { notionLevelOptions, notionPriorityOptions, notionProgressOptions } from './constants'
 import { isBoolean, isNull, isString } from '@/shared/utils/validation'
 import { validateId } from '@/shared/utils/id'
@@ -8,7 +8,6 @@ export class NotionValidator implements EntityValidator<NotionEntity> {
   validateEntity(entity: NotionEntity): boolean {
     if (!validateId(entity.id)) return false 
 
-    if (!validateEntityTitle(entity.title)) return false
     if (!isNull(entity.description) && !isString(entity.description)) return false
 
     if (!isNull(entity.date) && !dateValidator.validateModelValue(entity.date)) return false
