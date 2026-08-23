@@ -1,3 +1,4 @@
+import { inputVariantBase, mapInputVariantToClassName, type InputVariant } from './constants'
 import { useEffect, useId, useRef, useState, type ComponentProps } from 'react'
 import { useEnterPressed } from '@/shared/hooks/useEnterPressed'
 import { merge } from '@/shared/utils/functions'
@@ -10,8 +11,9 @@ interface InputProps extends ComponentProps<'input'> {
 
   validate?: (value: string) => boolean
   format?: (value: string) => string
-
   hint?: string
+
+  variant?: InputVariant
 }
 
 export function Input({ 
@@ -23,6 +25,8 @@ export function Input({
 
   placeholder = '',
   hint = '',
+
+  variant = inputVariantBase,
   
   onChange = () => {},
   onFocus = () => {},
@@ -59,6 +63,7 @@ export function Input({
 
   const inputClassNames = clsx(
     styles.Input, 
+    mapInputVariantToClassName[variant],
     focused && styles.Focused, 
     value.length === 0 && styles.Empty, 
     className

@@ -2,15 +2,27 @@
   display: block;
   width: 100%;
 
-  border: 1px solid var(--control-border-color);
-  border-radius: var(--control-border-radius);
-
   font-size: var(--control-font-size);
   font-weight: var(--control-font-weight);
   line-height: var(--control-line-height);
+  color: var(--control-text-color);
+  
+  resize: none;
+}
+
+.TextField.VariantBase {
+  border: 1px solid var(--control-border-color);
+  border-radius: var(--control-border-radius);
   
   padding-block: var(--control-padding-block);
   padding-inline: var(--control-padding-inline);
-  
-  resize: none;
+}
+.TextField.VariantGhost {
+  border: 1px solid transparent;
+  padding-block: var(--control-padding-block);
+  transition: var(--transition);
+}
+
+.TextField.VariantGhost:focus {
+  border-bottom-color: var(--control-border-color);
 }

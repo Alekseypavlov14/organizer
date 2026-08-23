@@ -1,8 +1,8 @@
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
+import { TextField, textFieldVariantGhost } from '@/shared/components/TextField'
+import { Input, inputVariantGhost } from '@/shared/components/Input'
 import { validateEntityTitle } from '@/entities/shared'
 import { useNotionFormStore } from '../../form.store'
-import { TextField } from '@/shared/components/TextField'
-import { Input } from '@/shared/components/Input'
 import styles from './NotionContentForm.module.css'
 
 export function NotionContentForm() {
@@ -18,12 +18,14 @@ export function NotionContentForm() {
         value={notion.title}
         onValueChange={updateTitle}
         validate={validateEntityTitle}
+        variant={inputVariantGhost}
       />
 
       <TextField 
         value={notion.description ?? ''}
         onValueChange={updateDescription}
         className={styles.TextField}
+        variant={textFieldVariantGhost}
       />
     </Flex>
   )
