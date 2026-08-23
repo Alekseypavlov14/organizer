@@ -6,6 +6,8 @@ export function useNavigation() {
 
   return ({
     navigateHomePage: () => navigate('/'),
+    
+    navigateNotionFeedPage: () => navigate('/notions'),
     navigateNotionDisplayPage: (id: Id) => navigate(`/notions/${id}`),
     navigateNotionEditionPage: (id: Id) => navigate(`/notions/${id}/edit`),
   })
