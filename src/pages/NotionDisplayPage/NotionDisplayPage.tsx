@@ -2,8 +2,8 @@ import { NotionDisplay, useNotionDisplay } from '@/features/notions/display'
 import { useNotionByIdFromQueryParams } from '@/features/notions/shared'
 import { useNotifications } from '@/app/notifications'
 import { useNavigation } from '@/app/navigation'
+import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
-import { Wrapper } from '@/shared/components/Wrapper'
 import { Main } from '@/shared/components/Main'
 
 export function NotionDisplayPage() {
@@ -21,12 +21,12 @@ export function NotionDisplayPage() {
   })
 
   return (
-    <Wrapper>
+    <PageLayout>
       <Main>
         <Container stretch>
           <NotionDisplay />
         </Container>
       </Main>
-    </Wrapper>
+    </PageLayout>
   )
 }

@@ -7,10 +7,10 @@ import { FloatingActions } from '@/shared/components/FloatingActions'
 import { Pagination } from '@/shared/components/Pagination'
 import { Container } from '@/shared/components/Container'
 import { useState } from 'react'
-import { Wrapper } from '@/shared/components/Wrapper'
 import { Input } from '@/shared/components/Input'
 import { Icon } from '@/shared/components/Icon'
 import { Button, buttonVariantDanger, buttonVariantPrimary } from '@/shared/components/Button'
+import { PageLayout } from '@/app/layouts'
 
 const notions: NotionEntity[] = [
   {
@@ -154,7 +154,7 @@ export function HomePage() {
   const [variant, setVariant] = useState<NotionFeedVariant>(notionFeedVariantList)
 
   return (
-    <Wrapper>
+    <PageLayout>
       <Container>
         <Input 
           value={dateFormat.toControl(dateValue)}
@@ -219,6 +219,6 @@ export function HomePage() {
           onVariantChange={setVariant}
         />
       </Container>
-    </Wrapper>
+    </PageLayout>
   )
 }

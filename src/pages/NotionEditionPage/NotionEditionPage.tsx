@@ -2,8 +2,8 @@ import { NotionContentForm, useNotionForm } from '@/features/notions/form'
 import { useNotionByIdFromQueryParams } from '@/features/notions/shared'
 import { useNotifications } from '@/app/notifications'
 import { useNavigation } from '@/app/navigation'
+import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
-import { Wrapper } from '@/shared/components/Wrapper'
 import { Main } from '@/shared/components/Main'
 
 export function NotionEditionPage() {
@@ -21,12 +21,12 @@ export function NotionEditionPage() {
   })
 
   return (
-    <Wrapper>
+    <PageLayout>
       <Main>
         <Container stretch>
           <NotionContentForm />
         </Container>
       </Main>
-    </Wrapper>
+    </PageLayout>
   )
 }

@@ -1,11 +1,11 @@
 import { NotionFeed } from '@/features/notions/feed'
+import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
-import { Wrapper } from '@/shared/components/Wrapper'
 import { Main } from '@/shared/components/Main'
 
 export function NotionFeedPage() {
   return (
-    <Wrapper>
+    <PageLayout>
       <Main>
         <Container stretch>
           <NotionFeed 
@@ -13,6 +13,6 @@ export function NotionFeedPage() {
           />
         </Container>
       </Main>
-    </Wrapper>
+    </PageLayout>
   )
 }
