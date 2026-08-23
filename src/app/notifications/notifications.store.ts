@@ -1,5 +1,4 @@
 import type { Notification } from './notification.type'
-import type { Id } from '@/shared/types/id'
 import { create } from 'zustand'
 
 export interface NotificationsState {
@@ -7,18 +6,18 @@ export interface NotificationsState {
 }
 
 export interface NotificationsActions {
+  updateNotifications: (notifications: Notification[]) => void
   addNotification: (notification: Notification) => void
-  removeNotification: (id: Id) => void
 }
 
 export interface NotificationsStore extends NotificationsState, NotificationsActions {}
 
 export const useNotificationsStore = create<NotificationsStore>(set => ({
   notifications: [],
+  updateNotifications: (notifications) => set(state => ({ ...state, notifications })),
   addNotification: (notification) => set(state => ({ ...state, notifications: state.notifications.concat([ notification ]) })),
-  removeNotification: (id) => set(state => ({ ...state, notifications: state.notifications.filter(notification => notification.id !== id ) }))
 }))
 
 export const notificationsSelector = (store: NotificationsStore) => store.notifications
+export const updateNotificationsSelector = (store: NotificationsStore) => store.updateNotifications
 export const addNotificationSelector = (store: NotificationsStore) => store.addNotification
-export const removeNotificationSelector = (store: NotificationsStore) => store.removeNotification

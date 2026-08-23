@@ -6,12 +6,11 @@ import { NotionSettingsForm } from '@/features/notions/form'
 import { FloatingActions } from '@/shared/components/FloatingActions'
 import { Pagination } from '@/shared/components/Pagination'
 import { Container } from '@/shared/components/Container'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Wrapper } from '@/shared/components/Wrapper'
 import { Input } from '@/shared/components/Input'
 import { Icon } from '@/shared/components/Icon'
 import { Button, buttonVariantDanger, buttonVariantPrimary } from '@/shared/components/Button'
-import { Notifications, useNotifications } from '@/app/notifications'
 
 const notions: NotionEntity[] = [
   {
@@ -154,21 +153,8 @@ export function HomePage() {
 
   const [variant, setVariant] = useState<NotionFeedVariant>(notionFeedVariantList)
 
-  const notifications = useNotifications()
-
-  useEffect(() => {
-    setTimeout(() => {
-      notifications.createSuccessNotification("Hi")
-      notifications.createErrorNotification("Hi")
-      notifications.createWarningNotification("Hi")
-      notifications.createInfoNotification("Hi")
-    }, 2000)
-  }, [])
-
   return (
     <Wrapper>
-      <Notifications />
-
       <Container>
         <Input 
           value={dateFormat.toControl(dateValue)}
