@@ -11,6 +11,7 @@ import { Input } from '@/shared/components/Input'
 import { Icon } from '@/shared/components/Icon'
 import { Button, buttonVariantDanger, buttonVariantPrimary } from '@/shared/components/Button'
 import { PageLayout } from '@/app/layouts'
+import { useNotifications } from '@/app/notifications'
 
 const notions: NotionEntity[] = [
   {
@@ -152,6 +153,7 @@ export function HomePage() {
   const [momentValue, setMomentValue] = useState<MomentModel>(createMomentModel(createDateModel(Date.now()), createTimeModel(0)))
 
   const [variant, setVariant] = useState<NotionFeedVariant>(notionFeedVariantList)
+  const { createSuccessNotification } = useNotifications()
 
   return (
     <PageLayout>
@@ -208,7 +210,7 @@ export function HomePage() {
         <NotionSettingsForm />
 
         <FloatingActions>
-          <FloatingAction><Icon name="plus" size='l' /></FloatingAction>
+          <FloatingAction onClick={() => createSuccessNotification("Works")}><Icon name="plus" size='l' /></FloatingAction>
           <FloatingAction variant={floatingActionVariantPrimary}><Icon name="list" size='l' /></FloatingAction>
         </FloatingActions>
 

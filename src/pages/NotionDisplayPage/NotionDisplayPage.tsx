@@ -8,15 +8,15 @@ import { Main } from '@/shared/components/Main'
 
 export function NotionDisplayPage() {
   const { createErrorNotification } = useNotifications()
-  const { navigateBack } = useNavigation()
+  const { navigateHomePage } = useNavigation()
 
   const { updateNotionDisplay } = useNotionDisplay()
 
   useNotionByIdFromQueryParams({
     success: (notion) => updateNotionDisplay(notion),
     failure: () => {
+      navigateHomePage()
       createErrorNotification('The notion is not found')
-      navigateBack()
     }
   })
 

@@ -1,27 +1,21 @@
+import { createInitialNotion, NotionEditionActions, useEditionActions } from '@/features/notions/edition'
 import { Flex, flexDirectionVertical, flexGapLarge } from '@/shared/components/Flex'
-import { NotionEditionActions, useEditionActions } from '@/features/notions/edition'
-import { NotionContentForm, useNotionForm } from '@/features/notions/form'
-import { useNotionByIdFromQueryParams } from '@/features/notions/shared'
-import { useNotifications } from '@/app/notifications'
+import { useNotionForm, NotionContentForm } from '@/features/notions/form'
 import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
+import { useOnPageOpened } from '@/shared/hooks/useOnPageOpened'
 import { useNavigation } from '@/app/navigation'
 import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
 import { Main } from '@/shared/components/Main'
 
-export function NotionEditionPage() {
-  const { createErrorNotification } = useNotifications()
+export function NotionCreationPage() {
   const { navigateHomePage } = useNavigation()
 
   const { notion, updateFormNotion } = useNotionForm()
   const { cancel } = useEditionActions()
 
-  useNotionByIdFromQueryParams({
-    success: (notion) => updateFormNotion(notion),
-    failure: () => {
-      navigateHomePage()
-      createErrorNotification('The notion is not found')
-    }
+  useOnPageOpened(() => {
+    updateFormNotion(createInitialNotion())
   })
 
   useOnPageClosed(() => cancel())
