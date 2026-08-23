@@ -1,0 +1,51 @@
+.Notifications {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: var(--notifications-z-index);
+
+  display: block;
+  width: 100%;
+
+  padding-block: 15px;
+}
+
+.Notification {
+  border-left: 8px solid var(--grey-100);
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  
+  display: block;
+  padding: 6px 16px;
+  border-radius: 4px;
+
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--grey-100);
+
+  animation: appear var(--transition) ease-in 0s forwards;
+}
+
+.StatusSuccess {
+  border-color: var(--green);
+}
+.StatusError {
+  border-color: var(--red);
+}
+.StatusWarning {
+  border-color: var(--orange);
+}
+.StatusInfo {
+  border-color: var(--blue);
+}
+
+@keyframes appear {
+  0% {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}

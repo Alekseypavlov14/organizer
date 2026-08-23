@@ -1,1 +1,2 @@
-export * from './useNotifications'
+export * from './widgets/Notifications'
+export * from './hooks/useNotifications'

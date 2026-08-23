@@ -20,7 +20,7 @@
   color: var(--white);
 }
 .Warning {
-  background-color: var(--yellow);
+  background-color: var(--orange);
   color: var(--white);
 }
 .Error {

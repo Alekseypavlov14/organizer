@@ -7,3 +7,7 @@ export function generateId(): Id {
 export function validateId(id: Id): boolean {
   return id > 0
 }
+
+export function generateNextIdFromEntries(ids: Id[]) {
+  return Math.max(...ids, 0) + 1
+}

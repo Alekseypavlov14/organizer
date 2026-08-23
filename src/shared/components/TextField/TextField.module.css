@@ -9,6 +9,8 @@
   font-weight: var(--control-font-weight);
   line-height: var(--control-line-height);
   
-  padding: var(--control-padding-inline);
+  padding-block: var(--control-padding-block);
+  padding-inline: var(--control-padding-inline);
+  
   resize: none;
 }
