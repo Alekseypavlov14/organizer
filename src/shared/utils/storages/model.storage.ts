@@ -15,7 +15,7 @@ export class ModelStorage<T> {
     return items
   }
 
-  public save(item: T): void {
+  public add(item: T): void {
     const items = this.getAll()
     items.push(item)
 

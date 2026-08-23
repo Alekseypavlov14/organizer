@@ -8,16 +8,12 @@ export function useNotionActions() {
     return notionEntityStorage.getAll()
   }
 
-  function getNotionById(id: Id): Nullable<NotionEntity> {
-    return notionEntityStorage.getById(id)
-  }
-
-  function saveNotion(notion: NotionEntity): Nullable<NotionEntity> {
+  function saveNotion(notion: NotionEntity): NotionEntity {
     return notionEntityStorage.save(notion)
   }
 
-  function updateNotionById(id: Id, notion: NotionEntity): Nullable<NotionEntity> {
-    return notionEntityStorage.updateById(id, notion)
+  function getNotionById(id: Id): Nullable<NotionEntity> {
+    return notionEntityStorage.getById(id)
   }
 
   function deleteNotionById(id: Id): Nullable<NotionEntity> {
@@ -26,9 +22,8 @@ export function useNotionActions() {
 
   return ({ 
     getNotions,
-    getNotionById,
     saveNotion,
-    updateNotionById,
+    getNotionById,
     deleteNotionById,
   })
 }

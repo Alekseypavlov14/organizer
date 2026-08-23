@@ -10,5 +10,7 @@ export function useNavigation() {
     navigateNotionFeedPage: () => navigate('/notions'),
     navigateNotionDisplayPage: (id: Id) => navigate(`/notions/${id}`),
     navigateNotionEditionPage: (id: Id) => navigate(`/notions/${id}/edit`),
+
+    navigateBack: () => navigate(-1),
   })
 }

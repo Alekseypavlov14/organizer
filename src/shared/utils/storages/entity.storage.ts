@@ -23,11 +23,18 @@ export abstract class EntityStorage<IEntity extends Entity, IRecord extends Enti
     return entities
   }
 
-  public save(entity: IEntity): Nullable<IEntity> {
+  public save(entity: IEntity): IEntity {
     const records: Nullable<IRecord[]> = this.storage.getValue() ?? []
-    if (records.some(record => record.id === entity.id)) return null
 
-    records.push(this.serialize(entity))
+    const recordIndex = records.findIndex(record => record.id === entity.id)
+    if (recordIndex === -1) {
+      records.push(this.serialize(entity))
+      this.storage.setValue(records)
+
+      return entity
+    }
+
+    records[recordIndex] = this.serialize(entity)
     this.storage.setValue(records)
 
     return entity
@@ -41,18 +48,6 @@ export abstract class EntityStorage<IEntity extends Entity, IRecord extends Enti
     if (!record) return null
 
     return this.deserialize(record)
-  }
-
-  public updateById(id: Id, entity: IEntity): Nullable<IEntity> {
-    const records: IRecord[] = this.storage.getValue() ?? []
-
-    const index: number = records.findIndex(record => record.id === id)
-    if (index === -1) return null
-
-    records[index] = this.serialize(entity)
-    this.storage.setValue(records)
-
-    return entity
   }
 
   public deleteById(id: Id): Nullable<IEntity> {

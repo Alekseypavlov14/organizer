@@ -22,5 +22,9 @@ export const routing = createBrowserRouter([
   {
     path: `/notions/:${defaultEntityIdParam}/edit`,
     element: <NotionEditionPage />
+  },
+  {
+    path: `/notions/:${defaultEntityIdParam}/edit/settings`,
+    element: <></>,
   }
 ])
