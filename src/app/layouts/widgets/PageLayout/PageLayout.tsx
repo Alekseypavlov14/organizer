@@ -1,14 +1,15 @@
 import type { ReactNode } from 'react'
+import { Wrapper, type WrapperVariant } from '@/shared/components/Wrapper'
 import { Notifications } from '@/app/notifications'
-import { Wrapper } from '@/shared/components/Wrapper'
 
 interface PageLayoutProps {
   children: ReactNode
+  variant?: WrapperVariant
 }
 
-export function PageLayout({ children }: PageLayoutProps) {
+export function PageLayout({ children, variant }: PageLayoutProps) {
   return (
-    <Wrapper>
+    <Wrapper variant={variant}>
       <Notifications />
 
       {children}

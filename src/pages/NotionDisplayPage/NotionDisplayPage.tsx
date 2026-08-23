@@ -1,5 +1,6 @@
 import { NotionDisplay, useNotionDisplay } from '@/features/notions/display'
 import { useNotionByIdFromQueryParams } from '@/features/notions/shared'
+import { wrapperVariantWhite } from '@/shared/components/Wrapper'
 import { useNotifications } from '@/app/notifications'
 import { useNavigation } from '@/app/navigation'
 import { PageLayout } from '@/app/layouts'
@@ -21,7 +22,7 @@ export function NotionDisplayPage() {
   })
 
   return (
-    <PageLayout>
+    <PageLayout variant={wrapperVariantWhite}>
       <Main>
         <Container stretch>
           <NotionDisplay />

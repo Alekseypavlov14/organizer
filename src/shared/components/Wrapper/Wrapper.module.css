@@ -1,7 +1,15 @@
 .Wrapper {
   width: 100%;
   min-height: 100%;
+  flex: 1 1 auto;
   
   display: flex;
   flex-direction: column;
+}
+
+.VariantBase {
+  background-color: var(--grey-900);
+}
+.VariantWhite {
+  background-color: var(--white);
 }
