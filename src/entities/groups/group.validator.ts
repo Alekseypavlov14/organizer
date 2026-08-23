@@ -1,9 +1,11 @@
 import type { GroupEntity } from './group.entity'
 import { colorValidator, validateEntityTitle, type EntityValidator } from '../shared'
 import { notionValidator } from '../notions'
+import { validateId } from '@/shared/utils/id'
 
 export class GroupValidator implements EntityValidator<GroupEntity> {
   validateEntity(entity: GroupEntity): boolean {
+    if (!validateId(entity.id)) return false 
     if (entity.parentId === entity.id) return false
     
     if (!validateEntityTitle(entity.title)) return false
