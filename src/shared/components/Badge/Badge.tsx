@@ -1,22 +1,22 @@
 import type { ComponentProps } from 'react'
-import { badgeStatusBase, mapBadgeStatusToClassName, type BadgeStatus } from './constants'
+import { badgeVariantBase, mapBadgeVariantToClassName, type BadgeVariant } from './constants'
 import styles from './Badge.module.css'
 import clsx from 'clsx'
 
 
 interface BadgeProps extends ComponentProps<'div'> {
-  status?: BadgeStatus
+  status?: BadgeVariant
 }
 
 export function Badge({ 
-  status = badgeStatusBase, 
+  status = badgeVariantBase, 
   className, 
   children, 
   ...props 
 }: BadgeProps) {
   return (
     <div 
-      className={clsx(styles.Badge, mapBadgeStatusToClassName[status])}
+      className={clsx(styles.Badge, mapBadgeVariantToClassName[status])}
       {...props}
     >
       {children}

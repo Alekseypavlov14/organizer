@@ -2,32 +2,40 @@
   display: block;
   width: fit-content;
   height: fit-content;
-  
+
   padding: 4px 8px;
+  border: 1px solid transparent;
   border-radius: 100px;
 
   font-size: 10px;
 }
 
-.Base {
-  background-color: var(--white);
-  border: 1px solid var(--grey-700);
-  color: var(--black);
-}
-
-.Success {
-  background-color: var(--green);
-  color: var(--white);
-}
-.Warning {
-  background-color: var(--orange);
-  color: var(--white);
-}
-.Error {
+.VariantRed {
   background-color: var(--red);
   color: var(--white);
 }
-.Primary {
+.VariantOrange {
+  background-color: var(--orange);
+  color: var(--white);
+}
+.VariantYellow {
+  background-color: var(--yellow);
+  color: var(--white);
+}
+.VariantGreen {
+  background-color: var(--green);
+  color: var(--white);
+}
+.VariantBlue {
+  background-color: var(--blue);
+  color: var(--white);
+}
+.VariantPrimary {
   background-color: var(--primary);
   color: var(--white);
+}
+.VariantBase {
+  background-color: var(--white);
+  border: 1px solid var(--grey-700);
+  color: var(--grey-100);
 }
