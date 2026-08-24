@@ -11,10 +11,12 @@ export interface NotionDisplayActions {
 
 export interface NotionDisplayStore extends NotionDisplayState, NotionDisplayActions {}
 
-export const useNotionDisplayStore = create<NotionDisplayStore>(set => ({
-  notion: defaultNotionEntity,
-  updateNotion: (notion) => set(state => ({ ...state, notion })),
-}))
+export function createNotionDisplayStore() {
+  return create<NotionDisplayStore>(set => ({
+    notion: defaultNotionEntity,
+    updateNotion: (notion) => set(state => ({ ...state, notion })),
+  }))
+}
 
 export const notionSelector = (store: NotionDisplayStore) => store.notion
 export const updateNotionSelector = (store: NotionDisplayStore) => store.updateNotion

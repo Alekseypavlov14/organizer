@@ -1,2 +1,2 @@
 export * from './widgets/NotionDisplay'
-export * from './hooks/useNotionDisplay'
+export * from './display.instance'

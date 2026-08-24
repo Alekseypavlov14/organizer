@@ -1,19 +1,15 @@
-import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
-import { notionSelector, useNotionDisplayStore } from '../../display.store'
-import { Text } from '@/shared/components/Text'
-import styles from './NotionDisplay.module.css'
+import type { NotionDisplayStore } from '../../display.store'
+import { NotionDisplayProvider } from '../../providers/NotionDisplayProvider'
+import { NotionDisplayTemplate } from '../../templates/NotionDisplayTemplate'
 
-export function NotionDisplay() {
-  const notion = useNotionDisplayStore(notionSelector)
+export interface NotionDisplayProps {
+  store: NotionDisplayStore
+}
 
+export function NotionDisplay({ store }: NotionDisplayProps) {
   return (
-    <Flex 
-      className={styles.NotionDisplay}
-      direction={flexDirectionVertical}
-      gap={flexGapMedium}
-    >
-      <Text size='l'>{notion.title}</Text>
-      <Text>{notion.description}</Text>
-    </Flex>
+    <NotionDisplayProvider store={store}>
+      <NotionDisplayTemplate />
+    </NotionDisplayProvider>
   )
 }

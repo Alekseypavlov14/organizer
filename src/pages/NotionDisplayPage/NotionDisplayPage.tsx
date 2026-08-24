@@ -1,7 +1,8 @@
-import { NotionDisplay, useNotionDisplay } from '@/features/notions/display'
 import { useNotionByIdFromQueryParams } from '@/features/notions/shared'
 import { wrapperVariantWhite } from '@/shared/components/Wrapper'
 import { useNotifications } from '@/app/notifications'
+import { notionDisplay } from './display.feature'
+import { NotionDisplay } from '@/features/notions/display'
 import { useNavigation } from '@/app/navigation'
 import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
@@ -11,10 +12,8 @@ export function NotionDisplayPage() {
   const { createErrorNotification } = useNotifications()
   const { navigateHomePage } = useNavigation()
 
-  const { updateNotionDisplay } = useNotionDisplay()
-
   useNotionByIdFromQueryParams({
-    success: (notion) => updateNotionDisplay(notion),
+    success: (notion) => notionDisplay.updateNotion(notion),
     failure: () => {
       navigateHomePage()
       createErrorNotification('The notion is not found')
@@ -25,7 +24,7 @@ export function NotionDisplayPage() {
     <PageLayout variant={wrapperVariantWhite}>
       <Main>
         <Container stretch>
-          <NotionDisplay />
+          <NotionDisplay store={notionDisplay.store} />
         </Container>
       </Main>
     </PageLayout>
