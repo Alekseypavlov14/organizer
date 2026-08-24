@@ -1,6 +1,6 @@
 import type { NotionDisplayStore } from '../../display.store'
 import { NotionDisplayProvider } from '../../providers/NotionDisplayProvider'
-import { NotionDisplayTemplate } from '../../templates/NotionDisplayTemplate'
+import { NotionDisplayView } from '../../views/NotionDisplayView'
 
 export interface NotionDisplayProps {
   store: NotionDisplayStore
@@ -9,7 +9,7 @@ export interface NotionDisplayProps {
 export function NotionDisplay({ store }: NotionDisplayProps) {
   return (
     <NotionDisplayProvider store={store}>
-      <NotionDisplayTemplate />
+      <NotionDisplayView />
     </NotionDisplayProvider>
   )
 }

@@ -32,10 +32,16 @@ export class GroupEditionContext extends EditionContext {
   }
 }
 
+export function createBaseEditionContext() {
+  return new BaseEditionContext()
+}
+export function createGroupEditionContext(id: Id) {
+  return new GroupEditionContext(id)
+}
+
 export function isEditionContextVariantBase(context: EditionContext): context is BaseEditionContext {
   return context.variant === editionContextVariantBase
 }
-
 export function isEditionContextVariantGroup(context: EditionContext): context is GroupEditionContext {
   return context.variant === editionContextVariantGroup
 }

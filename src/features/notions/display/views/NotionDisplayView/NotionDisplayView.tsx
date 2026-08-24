@@ -1,18 +1,18 @@
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { useNotionDisplayContext } from '../../hooks/useNotionDisplayContext'
-import { Text } from '@/shared/components/Text'
-import styles from './NotionDisplayTemplate.module.css'
+import { Text, textSizeLarge } from '@/shared/components/Text'
+import styles from './NotionDisplayView.module.css'
 
-export function NotionDisplayTemplate() {
+export function NotionDisplayView() {
   const { notion } = useNotionDisplayContext()
-
+  
   return (
     <Flex 
-      className={styles.NotionDisplay}
+      className={styles.NotionDisplayView}
       direction={flexDirectionVertical}
       gap={flexGapMedium}
     >
-      <Text size='l'>{notion.title}</Text>
+      <Text size={textSizeLarge}>{notion.title}</Text>
       <Text>{notion.description}</Text>
     </Flex>
   )

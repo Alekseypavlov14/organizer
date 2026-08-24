@@ -1,6 +1,6 @@
 import { FloatingAction, floatingActionVariantDanger, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
-import { createInitialNotion, useEditionActions } from '@/features/notions/edition'
 import { useNotionForm, NotionContentForm } from '@/features/notions/form'
+import { useNotionEdition } from '@/features/notions/edition'
 import { FloatingActions } from '@/shared/components/FloatingActions'
 import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
 import { useOnPageOpened } from '@/shared/hooks/useOnPageOpened'
@@ -14,26 +14,26 @@ export function NotionCreationPage() {
   const { navigateHomePage } = useNavigation()
 
   const { notion, updateFormNotion } = useNotionForm()
-  const actions = useEditionActions()
+  const notionEdition = useNotionEdition()
 
   useOnPageOpened(() => {
-    updateFormNotion(createInitialNotion())
+    updateFormNotion(notionEdition.getInitialNotion())
   })
 
-  useOnPageClosed(() => actions.cancel())
+  useOnPageClosed(() => notionEdition.cancel())
 
   function saveNotionHandler() {
-    actions.saveNotion(notion)
+    notionEdition.saveNotion(notion)
     navigateHomePage()
   }
 
   function deleteNotionHandler() {
-    actions.deleteNotionById(notion.id)
+    notionEdition.deleteNotionById(notion.id)
     navigateHomePage()
   }
 
   function cancelHandler() {
-    actions.cancel()
+    notionEdition.cancel()
     navigateHomePage()
   }
 
