@@ -1,2 +1,2 @@
-export * from './components/NotionFeed'
-export * from './constants'
+export * from './widgets/NotionFeed'
+export * from './feed.instance'

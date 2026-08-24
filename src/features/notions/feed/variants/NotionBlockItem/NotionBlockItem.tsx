@@ -1,26 +1,29 @@
-import type { AbstractNotionItemProps } from '../../interfaces/AbstractNotionItemProps'
+import type { AbstractNotionItemProps } from '../../types/AbstractNotionItemProps'
 import { Palette } from '@/shared/components/Palette'
-import styles from './NotionListItem.module.css'
+import styles from './NotionBlockItem.module.css'
 
-interface NotionListItemProps extends AbstractNotionItemProps {}
+interface NotionBlockItemProps extends AbstractNotionItemProps {}
 
-export function NotionListItem({
+export function NotionBlockItem({
   notion,
   onClick = () => {}
-}: NotionListItemProps) {
+}: NotionBlockItemProps) {
   return (
     <Palette 
-      className={styles.NotionListItem} 
+      className={styles.NotionBlockItem} 
       onClick={onClick}
     >
       <div className={styles.Header}>
         <div className={styles.Title}>{notion.title}</div>
-        <div className={styles.Date}>22.11.2025</div>
       </div>
+
       <div className={styles.Body}>
         <div className={styles.Description}>
           {notion.description}
         </div>
+      </div>
+      <div className={styles.Footer}>
+        <div className={styles.Date}>22.11.2025</div>
       </div>
     </Palette>
   )

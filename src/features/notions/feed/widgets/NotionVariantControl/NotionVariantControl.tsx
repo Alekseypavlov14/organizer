@@ -1,18 +1,13 @@
-import { notionFeedVariantBlock, notionFeedVariantList, type NotionFeedVariant } from '../../constants'
+import { notionFeedVariantBlock, notionFeedVariantList } from '../../constants'
 import { Flex, flexAlignCenter } from '@/shared/components/Flex'
+import { useNotionFeedContext } from '../../hooks/useNotionFeedContext'
 import { Icon } from '@/shared/components/Icon'
 import styles from './NotionVariantControl.module.css'
 import clsx from 'clsx'
 
-interface NotionVariantControlProps {
-  variant: NotionFeedVariant
-  onChange: (value: NotionFeedVariant) => void
-}
+export function NotionVariantControl() {
+  const { variant, updateVariant } = useNotionFeedContext()
 
-export function NotionVariantControl({
-  variant,
-  onChange,
-}: NotionVariantControlProps) {
   return (
     <Flex 
       className={clsx(styles.Control)}
@@ -20,14 +15,14 @@ export function NotionVariantControl({
     >
       <div
         className={clsx(styles.Option, variant === notionFeedVariantList && styles.Active)}
-        onClick={() => onChange(notionFeedVariantList)}
+        onClick={() => updateVariant(notionFeedVariantList)}
       >
         <Icon name="list" />
       </div>
 
       <div
         className={clsx(styles.Option, variant === notionFeedVariantBlock && styles.Active)}
-        onClick={() => onChange(notionFeedVariantBlock)}
+        onClick={() => updateVariant(notionFeedVariantBlock)}
       >
         <Icon name="grid" />
       </div>

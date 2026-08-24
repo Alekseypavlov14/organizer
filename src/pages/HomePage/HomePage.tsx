@@ -1,6 +1,4 @@
-import type { NotionEntity } from '@/entities/notions'
 import { type DateModel, createDateModel, type TimeModel, createTimeModel, type DurationModel, createDurationModel, type MomentModel, createMomentModel, dateFormat, dateValidator, timeFormat, timeValidator, durationFormat, durationValidator, momentFormat, momentValidator } from '@/entities/shared'
-import { NotionFeed, notionFeedVariantList, type NotionFeedVariant } from '@/features/notions/feed'
 import { FloatingAction, floatingActionVariantDanger, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
 import { NotionSettingsForm } from '@/features/notions/form'
 import { FloatingActions } from '@/shared/components/FloatingActions'
@@ -13,138 +11,6 @@ import { Button, buttonVariantDanger, buttonVariantPrimary } from '@/shared/comp
 import { PageLayout } from '@/app/layouts'
 import { useNotifications } from '@/app/notifications'
 
-const notions: NotionEntity[] = [
-  {
-    id: 1,
-    title: 'Finish frontend portfolio',
-    description: 'Complete the portfolio website and publish it.',
-    date: null,
-    time: null,
-    duration: null,
-    deadline: null,
-    done: null,
-    priority: 'important',
-    progress: 'processing',
-    level: 'medium',
-  },
-  {
-    id: 2,
-    title: 'Learn React Server Components',
-    description: 'Study server and client component boundaries.',
-    date: null,
-    time: null,
-    duration: null,
-    deadline: null,
-    done: null,
-    priority: 'base',
-    progress: 'created',
-    level: 'medium',
-  },
-  {
-    id: 3,
-    title: 'Update CV',
-    description: 'Add recent projects, achievements, and technical skills.',
-    date: null,
-    time: null,
-    duration: null,
-    deadline: null,
-    done: null,
-    priority: 'important',
-    progress: 'processing',
-    level: 'easy',
-  },
-  {
-    id: 4,
-    title: 'Apply to frontend positions',
-    description: 'Find suitable React and TypeScript positions.',
-    date: null,
-    time: null,
-    duration: null,
-    deadline: null,
-    done: null,
-    priority: 'important',
-    progress: 'processing',
-    level: 'medium',
-  },
-  {
-    id: 5,
-    title: 'Refactor Flex component',
-    description: 'Improve the Flex component API and CSS module structure.',
-    date: null,
-    time: null,
-    duration: null,
-    deadline: null,
-    done: null,
-    priority: 'base',
-    progress: 'created',
-    level: 'easy',
-  },
-  {
-    id: 6,
-    title: 'Build QR code generator',
-    description: 'Finish QR generation and export functionality.',
-    date: null,
-    time: null,
-    duration: null,
-    deadline: null,
-    done: null,
-    priority: 'important',
-    progress: 'processing',
-    level: 'hard',
-  },
-  {
-    id: 7,
-    title: 'Read about Next.js caching',
-    description: 'Review caching, revalidation, and server-side data fetching.',
-    date: null,
-    time: null,
-    duration: null,
-    deadline: null,
-    done: null,
-    priority: 'base',
-    progress: 'created',
-    level: 'medium',
-  },
-  {
-    id: 8,
-    title: 'Clean up NPM packages',
-    description: 'Review existing packages and improve their documentation.',
-    date: null,
-    time: null,
-    duration: null,
-    deadline: null,
-    done: null,
-    priority: 'base',
-    progress: 'processing',
-    level: 'medium',
-  },
-  {
-    id: 9,
-    title: 'Practice German',
-    description: 'Learn basic vocabulary and practice simple sentences.',
-    date: null,
-    time: null,
-    duration: null,
-    deadline: null,
-    done: null,
-    priority: 'base',
-    progress: 'created',
-    level: 'easy',
-  },
-  {
-    id: 10,
-    title: 'Plan hiking trip',
-    description: 'Choose a route and plan transportation and equipment.',
-    date: null,
-    time: null,
-    duration: null,
-    deadline: null,
-    done: null,
-    priority: 'base',
-    progress: 'created',
-    level: 'easy',
-  }
-]
 
 export function HomePage() {
   const [dateValue, setDateValue] = useState<DateModel>(createDateModel(Date.now()))
@@ -152,7 +18,6 @@ export function HomePage() {
   const [durationValue, setDurationValue] = useState<DurationModel>(createDurationModel(0))
   const [momentValue, setMomentValue] = useState<MomentModel>(createMomentModel(createDateModel(Date.now()), createTimeModel(0)))
 
-  const [variant, setVariant] = useState<NotionFeedVariant>(notionFeedVariantList)
   const { createSuccessNotification } = useNotifications()
 
   return (
@@ -214,13 +79,6 @@ export function HomePage() {
           <FloatingAction variant={floatingActionVariantDanger}><Icon name='trash' size='l' /></FloatingAction>
           <FloatingAction variant={floatingActionVariantPrimary}><Icon name="check" size='l' /></FloatingAction>
         </FloatingActions>
-
-        <NotionFeed 
-          title='Custom notion feed title'
-          notions={notions}
-          variant={variant}
-          onVariantChange={setVariant}
-        />
       </Container>
     </PageLayout>
   )

@@ -1,7 +1,7 @@
 import { useNotionByIdFromQueryParams } from '@/features/notions/shared'
 import { wrapperVariantWhite } from '@/shared/components/Wrapper'
 import { useNotifications } from '@/app/notifications'
-import { notionDisplay } from './display.feature'
+import { useNotionDisplay } from './display.feature'
 import { NotionDisplay } from '@/features/notions/display'
 import { useNavigation } from '@/app/navigation'
 import { PageLayout } from '@/app/layouts'
@@ -11,6 +11,8 @@ import { Main } from '@/shared/components/Main'
 export function NotionDisplayPage() {
   const { createErrorNotification } = useNotifications()
   const { navigateHomePage } = useNavigation()
+  
+  const notionDisplay = useNotionDisplay()
 
   useNotionByIdFromQueryParams({
     success: (notion) => notionDisplay.updateNotion(notion),

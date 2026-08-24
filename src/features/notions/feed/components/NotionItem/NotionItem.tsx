@@ -1,7 +1,7 @@
-import type { AbstractNotionItemProps } from '../../interfaces/AbstractNotionItemProps'
+import type { AbstractNotionItemProps } from '../../types/AbstractNotionItemProps'
 import { notionFeedVariantBlock, notionFeedVariantList, type NotionFeedVariant } from '../../constants'
-import { NotionBlockItem } from '../NotionBlockItem'
-import { NotionListItem } from '../NotionListItem'
+import { NotionBlockItem } from '../../variants/NotionBlockItem'
+import { NotionListItem } from '../../variants/NotionListItem'
 
 interface NotionItemProps extends AbstractNotionItemProps {
   variant: NotionFeedVariant

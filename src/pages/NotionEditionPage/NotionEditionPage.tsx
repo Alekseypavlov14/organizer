@@ -1,6 +1,7 @@
 import { FloatingAction, floatingActionVariantDanger, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
 import { NotionContentForm, useNotionForm } from '@/features/notions/form'
 import { useNotionByIdFromQueryParams } from '@/features/notions/shared'
+import { useNotionEdition } from '@/features/notions/edition'
 import { useNotifications } from '@/app/notifications'
 import { FloatingActions } from '@/shared/components/FloatingActions'
 import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
@@ -9,7 +10,6 @@ import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
 import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
-import { useNotionEdition } from '@/features/notions/edition'
 
 export function NotionEditionPage() {
   const { createErrorNotification } = useNotifications()
