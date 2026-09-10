@@ -1,4 +1,5 @@
 import type { AbstractNotionItemProps } from '../../types/AbstractNotionItemProps'
+import { formatNotionDateTime } from '@/features/notions/shared'
 import { Palette } from '@/shared/components/Palette'
 import styles from './NotionBlockItem.module.css'
 
@@ -23,7 +24,7 @@ export function NotionBlockItem({
         </div>
       </div>
       <div className={styles.Footer}>
-        <div className={styles.Date}>22.11.2025</div>
+        <div className={styles.Date}>{formatNotionDateTime(notion)}</div>
       </div>
     </Palette>
   )
