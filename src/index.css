@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Inter:regular,500,600);
 
 :root {
+  /* colors */
   --white: #ffffff;
   --black: #000000;
 
@@ -21,24 +22,41 @@
   --orange: #ff9640;
   --red: #F74820;
 
+  /* layers */
   --notifications-z-index: 15;
   --header-z-index: 10;
   --sidebar-z-index: 5;
   --action-button-z-index: 3;
   --dropdown-z-index: 2;
 
+  /* sizes */
   --container-padding-inline: 15px;
 
+  /* design */
   --shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
   --transition: 0.3s;
   
-  /* theme */
+  /* texts */
+  --text-size-small: 10px;
+  --text-size-medium: 14px;
+  --text-size-large: 18px;
+  --text-size-extra-large: 24px;
+
+  --text-weight-small: 400;
+  --text-weight-medium: 400;
+  --text-weight-large: 600;
+  --text-weight-extra-large: 600;
+
+  --text-letter-spacing-small: 0px;
+  --text-letter-spacing-medium: 0px;
+  --text-letter-spacing-large: -0.03em;
+  --text-letter-spacing-extra-large: -0.03em;
+
+  /* controls */
   --control-background-color: var(--white);
   --control-border-color: var(--grey-700);
   --control-border-radius: 8px;
 
-  --control-font-size: 12px;
-  --control-line-height: 16px;
   --control-text-color: var(--grey-100);
   --control-font-weight: 500;
 
@@ -59,8 +77,8 @@ body {
   height: 1px;
   min-height: 100%;
 
-  font-size: 14px;
   font-family: 'Inter', system-ui, sans-serif;
+  font-size: var(--text-size-medium);
   color: var(--grey-100);
 }
 

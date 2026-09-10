@@ -1,21 +1,24 @@
 .Text {
   display: block;
-  letter-spacing: -0.03em;
 }
 
 .TextSmall {
-  font-size: 10px;
+  font-size: var(--text-size-small);
+  font-weight: var(--text-weight-small);
+  letter-spacing: var(--text-letter-spacing-small);
 }
 .TextMedium {
-  font-size: 14px;
+  font-size: var(--text-size-medium);
+  font-weight: var(--text-weight-medium);
+  letter-spacing: var(--text-letter-spacing-medium);
 }
 .TextLarge {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-size: var(--text-size-large);
+  font-weight: var(--text-weight-large);
+  letter-spacing: var(--text-letter-spacing-large);
 }
 .TextExtraLarge {
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-size: var(--text-size-extra-large);
+  font-weight: var(--text-weight-extra-large);
+  letter-spacing: var(--text-letter-spacing-extra-large);
 }

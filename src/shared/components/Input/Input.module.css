@@ -2,6 +2,8 @@
   display: block;
   width: 100%;
   
+  color: var(--control-text-color);
+
   position: relative;
   overflow: hidden;
 }
@@ -10,30 +12,17 @@
   border: 1px solid var(--control-border-color);
   border-radius: var(--control-border-radius);
 }
-.Input.VariantGhost {
-  background-color: transparent;
-  border: 1px solid transparent;
-  transition: var(--transition);
-}
-.Input.VariantGhost.Focused {
-  border-bottom-color: var(--control-border-color);
-} 
 
 .Control {
   display: block;
   width: 100%;
-  
-  font-size: var(--control-font-size);
-  line-height: var(--control-line-height);
-  font-weight: var(--control-font-weight);
-  color: var(--control-text-color);
+
+  font: inherit;
+  letter-spacing: inherit;
 }
 .Input.VariantBase .Control {
   padding-block: var(--control-padding-block);
   padding-inline: var(--control-padding-inline);
-}
-.Input.VariantGhost .Control {
-  padding-block: var(--control-padding-block);
 }
 .Input:not(.Focused) .Control {
   pointer-events: none;
@@ -50,11 +39,6 @@
 
   display: flex;
   align-items: center;
-
-  font-size: var(--control-font-size);
-  line-height: var(--control-line-height);
-  font-weight: var(--control-font-weight);
-  color: var(--control-text-color);
   
   pointer-events: none;
 }
@@ -62,9 +46,6 @@
   padding-block: var(--control-padding-block);
   padding-inline: var(--control-padding-inline);
   background-color: var(--control-background-color);
-}
-.Input.VariantGhost .Label {
-  padding-block: var(--control-padding-block);
 }
 
 .Input.Focused .Label {

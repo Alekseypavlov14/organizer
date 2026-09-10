@@ -1,5 +1,6 @@
 import { inputVariantBase, mapInputVariantToClassName, type InputVariant } from './constants'
 import { useEffect, useId, useRef, useState, type ComponentProps } from 'react'
+import { getTextSizeModifier, type TextSize } from '../Text'
 import { useEnterPressed } from '@/shared/hooks/useEnterPressed'
 import { merge } from '@/shared/utils/functions'
 import styles from './Input.module.css'
@@ -14,6 +15,7 @@ interface InputProps extends ComponentProps<'input'> {
   hint?: string
 
   variant?: InputVariant
+  textSize?: TextSize
 }
 
 export function Input({ 
@@ -21,12 +23,13 @@ export function Input({
   onValueChange = () => {},
   
   validate = () => true,
-  format = (value) => value, 
+  format = (value) => value,
 
   placeholder = '',
   hint = '',
 
   variant = inputVariantBase,
+  textSize,
   
   onChange = () => {},
   onFocus = () => {},
@@ -64,6 +67,7 @@ export function Input({
   const inputClassNames = clsx(
     styles.Input, 
     mapInputVariantToClassName[variant],
+    getTextSizeModifier(textSize),
     focused && styles.Focused, 
     value.length === 0 && styles.Empty, 
     className

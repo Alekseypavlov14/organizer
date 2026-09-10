@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react'
-import { mapTextSizeToClassName, textSizeMedium, type TextSize } from './constants'
+import { getTextSizeModifier, type TextSize } from './constants'
 import styles from './Text.module.css'
 import clsx from 'clsx'
 
@@ -8,14 +8,14 @@ interface TextProps extends ComponentProps<'div'> {
 }
 
 export function Text({ 
-  size = textSizeMedium,
+  size,
   className, 
   children, 
   ...props 
 }: TextProps) {
   return (
     <div 
-      className={clsx(styles.Text, mapTextSizeToClassName[size])}
+      className={clsx(styles.Text, getTextSizeModifier(size))}
       {...props}
     >
       {children}

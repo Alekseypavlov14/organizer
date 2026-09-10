@@ -17,12 +17,3 @@
   padding-block: var(--control-padding-block);
   padding-inline: var(--control-padding-inline);
 }
-.TextField.VariantGhost {
-  border: 1px solid transparent;
-  padding-block: var(--control-padding-block);
-  transition: var(--transition);
-}
-
-.TextField.VariantGhost:focus {
-  border-bottom-color: var(--control-border-color);
-}

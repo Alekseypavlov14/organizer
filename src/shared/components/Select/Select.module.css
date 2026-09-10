@@ -3,6 +3,8 @@
   width: 100%;
 
   background-color: var(--control-background-color);
+  color: var(--control-text-color);
+  
   border: 1px solid var(--control-border-color);
   border-radius: var(--control-border-radius);
 
@@ -19,19 +21,11 @@
   padding-block: var(--control-padding-block);
   padding-inline: var(--control-padding-inline);
 
-  font-size: var(--control-font-size);
-  line-height: var(--control-line-height);
-  color: var(--control-text-color);
-  font-weight: var(--control-font-weight);
-
   overflow: hidden;
 }
 
 .Label {
-  font-size: var(--control-font-size);
-  line-height: var(--control-line-height);
   color: var(--control-text-color);
-  font-weight: var(--control-font-weight);
 }
 .Empty .Label {
   color: var(--control-placeholder-color);
@@ -74,9 +68,5 @@
 
   padding-block: var(--control-padding-block);
   padding-inline: var(--control-padding-inline);
-
-  font-size: var(--control-font-size);
-  line-height: var(--control-line-height);
   color: var(--control-text-color);
-  font-weight: var(--control-font-weight);
 }

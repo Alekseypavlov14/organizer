@@ -1,6 +1,7 @@
 import type { Option } from '@/shared/types/option'
 import { useRef, useState, type ComponentProps, type MouseEvent } from 'react'
 import { Flex, flexAlignCenter, flexGapSmall } from '../Flex'
+import { getTextSizeModifier, type TextSize } from '../Text'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import { Icon } from '../Icon'
 import styles from './Select.module.css'
@@ -15,6 +16,8 @@ interface SelectProps<T> extends ComponentProps<'div'> {
 
   format?: (value: Option<T>) => string
   placeholder?: string
+
+  textSize?: TextSize
 }
 
 export function Select<T>({
@@ -28,6 +31,7 @@ export function Select<T>({
   placeholder = '',
 
   className,
+  textSize,
   ...props
 }: SelectProps<T>) {
   const [isOpened, setOpened] = useState(false)
@@ -47,10 +51,18 @@ export function Select<T>({
     e.stopPropagation()
     onValueReset()
   }
+  
+  const classNames = clsx(
+    styles.Select, 
+    getTextSizeModifier(textSize),
+    isOpened && styles.Opened, 
+    !isOptionSelected && styles.Empty,
+    className, 
+  )
 
   return (
     <div 
-      className={clsx(styles.Select, className, isOpened && styles.Opened, !isOptionSelected && styles.Empty)}
+      className={classNames}
       onClick={toggleSelect}
       ref={selectRef}
       {...props}

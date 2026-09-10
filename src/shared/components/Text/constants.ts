@@ -13,3 +13,7 @@ export const mapTextSizeToClassName: Record<TextSize, string> = {
   l: styles.TextLarge,
   xl: styles.TextExtraLarge,
 }
+
+export function getTextSizeModifier(size: TextSize = textSizeMedium) {
+  return mapTextSizeToClassName[size]
+}
