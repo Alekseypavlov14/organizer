@@ -7,25 +7,43 @@
 .Header {
   width: 100%;
 }
-.Body {
-  width: 100%;
-  margin-top: 5px;
-}
-.Footer {
-  width: 100%;
-  margin-top: 10px;
-}
-
 .Title {
   font-size: 14px;
   font-weight: 500;
   color: var(--grey-100);
 }
-.Date {
-  font-size: 8px;
-  color: var(--grey-500);
+
+.Body {
+  width: 100%;
+  margin-top: 5px;
+}
+.Body:empty {
+  display: none;
 }
 .Description {
   font-size: 10px;
   color: var(--grey-500);
+}
+
+.Footer {
+  width: 100%;
+  margin-top: 10px;
+}
+.Footer:empty {
+  display: none;
+}
+.Date {
+  font-size: 8px;
+  color: var(--grey-500);
+}
+
+.Badges {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.Badges:empty {
+  display: none;
 }

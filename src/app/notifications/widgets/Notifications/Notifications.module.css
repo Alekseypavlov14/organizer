@@ -49,7 +49,7 @@
   --color: var(--red);
 }
 .StatusWarning {
-  --color: var(--orange);
+  --color: var(--yellow);
 }
 .StatusInfo {
   --color: var(--blue);

@@ -1,19 +1,22 @@
 import type { NotionEntity } from './notion.entity'
 import type { Option } from '@/shared/types/option'
 
-export type NotionPriority = 'base' | 'important'
+export type NotionPriority = 'important' | 'urgent'
 
-export const notionPriorityBase: NotionPriority = 'base'
 export const notionPriorityImportant: NotionPriority = 'important'
+export const notionPriorityUrgent: NotionPriority = 'urgent'
 
 export const notionPriorityList: NotionPriority[] = [
-  notionPriorityBase,
   notionPriorityImportant,
+  notionPriorityUrgent,
 ]
 
+export const notionPriorityImportantOption: Option<NotionPriority> = { value: notionPriorityImportant, label: 'Important' }
+export const notionPriorityUrgentOption: Option<NotionPriority> = { value: notionPriorityUrgent, label: 'Urgent' }
+
 export const notionPriorityOptions: Option<NotionPriority>[] = [
-  { value: notionPriorityBase, label: 'Base' },
-  { value: notionPriorityImportant, label: 'Important' },
+  notionPriorityImportantOption,
+  notionPriorityUrgentOption,
 ]
 
 export type NotionProgress = 'created' | 'processing' | 'completed'
@@ -28,10 +31,14 @@ export const notionProgressList: NotionProgress[] = [
   notionProgressCompleted,
 ]
 
+export const notionProgressCreatedOption: Option<NotionProgress> = { value: notionProgressCreated, label: 'Created' }
+export const notionProgressProcessingOption: Option<NotionProgress> = { value: notionProgressProcessing, label: 'Processing' }
+export const notionProgressCompletedOption: Option<NotionProgress> = { value: notionProgressCompleted, label: 'Completed' }
+
 export const notionProgressOptions: Option<NotionProgress>[] = [
-  { value: notionProgressCreated, label: 'Created' },
-  { value: notionProgressProcessing, label: 'Processing' },
-  { value: notionProgressCompleted, label: 'Completed' }, 
+  notionProgressCreatedOption,
+  notionProgressProcessingOption,
+  notionProgressCompletedOption, 
 ]
 
 export type NotionLevel = 'easy' | 'medium' | 'hard'
@@ -46,10 +53,15 @@ export const notionLevelList: NotionLevel[] = [
   notionLevelHard,
 ]
 
+export const notionLevelEasyOption: Option<NotionLevel> = { value: notionLevelEasy, label: 'Easy' }
+export const notionLevelMediumOption: Option<NotionLevel> = { value: notionLevelMedium, label: 'Medium' }
+export const notionLevelHardOption: Option<NotionLevel> = { value: notionLevelHard, label: 'Hard' }
+
+
 export const notionLevelOptions: Option<NotionLevel>[] = [
-  { value: notionLevelEasy, label: 'Easy' },
-  { value: notionLevelMedium, label: 'Medium' },
-  { value: notionLevelHard, label: 'Hard' },
+  notionLevelEasyOption,
+  notionLevelMediumOption,
+  notionLevelHardOption,
 ]
 
 export const defaultNotionEntity: NotionEntity = {

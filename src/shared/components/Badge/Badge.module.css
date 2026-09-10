@@ -14,10 +14,6 @@
   background-color: var(--red);
   color: var(--white);
 }
-.VariantOrange {
-  background-color: var(--orange);
-  color: var(--white);
-}
 .VariantYellow {
   background-color: var(--yellow);
   color: var(--white);

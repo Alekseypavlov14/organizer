@@ -1,6 +1,7 @@
 import type { AbstractNotionItemProps } from '../../types/AbstractNotionItemProps'
-import { formatNotionDateTime } from '@/features/notions/shared'
+import { formatNotionDateTime, NotionLevelBadge, NotionPriorityBadge, NotionProgressBadge } from '@/features/notions/shared'
 import { Palette } from '@/shared/components/Palette'
+import { isNull } from '@/shared/utils/validation'
 import styles from './NotionBlockItem.module.css'
 
 interface NotionBlockItemProps extends AbstractNotionItemProps {}
@@ -9,6 +10,10 @@ export function NotionBlockItem({
   notion,
   onClick = () => {}
 }: NotionBlockItemProps) {
+  const formattedDate = formatNotionDateTime(notion)
+  
+  const showBadges = !isNull(notion.priority) || !isNull(notion.progress) || !isNull(notion.level) 
+  
   return (
     <Palette 
       className={styles.NotionBlockItem} 
@@ -19,14 +24,19 @@ export function NotionBlockItem({
       </div>
 
       <div className={styles.Body}>
-        <div className={styles.Description}>
-          {notion.description}
-        </div>
+        {notion.description ? (<div className={styles.Description}>{notion.description}</div>) : null}
+
+        {showBadges ? (
+          <div className={styles.Badges}>
+            {!isNull(notion.priority) ? <NotionPriorityBadge priority={notion.priority} /> : null}
+            {!isNull(notion.progress) ? <NotionProgressBadge progress={notion.progress} /> : null}
+            {!isNull(notion.level) ? <NotionLevelBadge level={notion.level} /> : null}
+          </div>
+        ) : null}
       </div>
 
       <div className={styles.Footer}>
-        <div className={styles.Date}>{formatNotionDateTime(notion)}</div>
-        <div className={styles.Badges}></div>
+        {formattedDate ? (<div className={styles.Date}>{formattedDate}</div>) : null}
       </div>
     </Palette>
   )
