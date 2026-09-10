@@ -17,6 +17,7 @@ export function NotionContentForm() {
       <Input 
         value={notion.title}
         onValueChange={updateTitle}
+        placeholder='Notion title'
         variant={inputVariantGhost}
         textSize={textSizeLarge}
       />
@@ -24,8 +25,9 @@ export function NotionContentForm() {
       <TextField 
         value={notion.description ?? ''}
         onValueChange={updateDescription}
-        className={styles.TextField}
+        placeholder='Notion description'
         variant={textFieldVariantGhost}
+        className={styles.TextField}
       />
     </Flex>
   )

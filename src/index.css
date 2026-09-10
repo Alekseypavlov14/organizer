@@ -6,7 +6,7 @@
   --black: #000000;
 
   --grey-900: #FCFCFC;
-  --grey-800: #EBEBEB;
+  --grey-800: #F2F2F2;
   --grey-700: #DDDDDD;
   --grey-600: #BBBBBB;
   --grey-500: #999999;
@@ -58,11 +58,11 @@
   --control-border-radius: 8px;
 
   --control-text-color: var(--grey-100);
-  --control-font-weight: 500;
+  --control-icon-size: 16px;
 
   --control-placeholder-color: var(--grey-500);
-  --control-padding-block: 6px;
-  --control-padding-inline: 8px;
+  --control-padding-block: 8px;
+  --control-padding-inline: 10px;
 }
 
 * {

@@ -1,10 +1,10 @@
 .Separation.Vertical {
-  border-bottom: 1px solid var(--grey-800);
+  border-bottom: 1px solid var(--grey-700);
   align-self: stretch;
 }
 
 .Separation.Horizontal {
-  border-right: 1px solid var(--grey-800);
+  border-right: 1px solid var(--grey-700);
   align-self: stretch;
 }
 

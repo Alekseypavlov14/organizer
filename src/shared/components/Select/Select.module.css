@@ -32,13 +32,13 @@
 }
 
 .Chevron {
-  height: var(--control-line-height);
-  width: var(--control-line-height);
+  height: var(--control-icon-size);
+  width: var(--control-icon-size);
   color: var(--control-text-color);
 }
 .Cross {
-  height: var(--control-line-height);
-  width: var(--control-line-height);
+  height: var(--control-icon-size);
+  width: var(--control-icon-size);
   color: var(--control-text-color);
 }
 
@@ -69,4 +69,10 @@
   padding-block: var(--control-padding-block);
   padding-inline: var(--control-padding-inline);
   color: var(--control-text-color);
+
+  cursor: pointer;
+  transition: var(--transition);
+}
+.Option:hover {
+  background-color: var(--grey-800);
 }

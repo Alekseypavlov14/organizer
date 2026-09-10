@@ -2,11 +2,7 @@
   display: block;
   width: 100%;
 
-  font-size: var(--control-font-size);
-  font-weight: var(--control-font-weight);
-  line-height: var(--control-line-height);
-  color: var(--control-text-color);
-  
+  color: var(--control-text-color);  
   resize: none;
 }
 
