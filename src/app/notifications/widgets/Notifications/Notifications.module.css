@@ -6,8 +6,9 @@
 
   display: block;
   width: 100%;
-
   padding-block: 15px;
+
+  pointer-events: none;
 }
 
 .Notification {
