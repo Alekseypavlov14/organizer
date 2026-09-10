@@ -7,6 +7,7 @@ import { useOnPageOpened } from '@/shared/hooks/useOnPageOpened'
 import { useNavigation } from '@/app/navigation'
 import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
+import { AppHeader } from '@/widgets/AppHeader'
 import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
 
@@ -39,6 +40,8 @@ export function NotionCreationPage() {
 
   return (
     <PageLayout>
+      <AppHeader />
+
       <Main>
         <Container stretch>
           <NotionContentForm />

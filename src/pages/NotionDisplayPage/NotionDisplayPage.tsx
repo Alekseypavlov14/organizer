@@ -6,6 +6,7 @@ import { NotionDisplay } from '@/features/notions/display'
 import { useNavigation } from '@/app/navigation'
 import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
+import { AppHeader } from '@/widgets/AppHeader'
 import { Main } from '@/shared/components/Main'
 
 export function NotionDisplayPage() {
@@ -24,6 +25,8 @@ export function NotionDisplayPage() {
 
   return (
     <PageLayout variant={wrapperVariantWhite}>
+      <AppHeader />
+
       <Main>
         <Container stretch>
           <NotionDisplay store={notionDisplay.store} />
