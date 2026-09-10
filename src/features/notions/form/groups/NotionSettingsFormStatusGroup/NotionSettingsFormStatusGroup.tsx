@@ -1,12 +1,11 @@
 import type { NotionLevel, NotionPriority, NotionProgress } from '@/entities/notions'
 import type { Nullable } from '@/shared/types/nullable'
+import { notionLevelOptions, notionPriorityOptions, notionProgressOptions } from '../../constants'
 import { Flex, flexDirectionVertical, flexGapSmall } from '@/shared/components/Flex'
-import { useNotionSettingsOptions } from '../../hooks/useNotionSettingsOptions'
 import { useNotionFormStore } from '../../form.store'
 import { Select } from '@/shared/components/Select'
 
 export function NotionSettingsFormStatusGroup() {
-  const { notionPriorityOptions, notionProgressOptions, notionLevelOptions } = useNotionSettingsOptions()
   const { notion, updatePriority, updateProgress, updateLevel } = useNotionFormStore()
 
   return (

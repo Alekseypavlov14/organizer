@@ -1,4 +1,4 @@
-import { BaseEditionContext, EditionContext } from './edition.context'
+import { createBaseEditionContext, EditionContext } from './edition.context'
 import { create } from 'zustand'
 
 export interface NotionEditionState {
@@ -12,7 +12,7 @@ export interface NotionEditionActions {
 export interface NotionEditionStore extends NotionEditionState, NotionEditionActions {}
 
 export const useNotionEditionStore = create<NotionEditionStore>(set => ({
-  context: new BaseEditionContext(),
+  context: createBaseEditionContext(),
   updateContext: (context) => set(state => ({ ...state, context }))
 }))
 

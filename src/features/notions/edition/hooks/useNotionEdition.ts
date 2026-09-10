@@ -1,5 +1,5 @@
 import type { Id } from '@/shared/types/id'
-import { EditionContext, BaseEditionContext, GroupEditionContext } from '../edition.context'
+import { EditionContext, createBaseEditionContext } from '../edition.context'
 import { useNotionActions, type NotionEntity } from '@/entities/notions'
 import { useNotionEditionContextHandler } from './useNotionEditionContextHandler'
 import { useNotionEditionStore } from '../edition.store'
@@ -48,14 +48,6 @@ export function useNotionEdition() {
     store.updateContext(createBaseEditionContext())
   }
 
-  // helpers
-  function createBaseEditionContext() {
-    return new BaseEditionContext()
-  }
-  function createGroupEditionContext(id: Id) {
-    return new GroupEditionContext(id)
-  } 
-
   return ({
     saveNotion,
     deleteNotionById,
@@ -65,8 +57,5 @@ export function useNotionEdition() {
 
     updateContext,
     resetContext,
-
-    createBaseEditionContext,
-    createGroupEditionContext,
   })
 }
