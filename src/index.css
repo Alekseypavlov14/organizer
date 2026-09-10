@@ -121,3 +121,6 @@ label {
 p {
   margin: 0;
 }
+pre {
+  font: inherit;
+}

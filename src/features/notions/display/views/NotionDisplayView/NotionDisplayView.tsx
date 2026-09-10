@@ -13,7 +13,7 @@ export function NotionDisplayView() {
       gap={flexGapMedium}
     >
       <Text size={textSizeLarge}>{notion.title}</Text>
-      <Text>{notion.description}</Text>
+      <Text><pre>{notion.description}</pre></Text>
     </Flex>
   )
 }
