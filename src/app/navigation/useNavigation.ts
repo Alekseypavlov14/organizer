@@ -8,7 +8,9 @@ export function useNavigation() {
     navigateHomePage: () => navigate('/'),
     
     navigateNotionFeedPage: () => navigate('/notions'),
+    navigateNotionCreationPage: () => navigate('/notions/create'),
     navigateNotionDisplayPage: (id: Id) => navigate(`/notions/${id}`),
     navigateNotionEditionPage: (id: Id) => navigate(`/notions/${id}/edit`),
+    navigateNotionEditionSettingsPage: (id: Id) => navigate(`/notions/${id}/edit/settings`),
   })
 }
