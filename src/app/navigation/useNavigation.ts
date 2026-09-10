@@ -12,5 +12,9 @@ export function useNavigation() {
     navigateNotionDisplayPage: (id: Id) => navigate(`/notions/${id}`),
     navigateNotionEditionPage: (id: Id) => navigate(`/notions/${id}/edit`),
     navigateNotionEditionSettingsPage: (id: Id) => navigate(`/notions/${id}/edit/settings`),
+
+    navigate: (path: string) => navigate(path),
+    navigatePreviousPage: () => navigate(-1),
+    navigateBeforePreviousPage: () => navigate(-2),
   })
 }

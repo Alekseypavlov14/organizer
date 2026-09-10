@@ -17,10 +17,10 @@ export function useNotionEdition() {
   // actions
   function saveNotion(notion: NotionEntity): void {
     notionActions.saveNotion(notion)
-    notifications.createSuccessNotification('The notion is created')
+    notifications.createSuccessNotification('The notion is saved')
 
     handlers.handleSave(store.context, notion)
-    resetContext()
+    handleCompleteEdition()
   }
   function deleteNotionById(id: Id) {
     const deleted = notionActions.deleteNotionById(id)
@@ -29,9 +29,13 @@ export function useNotionEdition() {
     else return notifications.createErrorNotification('The notion is not deleted')
 
     handlers.handleDelete(store.context, deleted.id)
-    resetContext()
+    handleCompleteEdition()
   }
-  function cancel() {
+  function cancelEdition() {
+    handleCompleteEdition()
+  }
+
+  function handleCompleteEdition() {
     resetContext()
   }
 
@@ -51,8 +55,9 @@ export function useNotionEdition() {
   return ({
     saveNotion,
     deleteNotionById,
-    cancel,
+    cancelEdition,
 
+    handleCompleteEdition,
     getInitialNotion,
 
     updateContext,

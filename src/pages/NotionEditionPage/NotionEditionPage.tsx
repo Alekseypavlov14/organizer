@@ -13,8 +13,8 @@ import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
 
 export function NotionEditionPage() {
+  const { navigatePreviousPage, navigateBeforePreviousPage } = useNavigation()
   const { createErrorNotification } = useNotifications()
-  const { navigateHomePage } = useNavigation()
 
   const { notion, updateFormNotion } = useNotionForm()
   const notionEdition = useNotionEdition()
@@ -22,26 +22,26 @@ export function NotionEditionPage() {
   useNotionByIdFromQueryParams({
     success: (notion) => updateFormNotion(notion),
     failure: () => {
-      navigateHomePage()
+      navigatePreviousPage()
       createErrorNotification('The notion is not found')
     }
   })
 
-  useOnPageClosed(() => notionEdition.cancel())
+  useOnPageClosed(() => notionEdition.handleCompleteEdition())
 
   function saveNotionHandler() {
     notionEdition.saveNotion(notion)
-    navigateHomePage()
+    navigatePreviousPage()
   }
 
   function deleteNotionHandler() {
     notionEdition.deleteNotionById(notion.id)
-    navigateHomePage()
+    navigateBeforePreviousPage()
   }
 
   function cancelHandler() {
-    notionEdition.cancel()
-    navigateHomePage()
+    notionEdition.cancelEdition()
+    navigatePreviousPage()
   }
 
   return (

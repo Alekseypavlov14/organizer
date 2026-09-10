@@ -13,7 +13,7 @@ import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
 
 export function NotionDisplayPage() {
-  const { navigateHomePage, navigateNotionEditionPage, navigateNotionEditionSettingsPage } = useNavigation()
+  const { navigatePreviousPage, navigateNotionEditionPage, navigateNotionEditionSettingsPage } = useNavigation()
   const { createErrorNotification } = useNotifications()
   
   const notionDisplay = useNotionDisplay()
@@ -21,7 +21,7 @@ export function NotionDisplayPage() {
   useNotionByIdFromQueryParams({
     success: (notion) => notionDisplay.updateNotion(notion),
     failure: () => {
-      navigateHomePage()
+      navigatePreviousPage()
       createErrorNotification('The notion is not found')
     }
   })

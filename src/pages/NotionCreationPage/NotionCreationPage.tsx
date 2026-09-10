@@ -1,4 +1,4 @@
-import { FloatingAction, floatingActionVariantDanger, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
+import { FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
 import { useNotionForm, NotionContentForm } from '@/features/notions/form'
 import { useNotionEdition } from '@/features/notions/edition'
 import { FloatingActions } from '@/shared/components/FloatingActions'
@@ -12,30 +12,25 @@ import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
 
 export function NotionCreationPage() {
-  const { navigateHomePage } = useNavigation()
-
+  const { navigatePreviousPage } = useNavigation()
   const { notion, updateFormNotion } = useNotionForm()
+
   const notionEdition = useNotionEdition()
 
   useOnPageOpened(() => {
     updateFormNotion(notionEdition.getInitialNotion())
   })
 
-  useOnPageClosed(() => notionEdition.cancel())
+  useOnPageClosed(() => notionEdition.handleCompleteEdition())
 
   function saveNotionHandler() {
     notionEdition.saveNotion(notion)
-    navigateHomePage()
-  }
-
-  function deleteNotionHandler() {
-    notionEdition.deleteNotionById(notion.id)
-    navigateHomePage()
+    navigatePreviousPage()
   }
 
   function cancelHandler() {
-    notionEdition.cancel()
-    navigateHomePage()
+    notionEdition.cancelEdition()
+    navigatePreviousPage()
   }
 
   return (
@@ -51,13 +46,6 @@ export function NotionCreationPage() {
       <FloatingActions>
         <FloatingAction onClick={cancelHandler}>
           <Icon name='rotate-cw' size='l' />
-        </FloatingAction>
-        
-        <FloatingAction 
-          variant={floatingActionVariantDanger}
-          onClick={deleteNotionHandler}
-        >
-          <Icon name='trash' size='l' />
         </FloatingAction>
         
         <FloatingAction 
