@@ -1,11 +1,11 @@
-import { NotionEditionSettingsPage } from '@/pages/NotionEditionSettingsPage'
+import { NotionEditionSettingsPage } from '@/pages/notions/NotionEditionSettingsPage'
 import { defaultEntityIdParam } from './constants'
 import { createBrowserRouter } from 'react-router-dom'
-import { NotionCreationPage } from '@/pages/NotionCreationPage'
-import { NotionDisplayPage } from '@/pages/NotionDisplayPage'
-import { NotionEditionPage } from '@/pages/NotionEditionPage'
-import { NotionFeedPage } from '@/pages/NotionFeedPage'
-import { HomePage } from '@/pages/HomePage'
+import { NotionCreationPage } from '@/pages/notions/NotionCreationPage'
+import { NotionDisplayPage } from '@/pages/notions/NotionDisplayPage'
+import { NotionEditionPage } from '@/pages/notions/NotionEditionPage'
+import { NotionFeedPage } from '@/pages/notions/NotionFeedPage'
+import { HomePage } from '@/pages/shared/HomePage'
 
 export const routing = createBrowserRouter([
   {
