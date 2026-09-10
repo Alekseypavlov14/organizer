@@ -1,6 +1,5 @@
-import type { NotionLevel, NotionPriority, NotionProgress } from '@/entities/notions'
 import type { Nullable } from '@/shared/types/nullable'
-import { notionLevelOptions, notionPriorityOptions, notionProgressOptions } from '../../constants'
+import { notionLevelOptions, notionPriorityOptions, notionProgressOptions, type NotionLevel, type NotionPriority, type NotionProgress } from '@/entities/notions'
 import { Flex, flexDirectionVertical, flexGapSmall } from '@/shared/components/Flex'
 import { useNotionFormStore } from '../../form.store'
 import { Select } from '@/shared/components/Select'

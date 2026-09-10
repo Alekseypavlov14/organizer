@@ -15,7 +15,11 @@ export function NotionListItem({
       onClick={onClick}
     >
       <div className={styles.Header}>
-        <div className={styles.Title}>{notion.title}</div>
+        <div className={styles.Headline}>
+          <div className={styles.Title}>{notion.title}</div>
+          <div className={styles.Badges}></div>
+        </div>
+
         <div className={styles.Date}>{formatNotionDateTime(notion)}</div>
       </div>
       <div className={styles.Body}>

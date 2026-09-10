@@ -1,6 +1,6 @@
 import type { NotionEntity } from './notion.entity'
 import { type EntityValidator, dateValidator, durationValidator, momentValidator, timeValidator } from '../shared'
-import { notionLevelOptions, notionPriorityOptions, notionProgressOptions } from './constants'
+import { notionLevelList, notionPriorityList, notionProgressList } from './constants'
 import { isBoolean, isNull, isString } from '@/shared/utils/validation'
 import { validateId } from '@/shared/utils/id'
 
@@ -17,9 +17,9 @@ export class NotionValidator implements EntityValidator<NotionEntity> {
     if (!isNull(entity.deadline) && !momentValidator.validateModelValue(entity.deadline)) return false
     if (!isNull(entity.done) && !isBoolean(entity.done)) return false
 
-    if (!isNull(entity.priority) && !notionPriorityOptions.includes(entity.priority)) return false
-    if (!isNull(entity.progress) && !notionProgressOptions.includes(entity.progress)) return false
-    if (!isNull(entity.level) && !notionLevelOptions.includes(entity.level)) return false
+    if (!isNull(entity.priority) && !notionPriorityList.includes(entity.priority)) return false
+    if (!isNull(entity.progress) && !notionProgressList.includes(entity.progress)) return false
+    if (!isNull(entity.level) && !notionLevelList.includes(entity.level)) return false
 
     return true
   }

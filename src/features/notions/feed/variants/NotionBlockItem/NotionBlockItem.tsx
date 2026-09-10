@@ -23,8 +23,10 @@ export function NotionBlockItem({
           {notion.description}
         </div>
       </div>
+
       <div className={styles.Footer}>
         <div className={styles.Date}>{formatNotionDateTime(notion)}</div>
+        <div className={styles.Badges}></div>
       </div>
     </Palette>
   )
