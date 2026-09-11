@@ -2,11 +2,11 @@ import type { NotionFeedStore } from '../../feed.store'
 import type { NotionEntity } from '@/entities/notions'
 import { Flex, flexAlignCenter, flexDirectionVertical, flexGapMedium, flexJustifySpaceBetween } from '@/shared/components/Flex'
 import { notionFeedDefaultTitle } from '../../constants'
+import { NotionFeedPlaceholder } from '../../components/NotionFeedPlaceholder'
 import { NotionVariantControl } from '../NotionVariantControl'
 import { NotionFeedProvider } from '../../providers/NotionFeedProvider'
 import { NotionItems } from '../../views/NotionItems'
 import { Text } from '@/shared/components/Text'
-import styles from './NotionFeed.module.css'
 
 interface NotionFeedProps {
   store: NotionFeedStore
@@ -24,7 +24,6 @@ export function NotionFeed({
   return (
     <NotionFeedProvider store={store}>
       <Flex 
-        className={styles.NotionFeed}
         direction={flexDirectionVertical}
         gap={flexGapMedium}
       >
@@ -38,6 +37,10 @@ export function NotionFeed({
         </Flex>
   
         <NotionItems onNotionClick={onNotionClick} />
+
+        {store.notions.length === 0 ? (
+          <NotionFeedPlaceholder />
+        ) : null}
       </Flex>
     </NotionFeedProvider>
   )
