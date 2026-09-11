@@ -5,7 +5,10 @@
 }
 
 .Header {
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 10px;
 }
 .Title {
   font-size: 14px;

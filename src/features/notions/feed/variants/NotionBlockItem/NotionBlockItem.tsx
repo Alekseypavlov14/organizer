@@ -1,5 +1,8 @@
 import type { AbstractNotionItemProps } from '../../types/AbstractNotionItemProps'
 import { formatNotionDateTime, NotionLevelBadge, NotionPriorityBadge, NotionProgressBadge } from '@/features/notions/shared'
+import { useNotionActions } from '@/entities/notions'
+import { StopPropagation } from '@/shared/components/StopPropagation'
+import { Checkbox } from '@/shared/components/Checkbox'
 import { Palette } from '@/shared/components/Palette'
 import { isNull } from '@/shared/utils/validation'
 import styles from './NotionBlockItem.module.css'
@@ -10,9 +13,9 @@ export function NotionBlockItem({
   notion,
   onClick = () => {}
 }: NotionBlockItemProps) {
+  const { saveNotion } = useNotionActions()
+
   const formattedDate = formatNotionDateTime(notion)
-  
-  const showBadges = !isNull(notion.priority) || !isNull(notion.progress) || !isNull(notion.level) 
   
   return (
     <Palette 
@@ -21,19 +24,26 @@ export function NotionBlockItem({
     >
       <div className={styles.Header}>
         <div className={styles.Title}>{notion.title}</div>
+        
+        {!isNull(notion.done) ? (
+          <StopPropagation>
+            <Checkbox
+              onCheckedChange={(done) => saveNotion({ ...notion, done })}
+              checked={notion.done}
+            />
+          </StopPropagation>
+        ) : null}
       </div>
 
       <div className={styles.Body}>
         {notion.description ? (<div className={styles.Description}>{notion.description}</div>) : null}
       </div>
 
-      {showBadges ? (
-        <div className={styles.Badges}>
-          {!isNull(notion.priority) ? <NotionPriorityBadge priority={notion.priority} /> : null}
-          {!isNull(notion.progress) ? <NotionProgressBadge progress={notion.progress} /> : null}
-          {!isNull(notion.level) ? <NotionLevelBadge level={notion.level} /> : null}
-        </div>
-      ) : null}
+      <div className={styles.Badges}>
+        {!isNull(notion.priority) ? <NotionPriorityBadge priority={notion.priority} /> : null}
+        {!isNull(notion.progress) ? <NotionProgressBadge progress={notion.progress} /> : null}
+        {!isNull(notion.level) ? <NotionLevelBadge level={notion.level} /> : null}
+      </div>
 
       <div className={styles.Footer}>
         {formattedDate ? (<div className={styles.Date}>{formattedDate}</div>) : null}
