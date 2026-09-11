@@ -1,17 +1,15 @@
+import type { NotionDeleteByIdCallback } from '../types/NotionDeleteByIdCallback'
+import type { NotionSaveCallback } from '../types/NotionSaveCallback'
 import type { Id } from '@/shared/types/id'
-import { EditionContext, createBaseEditionContext } from '../edition.context'
 import { useNotionActions, type NotionEntity } from '@/entities/notions'
-import { useNotionEditionContextHandler } from './useNotionEditionContextHandler'
 import { useNotionEditionStore } from '../edition.store'
 import { useNotifications } from '@/app/notifications'
 import { initialNotion } from '../constants'
 
 export function useNotionEdition() {
   const notifications = useNotifications()
-    
-  const notionActions = useNotionActions()
-  const handlers = useNotionEditionContextHandler()
 
+  const notionActions = useNotionActions()
   const store = useNotionEditionStore()
 
   // actions
@@ -19,7 +17,7 @@ export function useNotionEdition() {
     notionActions.saveNotion(notion)
     notifications.createSuccessNotification('The notion is saved')
 
-    handlers.handleSave(store.context, notion)
+    store.onNotionSave(notion)
     handleCompleteEdition()
   }
   function deleteNotionById(id: Id) {
@@ -28,28 +26,33 @@ export function useNotionEdition() {
     if (deleted) notifications.createInfoNotification('The notion is deleted')
     else return notifications.createErrorNotification('The notion is not deleted')
 
-    handlers.handleDelete(store.context, deleted.id)
+    store.onNotionDeleteById(id)
     handleCompleteEdition()
   }
   function cancelEdition() {
+    store.onNotionCancel()
     handleCompleteEdition()
   }
 
   function handleCompleteEdition() {
-    resetContext()
+    resetCallbacks()
+  }
+
+  // callbacks
+  function updateOnNotionSaveCallback(onNotionSave: NotionSaveCallback) {
+    store.updateOnNotionSave(onNotionSave)
+  }
+  function updateOnNotionDeleteByIdCallback(onNotionDeleteById: NotionDeleteByIdCallback) {
+    store.updateOnNotionDeleteById(onNotionDeleteById)
+  }
+  function resetCallbacks() {
+    store.updateOnNotionSave(() => {})
+    store.updateOnNotionDeleteById(() => {})
   }
 
   // notions
   function getInitialNotion(): NotionEntity {
     return initialNotion
-  }
-
-  // context 
-  function updateContext(context: EditionContext) {
-    store.updateContext(context)
-  }
-  function resetContext() {
-    store.updateContext(createBaseEditionContext())
   }
 
   return ({
@@ -58,9 +61,10 @@ export function useNotionEdition() {
     cancelEdition,
 
     handleCompleteEdition,
-    getInitialNotion,
 
-    updateContext,
-    resetContext,
+    updateOnNotionSaveCallback,
+    updateOnNotionDeleteByIdCallback,
+
+    getInitialNotion,
   })
 }
