@@ -25,15 +25,15 @@ export function NotionBlockItem({
 
       <div className={styles.Body}>
         {notion.description ? (<div className={styles.Description}>{notion.description}</div>) : null}
-
-        {showBadges ? (
-          <div className={styles.Badges}>
-            {!isNull(notion.priority) ? <NotionPriorityBadge priority={notion.priority} /> : null}
-            {!isNull(notion.progress) ? <NotionProgressBadge progress={notion.progress} /> : null}
-            {!isNull(notion.level) ? <NotionLevelBadge level={notion.level} /> : null}
-          </div>
-        ) : null}
       </div>
+
+      {showBadges ? (
+        <div className={styles.Badges}>
+          {!isNull(notion.priority) ? <NotionPriorityBadge priority={notion.priority} /> : null}
+          {!isNull(notion.progress) ? <NotionProgressBadge progress={notion.progress} /> : null}
+          {!isNull(notion.level) ? <NotionLevelBadge level={notion.level} /> : null}
+        </div>
+      ) : null}
 
       <div className={styles.Footer}>
         {formattedDate ? (<div className={styles.Date}>{formattedDate}</div>) : null}

@@ -21,8 +21,6 @@ export function NotionListItem({
     >
       <div className={styles.Header}>
         <div className={styles.Title}>{notion.title}</div>
-
-        {formattedDate ? (<div className={styles.Date}>{formattedDate}</div>) : null}
       </div>
 
       <div className={styles.Body}>
@@ -36,6 +34,8 @@ export function NotionListItem({
           {!isNull(notion.level) ? <NotionLevelBadge level={notion.level} /> : null}
         </div>
       ) : null}
+        
+      {formattedDate ? (<div className={styles.Date}>{formattedDate}</div>) : null}
     </Palette>
   )
 }
