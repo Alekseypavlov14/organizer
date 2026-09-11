@@ -1,5 +1,5 @@
 .Checkbox {
-  --size: 16px;
+  --size: 20px;
 
   width: var(--size);
   height: var(--size);
@@ -10,7 +10,7 @@
 
   background-color: var(--control-background-color);
   border: 1px solid var(--control-border-color);
-  border-radius: 4px;
+  border-radius: 6px;
 
   overflow: hidden;
   position: relative;

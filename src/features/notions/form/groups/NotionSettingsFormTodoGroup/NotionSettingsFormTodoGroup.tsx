@@ -31,27 +31,31 @@ export function NotionSettingsFormTodoGroup() {
       gap={flexGapSmall}
     >
       <Flex align={flexAlignCenter} gap={flexGapMedium}>
-        <Flex align={flexAlignCenter} gap={flexGapSmall}>
-          <Switch 
-            onCheckedChange={onNotionTodoModeChanged}
-            checked={isNotionTodoModeEnabled}
-          />
-  
-          <Text>Todo mode</Text>
-        </Flex>
+        <label>
+          <Flex align={flexAlignCenter} gap={flexGapSmall}>
+            <Switch 
+              onCheckedChange={onNotionTodoModeChanged}
+              checked={isNotionTodoModeEnabled}
+            />
+    
+            <Text>Todo mode</Text>
+          </Flex>
+        </label>
   
         {isNotionTodoModeEnabled && !isNull(notion.done) ? (
           <>
             <Separation direction={separationDirectionHorizontal} /> 
   
-            <Flex align={flexAlignCenter} gap={flexGapSmall}>
-              <Checkbox 
-                onCheckedChange={updateDone}
-                checked={notion.done}
-              />
-
-              <Text>Completed</Text>
-            </Flex>
+            <label>
+              <Flex align={flexAlignCenter} gap={flexGapSmall}>
+                <Checkbox 
+                  onCheckedChange={updateDone}
+                  checked={notion.done}
+                />
+  
+                <Text>Completed</Text>
+              </Flex>
+            </label>
           </>
         ) : null}
       </Flex>

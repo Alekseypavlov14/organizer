@@ -1,5 +1,5 @@
 import { useId, type ComponentProps } from 'react'
-import { iconSizeSmall } from '../Icon/constants'
+import { iconSizeMedium } from '../Icon/constants'
 import { merge } from '@/shared/utils/functions'
 import { Icon } from '../Icon'
 import clsx from 'clsx'
@@ -40,7 +40,7 @@ export function Checkbox({
         <Icon 
           name='check' 
           className={styles.Check} 
-          size={iconSizeSmall}
+          size={iconSizeMedium}
         />  
       </div>
     </label>

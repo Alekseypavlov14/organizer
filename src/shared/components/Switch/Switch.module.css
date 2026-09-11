@@ -1,6 +1,6 @@
 .Switch {
-  --width: 32px;
-  --dot: 10px;
+  --width: 40px;
+  --dot: 14px;
   --padding: 2px;
 
   width: var(--width);
