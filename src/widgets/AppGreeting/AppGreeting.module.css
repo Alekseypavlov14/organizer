@@ -1,0 +1,9 @@
+.AppGreeting {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.Date {
+  margin-bottom: 5px;
+  color: var(--grey-500);
+}

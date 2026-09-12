@@ -1,9 +1,13 @@
+import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { FloatingActions } from '@/shared/components/FloatingActions'
 import { FloatingAction } from '@/shared/components/FloatingAction'
 import { useNavigation } from '@/app/navigation'
+import { AppGreeting } from '@/widgets/AppGreeting'
 import { PageLayout } from '@/app/layouts'
+import { Container } from '@/shared/components/Container'
 import { AppHeader } from '@/widgets/AppHeader'
 import { Icon } from '@/shared/components/Icon'
+import { Main } from '@/shared/components/Main'
 
 export function HomePage() {
   const { navigateNotionFeedPage } = useNavigation()
@@ -11,6 +15,17 @@ export function HomePage() {
   return (
     <PageLayout>
       <AppHeader />
+      
+      <Main>
+        <Container>
+          <Flex
+            direction={flexDirectionVertical}
+            gap={flexGapMedium}
+          >
+            <AppGreeting />
+          </Flex>
+        </Container>
+      </Main>
 
       <FloatingActions>
         <FloatingAction onClick={navigateNotionFeedPage}>
