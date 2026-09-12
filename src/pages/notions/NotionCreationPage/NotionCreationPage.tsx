@@ -1,5 +1,8 @@
 import { FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
 import { useNotionForm, NotionContentForm } from '@/features/notions/form'
+import { useConfirmationCancelModal } from './confirmation.feature'
+import { buttonVariantDanger } from '@/shared/components/Button'
+import { ConfirmationModal } from '@/features/shared/modals'
 import { useNotionEdition } from '@/features/notions/edition'
 import { FloatingActions } from '@/shared/components/FloatingActions'
 import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
@@ -16,6 +19,8 @@ export function NotionCreationPage() {
   const { notion, updateFormNotion } = useNotionForm()
 
   const notionEdition = useNotionEdition()
+
+  const confirmationCancelModal = useConfirmationCancelModal()
 
   useOnPageOpened(() => {
     updateFormNotion(notionEdition.getInitialNotion())
@@ -43,8 +48,17 @@ export function NotionCreationPage() {
         </Container>
       </Main>
 
+      <ConfirmationModal 
+        title='Do you want to cancel this edition?'
+        model={confirmationCancelModal}
+        onConfirm={cancelHandler} 
+        variant={buttonVariantDanger}
+        cancelButton='Continue'
+        confirmButton='Cancel'
+      />
+
       <FloatingActions>
-        <FloatingAction onClick={cancelHandler}>
+        <FloatingAction onClick={confirmationCancelModal.open}>
           <Icon name='rotate-ccw' size='l' />
         </FloatingAction>
         

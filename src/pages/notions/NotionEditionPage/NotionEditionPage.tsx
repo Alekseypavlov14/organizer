@@ -1,6 +1,9 @@
 import { FloatingAction, floatingActionVariantDanger, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
+import { useConfirmationCancelModal, useConfirmationDeleteModal } from './confirmation.feature'
 import { NotionContentForm, useNotionForm } from '@/features/notions/form'
 import { useNotionByIdFromQueryParams } from '@/features/notions/shared'
+import { buttonVariantDanger } from '@/shared/components/Button'
+import { ConfirmationModal } from '@/features/shared/modals'
 import { useNotionEdition } from '@/features/notions/edition'
 import { useNotifications } from '@/app/notifications'
 import { FloatingActions } from '@/shared/components/FloatingActions'
@@ -18,6 +21,9 @@ export function NotionEditionPage() {
 
   const { notion, updateFormNotion } = useNotionForm()
   const notionEdition = useNotionEdition()
+
+  const confirmationDeleteModal = useConfirmationDeleteModal()
+  const confirmationCancelModal = useConfirmationCancelModal()
 
   useNotionByIdFromQueryParams({
     success: (notion) => updateFormNotion(notion),
@@ -53,15 +59,31 @@ export function NotionEditionPage() {
           <NotionContentForm />
         </Container>
       </Main>
+
+      <ConfirmationModal 
+        title='Do you want to cancel this edition?'
+        model={confirmationCancelModal}
+        onConfirm={cancelHandler} 
+        variant={buttonVariantDanger}
+        cancelButton='Continue'
+        confirmButton='Cancel'
+      />
+
+      <ConfirmationModal 
+        title='Do you want to delete this notion?'
+        model={confirmationDeleteModal}
+        onConfirm={deleteNotionHandler} 
+        variant={buttonVariantDanger}
+      />
       
       <FloatingActions>
-        <FloatingAction onClick={cancelHandler}>
+        <FloatingAction onClick={confirmationCancelModal.open}>
           <Icon name='rotate-ccw' size='l' />
         </FloatingAction>
         
         <FloatingAction 
           variant={floatingActionVariantDanger}
-          onClick={deleteNotionHandler}
+          onClick={confirmationDeleteModal.open}
         >
           <Icon name='trash' size='l' />
         </FloatingAction>
