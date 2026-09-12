@@ -7,10 +7,6 @@ import { useNotionActions } from '../notions'
 export function useGroupActions() {
   const notionActions = useNotionActions()
 
-  function getGroups(): GroupEntity[] {
-    return groupEntityStorage.getAll()
-  }
-
   function saveGroup(group: GroupEntity): GroupEntity {
     return groupEntityStorage.save(group)
   }
@@ -48,10 +44,10 @@ export function useGroupActions() {
   }
 
   return ({ 
-    getGroups,
     saveGroup,
     getGroupById,
     deleteGroupById,
+    
     addNotionToGroupById,
     removeNotionFromGroupById,
   })
