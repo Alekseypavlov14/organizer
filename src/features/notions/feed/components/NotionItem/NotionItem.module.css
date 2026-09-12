@@ -1,4 +1,4 @@
-.NotionListItem {
+.NotionItem {
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
@@ -7,19 +7,13 @@
 .Header {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   gap: 10px;
 }
 .Title {
   font-size: 14px;
   font-weight: 500;
   color: var(--grey-100);
-}
-.Date {
-  margin-top: 10px;
-  flex: 0 0 auto;
-  color: var(--grey-500);
-  font-size: 8px;
 }
 
 .Body {
@@ -42,4 +36,11 @@
 }
 .Badges:empty {
   display: none;
+}
+
+.Date {
+  margin-top: 10px;
+  flex: 0 0 auto;
+  color: var(--grey-500);
+  font-size: 8px;
 }

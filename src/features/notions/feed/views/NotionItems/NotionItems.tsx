@@ -20,7 +20,6 @@ export function NotionItems({
         <NotionItem 
           notion={notion} 
           onClick={() => onNotionClick(notion)} 
-          variant={variant} 
           key={notion.id}
         />
       ))}
