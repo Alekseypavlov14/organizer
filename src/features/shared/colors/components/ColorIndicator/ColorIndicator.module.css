@@ -1,0 +1,10 @@
+.ColorIndicator {
+  --size: 14px;
+
+  width: var(--size);
+  height: var(--size);
+  flex: 0 0 var(--size);
+  border-radius: var(--size);
+
+  background-color: var(--color);
+}

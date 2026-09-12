@@ -1,4 +1,5 @@
 import type { GroupEntity } from '@/entities/groups'
+import { ColorIndicator } from '@/features/shared/colors'
 import { Palette } from '@/shared/components/Palette'
 import styles from './GroupItem.module.css'
 
@@ -17,6 +18,8 @@ export function GroupItem({
       onClick={onClick}
     >
       <div className={styles.Header}>
+        <ColorIndicator color={group.color} />
+
         <div className={styles.Title}>{group.title}</div>
       </div>
     </Palette>
