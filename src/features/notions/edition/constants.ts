@@ -4,7 +4,7 @@ import { generateId } from '@/shared/utils/id'
 export const initialNotion: NotionEntity = {
   id: generateId(),
     
-  title: 'New Entity',
+  title: '',
   description: null,
 
   date: null,

@@ -25,6 +25,12 @@
 .Description {
   font-size: 10px;
   color: var(--grey-500);
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
 }
 
 .Badges {

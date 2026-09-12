@@ -8,6 +8,7 @@ export class NotionValidator implements EntityValidator<NotionEntity> {
   validateEntity(entity: NotionEntity): boolean {
     if (!validateId(entity.id)) return false 
 
+    if (!isNull(entity.title) && !isString(entity.title)) return false
     if (!isNull(entity.description) && !isString(entity.description)) return false
 
     if (!isNull(entity.date) && !dateValidator.validateModelValue(entity.date)) return false
