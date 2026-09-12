@@ -2,6 +2,7 @@ import type { GroupFeedStore } from '../../feed.store'
 import type { GroupEntity } from '@/entities/groups'
 import { Flex, flexAlignCenter, flexDirectionVertical, flexGapMedium, flexJustifySpaceBetween } from '@/shared/components/Flex'
 import { groupFeedDefaultTitle } from '../../constants'
+import { GroupFeedPlaceholder } from '../../components/GroupFeedPlaceholder'
 import { GroupFeedProvider } from '../../providers/GroupFeedProvider'
 import { GroupFeedItems } from '../../views/GroupFeedItems'
 import { Text } from '@/shared/components/Text'
@@ -33,6 +34,10 @@ export function GroupFeed({
         </Flex>
 
         <GroupFeedItems onGroupClick={onGroupClick} />
+
+        {store.groups.length === 0 ? (
+          <GroupFeedPlaceholder />
+        ) : null}
       </Flex>
     </GroupFeedProvider>
   )

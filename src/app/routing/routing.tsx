@@ -5,6 +5,7 @@ import { NotionCreationPage } from '@/pages/notions/NotionCreationPage'
 import { NotionDisplayPage } from '@/pages/notions/NotionDisplayPage'
 import { NotionEditionPage } from '@/pages/notions/NotionEditionPage'
 import { NotionFeedPage } from '@/pages/notions/NotionFeedPage'
+import { GroupFeedPage } from '@/pages/groups/GroupFeedPage'
 import { HomePage } from '@/pages/shared/HomePage'
 
 export const routing = createBrowserRouter([
@@ -32,5 +33,22 @@ export const routing = createBrowserRouter([
   {
     path: `/notions/:${defaultEntityIdParam}/edit/settings`,
     element: <NotionEditionSettingsPage />,
-  }
+  },
+
+  {
+    path: '/groups',
+    element: <GroupFeedPage />
+  },
+  {
+    path: '/groups/create',
+  },
+  {
+    path: `/groups/:${defaultEntityIdParam}`,
+  },
+  {
+    path: `/groups/:${defaultEntityIdParam}/edit`,
+  },
+  {
+    path: `/groups/:${defaultEntityIdParam}/edit/settings`,
+  },
 ])
