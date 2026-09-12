@@ -22,7 +22,8 @@
   --red: #F74820;
 
   /* layers */
-  --notifications-z-index: 15;
+  --notifications-z-index: 20;
+  --modal-z-index: 15;
   --header-z-index: 10;
   --sidebar-z-index: 5;
   --action-button-z-index: 3;
