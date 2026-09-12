@@ -1,1 +1,3 @@
-/* .NotionDisplayView {} */
+.NotionDisplayView pre {
+  white-space: break-spaces;
+}

@@ -45,7 +45,7 @@ export function NotionCreationPage() {
 
       <FloatingActions>
         <FloatingAction onClick={cancelHandler}>
-          <Icon name='rotate-cw' size='l' />
+          <Icon name='rotate-ccw' size='l' />
         </FloatingAction>
         
         <FloatingAction 
