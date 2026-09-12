@@ -1,31 +1,22 @@
-import { notionFeedVariantBlock, notionFeedVariantList } from '../../constants'
-import { Flex, flexAlignCenter } from '@/shared/components/Flex'
+import type { Option } from '@/shared/types/option'
+import { notionFeedVariantBlock, notionFeedVariantList, type NotionFeedVariant } from '../../constants'
 import { useNotionFeedContext } from '../../hooks/useNotionFeedContext'
+import { ToggleGroup } from '@/shared/components/ToggleGroup'
 import { Icon } from '@/shared/components/Icon'
-import styles from './NotionVariantControl.module.css'
-import clsx from 'clsx'
+
+const options: Option<NotionFeedVariant>[] = [
+  { label: <Icon name="list" />, value: notionFeedVariantList },
+  { label: <Icon name="grid" />, value: notionFeedVariantBlock },
+]
 
 export function NotionVariantControl() {
   const { variant, updateVariant } = useNotionFeedContext()
 
   return (
-    <Flex 
-      className={clsx(styles.Control)}
-      align={flexAlignCenter} 
-    >
-      <div
-        className={clsx(styles.Option, variant === notionFeedVariantList && styles.Active)}
-        onClick={() => updateVariant(notionFeedVariantList)}
-      >
-        <Icon name="list" />
-      </div>
-
-      <div
-        className={clsx(styles.Option, variant === notionFeedVariantBlock && styles.Active)}
-        onClick={() => updateVariant(notionFeedVariantBlock)}
-      >
-        <Icon name="grid" />
-      </div>
-    </Flex>
+    <ToggleGroup 
+      options={options}
+      onChange={option => updateVariant(option.value)}
+      value={variant}
+    />
   )
 }

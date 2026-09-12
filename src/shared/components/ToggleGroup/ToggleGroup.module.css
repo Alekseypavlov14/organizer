@@ -1,7 +1,8 @@
-.Control {
+.ToggleGroup {
   --control-radius: 8px;
   --option-padding: 8px;
 
+  display: flex;
   background-color: var(--control-background-color);
   border-radius: var(--control-radius);
   box-shadow: var(--shadow);

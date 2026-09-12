@@ -1,5 +1,5 @@
 import type { Option } from '@/shared/types/option'
-import { useRef, useState, type ComponentProps, type MouseEvent } from 'react'
+import { useRef, useState, type ComponentProps, type MouseEvent, type ReactNode } from 'react'
 import { Flex, flexAlignCenter, flexGapSmall } from '../Flex'
 import { getTextSizeModifier, type TextSize } from '../Text'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
@@ -14,7 +14,7 @@ interface SelectProps<T> extends ComponentProps<'div'> {
   onValueChange?: (value: T) => void
   onValueReset?: () => void
 
-  format?: (value: Option<T>) => string
+  format?: (value: Option<T>) => ReactNode
   placeholder?: string
 
   textSize?: TextSize
