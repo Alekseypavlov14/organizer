@@ -6,11 +6,11 @@ import styles from './NotionItems.module.css'
 import clsx from 'clsx'
 
 interface NotionItemsProps {
-  onNotionClick: (notion: NotionEntity) => void
+  onNotionClick?: (notion: NotionEntity) => void
 }
 
 export function NotionItems({
-  onNotionClick,
+  onNotionClick = () => {},
 }: NotionItemsProps) {
   const { notions, variant } = useNotionFeedContext()
 
