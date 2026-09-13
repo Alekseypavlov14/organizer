@@ -1,1 +1,1 @@
-export const groupFeedDefaultTitle = "Groups"
+export const groupFeedDefaultPlaceholder = 'No items created'

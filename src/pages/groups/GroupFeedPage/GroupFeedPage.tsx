@@ -1,15 +1,16 @@
 import { FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
+import { GroupFeed, GroupFeedHeader, GroupFeedItems } from '@/features/groups/feed'
 import { groupsSelector, useGroupsStore } from '@/entities/groups'
 import { FloatingActions } from '@/shared/components/FloatingActions'
 import { useNavigation } from '@/app/navigation'
 import { useGroupFeed } from './feed.feature'
 import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
-import { GroupFeed } from '@/features/groups/feed'
 import { AppHeader } from '@/widgets/AppHeader'
 import { useEffect } from 'react'
 import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
+import { Text } from '@/shared/components/Text'
 
 export function GroupFeedPage() {
   const { navigateGroupCreationPage, navigateGroupDisplayPage } = useNavigation()
@@ -25,10 +26,13 @@ export function GroupFeedPage() {
 
       <Main>
         <Container stretch>
-          <GroupFeed 
-            onGroupClick={(group) => navigateGroupDisplayPage(group.id)}
-            store={groupFeed.store}
-          />
+          <GroupFeed store={groupFeed.store}>
+            <GroupFeedHeader>
+              <Text size='l'>Groups</Text>
+            </GroupFeedHeader>
+
+            <GroupFeedItems onGroupClick={(group) => navigateGroupDisplayPage(group.id)} />
+          </GroupFeed>
         </Container>
       </Main>
 

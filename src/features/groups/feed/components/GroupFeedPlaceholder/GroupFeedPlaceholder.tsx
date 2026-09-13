@@ -1,10 +1,15 @@
+import type { ReactNode } from 'react'
 import { Placeholder } from '@/shared/components/Placeholder'
 import { Text } from '@/shared/components/Text'
 
-export function GroupFeedPlaceholder() {
+interface GroupFeedPlaceholderProps {
+  children?: ReactNode
+}
+
+export function GroupFeedPlaceholder({ children }: GroupFeedPlaceholderProps) {
   return (
     <Placeholder>
-      <Text>No items created</Text>
+      <Text>{children}</Text>
     </Placeholder>
   )
 }
