@@ -26,7 +26,7 @@ export function GroupFeedItems({
         />
       ))}
 
-      {groups.length === 0 ? (
+      {groups.length <= 0 ? (
         <GroupFeedPlaceholder>
           {placeholder}
         </GroupFeedPlaceholder>

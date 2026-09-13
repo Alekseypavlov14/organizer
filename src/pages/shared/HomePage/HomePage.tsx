@@ -21,7 +21,7 @@ import { Main } from '@/shared/components/Main'
 import { Text } from '@/shared/components/Text'
 
 export function HomePage() {
-  const { navigateNotionFeedPage } = useNavigation()
+  const { navigateNotionFeedPage, navigateGroupFeedPage } = useNavigation()
 
   const calendar = useCalendar()
 
@@ -116,6 +116,10 @@ export function HomePage() {
       </Main>
 
       <FloatingActions>
+        <FloatingAction onClick={navigateGroupFeedPage}>
+          <Icon name="folder" size='l' />
+        </FloatingAction>
+
         <FloatingAction onClick={navigateNotionFeedPage}>
           <Icon name="list" size='l' />
         </FloatingAction>
