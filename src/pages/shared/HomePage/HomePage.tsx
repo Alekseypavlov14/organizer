@@ -1,4 +1,5 @@
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
+import { CalendarWeekControl } from '@/features/shared/calendars'
 import { FloatingActions } from '@/shared/components/FloatingActions'
 import { FloatingAction } from '@/shared/components/FloatingAction'
 import { useNavigation } from '@/app/navigation'
@@ -23,6 +24,11 @@ export function HomePage() {
             gap={flexGapMedium}
           >
             <AppGreeting />
+
+            <CalendarWeekControl 
+              value={Date.now()}
+              weekStart={Date.now()}
+            />
           </Flex>
         </Container>
       </Main>

@@ -15,7 +15,7 @@ export function Text({
 }: TextProps) {
   return (
     <div 
-      className={clsx(styles.Text, getTextSizeModifier(size))}
+      className={clsx(styles.Text, getTextSizeModifier(size), className)}
       {...props}
     >
       {children}

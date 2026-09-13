@@ -1,3 +1,5 @@
+import type { Timestamp } from '@/shared/utils/datetime'
+
 export interface DateModel {
-  value: number
+  value: Timestamp
 }
