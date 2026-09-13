@@ -3,4 +3,4 @@ export type NotionFeedVariant = 'list' | 'block'
 export const notionFeedVariantList: NotionFeedVariant = 'list'
 export const notionFeedVariantBlock: NotionFeedVariant = 'block'
 
-export const notionFeedDefaultTitle = 'Notions'
+export const notionFeedDefaultPlaceholder = 'No items here'
