@@ -1,6 +1,6 @@
 import { notionPriorityImportant, notionPriorityUrgent, useNotionsStoreFilter } from '@/entities/notions'
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
-import { NotionFeed, NotionFeedHeader, NotionItems } from '@/features/notions/feed'
+import { NotionFeed, NotionFeedHeader, NotionFeedItems } from '@/features/notions/feed'
 import { useNotionImportantFeed, useNotionUrgentFeed } from './feed.feature'
 import { CalendarWeekControl } from '@/features/shared/calendars'
 import { FloatingActions } from '@/shared/components/FloatingActions'
@@ -49,7 +49,7 @@ export function HomePage() {
                 <Text size='l'>Important</Text>
               </NotionFeedHeader>
 
-              <NotionItems />
+              <NotionFeedItems />
             </NotionFeed>
 
             <NotionFeed store={notionUrgentFeed.store}>
@@ -57,7 +57,7 @@ export function HomePage() {
                 <Text size='l'>Urgent</Text>
               </NotionFeedHeader>
               
-              <NotionItems />
+              <NotionFeedItems />
             </NotionFeed>
           </Flex>
         </Container>

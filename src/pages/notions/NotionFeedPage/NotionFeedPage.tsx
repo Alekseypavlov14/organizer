@@ -1,4 +1,4 @@
-import { NotionFeed, NotionFeedHeader, NotionItems, NotionVariantControl } from '@/features/notions/feed'
+import { NotionFeed, NotionFeedHeader, NotionFeedItems, NotionVariantControl } from '@/features/notions/feed'
 import { FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
 import { notionsSelector, useNotionsStore } from '@/entities/notions'
 import { FloatingActions } from '@/shared/components/FloatingActions'
@@ -33,7 +33,7 @@ export function NotionFeedPage() {
               <NotionVariantControl />
             </NotionFeedHeader>
 
-            <NotionItems onNotionClick={(notion) => navigateNotionDisplayPage(notion.id)} />
+            <NotionFeedItems onNotionClick={(notion) => navigateNotionDisplayPage(notion.id)} />
           </NotionFeed>
         </Container>
       </Main>

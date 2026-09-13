@@ -4,7 +4,7 @@ import { mapNotionFeedVariantToClassName } from './constants'
 import { NotionFeedPlaceholder } from '../../components/NotionFeedPlaceholder'
 import { useNotionFeedContext } from '../../hooks/useNotionFeedContext'
 import { NotionItem } from '../../components/NotionItem/NotionItem'
-import styles from './NotionItems.module.css'
+import styles from './NotionFeedItems.module.css'
 import clsx from 'clsx'
 
 interface NotionItemsProps {
@@ -12,14 +12,14 @@ interface NotionItemsProps {
   placeholder?: ReactNode
 }
 
-export function NotionItems({
+export function NotionFeedItems({
   onNotionClick = () => {},
   placeholder,
 }: NotionItemsProps) {
   const { notions, variant } = useNotionFeedContext()
 
   return (
-    <div className={clsx(styles.NotionItems, mapNotionFeedVariantToClassName[variant])}>
+    <div className={clsx(styles.NotionFeedItems, mapNotionFeedVariantToClassName[variant])}>
       {notions.map(notion => (
         <NotionItem 
           notion={notion} 
