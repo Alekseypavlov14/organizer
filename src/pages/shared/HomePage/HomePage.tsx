@@ -1,13 +1,14 @@
 import { notionPriorityImportant, notionPriorityUrgent, useNotionsStoreFilter } from '@/entities/notions'
+import { useNotionImportantFeed, useNotionOtherFeed, useNotionUrgentFeed } from './feed.feature'
 import { Flex, flexDirectionVertical, flexGapLarge, flexGapMedium } from '@/shared/components/Flex'
 import { NotionFeed, NotionFeedHeader, NotionFeedItems } from '@/features/notions/feed'
-import { useNotionImportantFeed, useNotionUrgentFeed } from './feed.feature'
 import { CalendarWeekControl } from '@/features/shared/calendars'
 import { FloatingActions } from '@/shared/components/FloatingActions'
 import { useOnPageOpened } from '@/shared/hooks/useOnPageOpened'
 import { FloatingAction } from '@/shared/components/FloatingAction'
 import { isTheSameDate } from '@/shared/utils/datetime'
 import { useNavigation } from '@/app/navigation'
+import { Placeholder } from '@/shared/components/Placeholder'
 import { AppGreeting } from '@/widgets/AppGreeting'
 import { useCalendar } from './calendar.feature'
 import { PageLayout } from '@/app/layouts'
@@ -24,29 +25,31 @@ export function HomePage() {
 
   const calendar = useCalendar()
 
-  const notionImportantFeed = useNotionImportantFeed()
-  const notionsImportant = useNotionsStoreFilter(notion => notion.priority === notionPriorityImportant)
-
   const notionUrgentFeed = useNotionUrgentFeed()
-  const notionsUrgent = useNotionsStoreFilter(notion => notion.priority === notionPriorityUrgent)
+  const notionImportantFeed = useNotionImportantFeed()
+  const notionOtherFeed = useNotionOtherFeed()
+
+  const notionsInSelectedDate = useNotionsStoreFilter(notion => (
+    !isNull(notion.date) && isTheSameDate(notion.date?.value, calendar.store.selectedDate)
+  ), [calendar.store.selectedDate])
 
   useEffect(() => {
-    const notionsImportantInSelectedDate = notionsImportant.filter(notion => (
-      !isNull(notion.date) && 
-      isTheSameDate(notion.date?.value, calendar.store.selectedDate)
-    ))
-
-    notionImportantFeed.updateNotions(notionsImportantInSelectedDate)
-  }, [notionsImportant, calendar.store.selectedDate])
-
-  useEffect(() => {
-    const notionsUrgentInSelectedDate = notionsUrgent.filter(notion => (
-      !isNull(notion.date) && 
-      isTheSameDate(notion.date?.value, calendar.store.selectedDate)
-    ))
-
+    const notionsUrgentInSelectedDate = notionsInSelectedDate.filter(notion => notion.priority === notionPriorityUrgent)
     notionUrgentFeed.updateNotions(notionsUrgentInSelectedDate)
-  }, [notionsUrgent, calendar.store.selectedDate])
+  }, [notionsInSelectedDate, calendar.store.selectedDate])
+
+  useEffect(() => {
+    const notionsImportantInSelectedDate = notionsInSelectedDate.filter(notion => notion.priority === notionPriorityImportant)
+    notionImportantFeed.updateNotions(notionsImportantInSelectedDate)
+  }, [notionsInSelectedDate, calendar.store.selectedDate])
+
+  useEffect(() => {
+    const notionsImportantInSelectedDate = notionsInSelectedDate.filter(notion => (
+      notion.priority !== notionPriorityUrgent &&
+      notion.priority !== notionPriorityImportant
+    ))
+    notionImportantFeed.updateNotions(notionsImportantInSelectedDate)
+  }, [notionsInSelectedDate, calendar.store.selectedDate])
 
   useOnPageOpened(() => calendar.setCalendarWeekMode())
 
@@ -73,21 +76,41 @@ export function HomePage() {
               />
             </Flex>
 
-            <NotionFeed store={notionImportantFeed.store}>
-              <NotionFeedHeader>
-                <Text size='l'>Important</Text>
-              </NotionFeedHeader>
+            {notionUrgentFeed.store.notions.length > 0 ? (
+              <NotionFeed store={notionUrgentFeed.store}>
+                <NotionFeedHeader>
+                  <Text size='l'>Urgent</Text>
+                </NotionFeedHeader>
+                
+                <NotionFeedItems />
+              </NotionFeed>
+            ) : null}
 
-              <NotionFeedItems />
-            </NotionFeed>
+            {notionImportantFeed.store.notions.length > 0 ? (
+              <NotionFeed store={notionImportantFeed.store}>
+                <NotionFeedHeader>
+                  <Text size='l'>Important</Text>
+                </NotionFeedHeader>
 
-            <NotionFeed store={notionUrgentFeed.store}>
-              <NotionFeedHeader>
-                <Text size='l'>Urgent</Text>
-              </NotionFeedHeader>
-              
-              <NotionFeedItems />
-            </NotionFeed>
+                <NotionFeedItems />
+              </NotionFeed>
+            ) : null}
+
+            {notionOtherFeed.store.notions.length > 0 ? (
+              <NotionFeed store={notionOtherFeed.store}>
+                <NotionFeedHeader>
+                  <Text size='l'>Other</Text>
+                </NotionFeedHeader>
+
+                <NotionFeedItems />
+              </NotionFeed>
+            ) : null}
+
+            {notionsInSelectedDate.length <= 0 ? (
+              <Placeholder>
+                <Text>You are free today</Text>
+              </Placeholder>
+            ) : null}
           </Flex>
         </Container>
       </Main>

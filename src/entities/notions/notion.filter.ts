@@ -1,11 +1,11 @@
 import type { EntityFilter } from '../shared/interfaces/entity.filter'
 import type { NotionEntity } from './notion.entity'
 import { notionsSelector, useNotionsStore } from './notion.store'
-import { useMemo } from 'react'
+import { useMemo, type DependencyList } from 'react'
 
-export function useNotionsStoreFilter(filter: EntityFilter<NotionEntity>) {
+export function useNotionsStoreFilter(filter: EntityFilter<NotionEntity>, deps: DependencyList = []) {
   const notions = useNotionsStore(notionsSelector) 
-  const filtered = useMemo(() => notions.filter(filter), [])
+  const filtered = useMemo(() => notions.filter(filter), deps)
 
   return filtered
 }
