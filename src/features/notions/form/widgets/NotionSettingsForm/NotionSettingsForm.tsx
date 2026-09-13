@@ -2,7 +2,7 @@ import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/
 import { NotionSettingsFormTimingGroup } from '../../groups/NotionSettingsFormTimingGroup'
 import { NotionSettingsFormStatusGroup } from '../../groups/NotionSettingsFormStatusGroup'
 import { NotionSettingsFormTodoGroup } from '../../groups/NotionSettingsFormTodoGroup'
-import { Separation } from '@/shared/components/Separation'
+import { Palette } from '@/shared/components/Palette'
 import styles from './NotionSettingsForm.module.css'
 
 export function NotionSettingsForm() {
@@ -12,15 +12,17 @@ export function NotionSettingsForm() {
       className={styles.NotionSettingsForm}
       gap={flexGapMedium}
     >
-      <NotionSettingsFormTimingGroup />
+      <Palette className={styles.Group}>
+        <NotionSettingsFormTimingGroup />
+      </Palette>
 
-      <Separation />
+      <Palette className={styles.Group}>
+        <NotionSettingsFormTodoGroup />
+      </Palette>
 
-      <NotionSettingsFormTodoGroup />
-
-      <Separation />
-
-      <NotionSettingsFormStatusGroup />
+      <Palette className={styles.Group}>
+        <NotionSettingsFormStatusGroup />
+      </Palette>
     </Flex>
   )
 }
