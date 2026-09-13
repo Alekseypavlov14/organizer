@@ -45,12 +45,3 @@
 .Item.Disabled img {
   opacity: 0.3;
 }
-
-.ArrowLeft {
-  transform-origin: center;
-  transform: rotateZ(90deg);
-}
-.ArrowRight {
-  transform-origin: center;
-  transform: rotateZ(-90deg)
-}

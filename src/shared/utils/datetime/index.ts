@@ -20,11 +20,53 @@ export function getLastDayOfWeek(date: Timestamp): DateTime {
   return new DateTime(date).getLastDayOfWeek(MONDAY_WEEKDAY_INDEX).normalizeDate()
 }
 
+export function getFirstDayOfMonth(date: Timestamp): DateTime {
+  const dateTime = new DateTime(date).normalizeDate()
+  const firstDayOfMonth = dateTime.getDateTimeBefore({ days: dateTime.getTimeData().days - 1 })
+  return firstDayOfMonth
+}
+export function getLastDayOfMonth(date: Timestamp): DateTime {
+  const firstDayOfMonth = getFirstDayOfMonth(date)
+  const lastDayOfMonth = firstDayOfMonth.getDateTimeAfter({ months: 1 }).getDateTimeBefore({ days: 1 })
+  return lastDayOfMonth
+}
+
 export function getWeekDates(weekStart: Timestamp): DateTime[] {
   const firstDateOfWeek = getFirstDayOfWeek(weekStart).normalizeDate().getTimeInMilliseconds()
 
   const dates = new Array(DAYS_PER_WEEK).fill(null).map<DateTime>((_, index) => {
     return new DateTime(firstDateOfWeek + index * MILLISECONDS_PER_DAY).normalizeDate()
+  })
+
+  return dates
+}
+export function getMonthDates(monthStart: Timestamp): DateTime[] {
+  const monthEndDate = getLastDayOfMonth(monthStart)
+  const datesInMonth = monthEndDate.getTimeData().days
+
+  const dates = new Array(datesInMonth).fill(null).map((_, index) => {
+    return monthEndDate.getDateTimeBefore({ days: datesInMonth - index - 1 })
+  })
+
+  return dates
+}
+
+export function getMonthOffsetBeforeDates(monthStart: Timestamp): DateTime[] {
+  const monthStartDate = getFirstDayOfMonth(monthStart)
+  const daysBeforeInCurrentWeek = monthStartDate.getWeekDay(MONDAY_WEEKDAY_INDEX)
+
+  const dates = new Array(daysBeforeInCurrentWeek).fill(null).map((_, index) => {
+    return monthStartDate.getDateTimeBefore({ days: index + 1 })
+  })
+
+  return dates
+}
+export function getMonthOffsetAfterDates(monthStart: Timestamp): DateTime[] {
+  const monthEndDate = getLastDayOfMonth(monthStart)
+  const daysAfterInCurrentWeek = DAYS_PER_WEEK - monthEndDate.getWeekDay(MONDAY_WEEKDAY_INDEX) - 1
+
+  const dates = new Array(daysAfterInCurrentWeek).fill(null).map((_, index) => {
+    return monthEndDate.getDateTimeAfter({ days: index + 1 })
   })
 
   return dates

@@ -44,7 +44,7 @@ export function Pagination({
         className={clsx(styles.Item, styles.ItemPrev, !isNavigationBackAvailable && styles.Disabled)}
         onClick={navigatePreviousPage}
       >
-        <Icon className={styles.ArrowLeft} name='chevron-down' />
+        <Icon name='chevron-left' />
       </Palette>
       
       {new Array(totalPagesAmount).fill(0).map((_, index) => (
@@ -61,7 +61,7 @@ export function Pagination({
         className={clsx(styles.Item, styles.ItemNext, !isNavigationForwardAvailable && styles.Disabled)}
         onClick={navigateNextPage}
       >
-        <Icon className={styles.ArrowRight} name='chevron-down' />
+        <Icon name='chevron-right' />
       </Palette>
     </div>
   )

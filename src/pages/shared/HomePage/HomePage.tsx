@@ -1,5 +1,5 @@
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
-import { CalendarWeekControl } from '@/features/shared/calendars'
+import { Calendar, CalendarWeekControl } from '@/features/shared/calendars'
 import { FloatingActions } from '@/shared/components/FloatingActions'
 import { FloatingAction } from '@/shared/components/FloatingAction'
 import { useNavigation } from '@/app/navigation'
@@ -29,6 +29,8 @@ export function HomePage() {
               value={Date.now()}
               weekStart={Date.now()}
             />
+
+            <Calendar monthStart={Date.now()} />
           </Flex>
         </Container>
       </Main>

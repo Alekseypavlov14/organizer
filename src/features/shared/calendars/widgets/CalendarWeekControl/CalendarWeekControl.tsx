@@ -18,10 +18,8 @@ export function CalendarWeekControl({
   onChange = () => {},
   weekStart,
 }: CalendarWeekControlProps) {
-  const weekDates = getWeekDates(weekStart)
-
   const weekDateOptions = useMemo(() => {
-    return weekDates.map<Option<Timestamp>>(date => ({
+    return getWeekDates(weekStart).map<Option<Timestamp>>(date => ({
       label: (
         <div className={styles.WeekDay}>
           <Text size='l'>

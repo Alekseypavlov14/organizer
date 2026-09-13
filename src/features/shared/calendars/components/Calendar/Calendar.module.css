@@ -1,0 +1,38 @@
+.Calendar {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.Header {
+  margin-bottom: 10px;
+}
+
+.Body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.Cell {
+  position: relative;
+  aspect-ratio: 2 / 3;
+
+  background-color: var(--grey-900);
+  
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.Date {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+
+  padding: 5px;
+  font-size: 8px;
+
+  color: var(--grey-100);
+}
+.Cell.OutOfMonth .Date {
+  color: var(--grey-500);
+}
