@@ -5,6 +5,7 @@ import { Checkbox } from '@/shared/components/Checkbox'
 import { Palette } from '@/shared/components/Palette'
 import { isNull } from '@/shared/utils/validation'
 import styles from './NotionItem.module.css'
+import clsx from 'clsx'
 
 interface NotionItemProps {
   notion: NotionEntity
@@ -19,9 +20,14 @@ export function NotionItem({
   
   const formattedDate = formatNotionDateTime(notion)
 
+  const classNames = clsx(
+    styles.NotionItem,
+    notion.done && styles.Done
+  )
+
   return (
     <Palette 
-      className={styles.NotionItem} 
+      className={classNames} 
       onClick={onClick}
     >
       <div className={styles.Header}>

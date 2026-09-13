@@ -15,6 +15,10 @@
   font-weight: 500;
   color: var(--grey-100);
 }
+.NotionItem.Done .Title {
+  text-decoration: line-through;
+  color: var(--grey-500);
+}
 
 .Body {
   margin-top: 5px;
