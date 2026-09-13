@@ -10,7 +10,7 @@ export function useGroupActions() {
 
   const notionActions = useNotionActions()
 
-  function saveGroup(group: GroupEntity): GroupEntity {
+  function saveGroup(group: GroupEntity): Nullable<GroupEntity> {
     const result = groupEntityStorage.save(group)
     revalidate()
 
@@ -55,7 +55,7 @@ export function useGroupActions() {
 
     const updated = groupEntityStorage.save(newGroup)
     revalidate()
-    
+
     return updated
   }
 

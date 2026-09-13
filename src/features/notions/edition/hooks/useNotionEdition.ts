@@ -14,8 +14,10 @@ export function useNotionEdition() {
 
   // actions
   function saveNotion(notion: NotionEntity): void {
-    notionActions.saveNotion(notion)
-    notifications.createSuccessNotification('The notion is saved')
+    const saved = notionActions.saveNotion(notion)
+
+    if (saved) notifications.createSuccessNotification('The notion is saved')
+    else return notifications.createErrorNotification('The notion is not saved')
 
     store.onNotionSave(notion)
     handleCompleteEdition()

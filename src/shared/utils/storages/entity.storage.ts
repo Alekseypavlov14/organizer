@@ -14,16 +14,21 @@ export abstract class EntityStorage<IEntity extends Entity, IRecord extends Enti
 
   public abstract deserialize(record: IRecord): IEntity
   public abstract serialize(entity: IEntity): IRecord
+  public abstract validate(entity: IEntity): boolean
   
   public getAll(): IEntity[] {
     const records: Nullable<IRecord[]> = this.storage.getValue()
     if (!records || !records.length) return []
 
     const entities: IEntity[] = records.map(record => this.deserialize(record))
-    return entities
+    const validated = entities.filter(entity => this.validate(entity))
+
+    return validated
   }
 
-  public save(entity: IEntity): IEntity {
+  public save(entity: IEntity): Nullable<IEntity> {
+    if (!this.validate(entity)) return null
+
     const records: Nullable<IRecord[]> = this.storage.getValue() ?? []
     entity.savedAt = Date.now()
 
@@ -48,7 +53,10 @@ export abstract class EntityStorage<IEntity extends Entity, IRecord extends Enti
     const record: Nullable<IRecord> = records.find(record => record.id === id) ?? null
     if (!record) return null
 
-    return this.deserialize(record)
+    const entity = this.deserialize(record)
+    if (!this.validate(entity)) return null
+
+    return entity
   }
 
   public deleteById(id: Id): Nullable<IEntity> {

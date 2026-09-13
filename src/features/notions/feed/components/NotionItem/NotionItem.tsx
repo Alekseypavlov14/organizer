@@ -1,5 +1,6 @@
 import { useNotionActions, type NotionEntity } from '@/entities/notions'
-import { formatNotionDateTime, NotionLevelBadge, NotionPriorityBadge, NotionProgressBadge } from '@/features/notions/shared'
+import { NotionLevelBadge, NotionPriorityBadge, NotionProgressBadge } from '@/features/notions/shared'
+import { notionSavedAtFormat } from '../../constants'
 import { StopPropagation } from '@/shared/components/StopPropagation'
 import { Checkbox } from '@/shared/components/Checkbox'
 import { Palette } from '@/shared/components/Palette'
@@ -18,7 +19,7 @@ export function NotionItem({
 }: NotionItemProps) {
   const { saveNotion } = useNotionActions()
   
-  const formattedDate = formatNotionDateTime(notion)
+  const formattedDate = notionSavedAtFormat(notion.savedAt)
 
   const classNames = clsx(
     styles.NotionItem,
@@ -53,7 +54,7 @@ export function NotionItem({
         {!isNull(notion.level) ? <NotionLevelBadge level={notion.level} /> : null}
       </div>
         
-      {formattedDate ? (<div className={styles.Date}>{formattedDate}</div>) : null}
+      <div className={styles.Date}>{formattedDate}</div>
     </Palette>
   )
 }

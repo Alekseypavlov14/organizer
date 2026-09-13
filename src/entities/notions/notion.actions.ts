@@ -7,7 +7,7 @@ import { notionEntityStorage } from './notion.storage'
 export function useNotionActions() {
   const updateNotions = useNotionsStore(updateNotionsSelector)
 
-  function saveNotion(notion: NotionEntity): NotionEntity {
+  function saveNotion(notion: NotionEntity): Nullable<NotionEntity> {
     const result = notionEntityStorage.save(notion)
     revalidate()
 
