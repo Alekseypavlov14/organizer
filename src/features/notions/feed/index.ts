@@ -5,4 +5,3 @@ export * from './views/NotionVariantControl'
 export * from './views/NotionFeedItems'
 
 export * from './components/NotionFeedHeader'
-

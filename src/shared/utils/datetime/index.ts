@@ -13,6 +13,10 @@ export const MONDAY_WEEKDAY_INDEX = 1
 
 export const baseFormatter = new DateFormatter()
 
+export function getNormalizedToday(): DateTime {
+  return new DateTime(Date.now())
+}
+
 export function getFirstDayOfWeek(date: Timestamp): DateTime {
   return new DateTime(date).getFirstDayOfWeek(MONDAY_WEEKDAY_INDEX).normalizeDate()
 }
@@ -70,4 +74,11 @@ export function getMonthOffsetAfterDates(monthStart: Timestamp): DateTime[] {
   })
 
   return dates
+}
+
+export function isTheSameDate(date1: Timestamp, date2: Timestamp) {
+  const normalized1 = new DateTime(date1).normalizeDate().getTimeInMilliseconds()
+  const normalized2 = new DateTime(date2).normalizeDate().getTimeInMilliseconds()
+
+  return normalized1 === normalized2
 }

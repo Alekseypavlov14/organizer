@@ -1,3 +1,5 @@
+export * from './calendar.instance'
+
 export * from './widgets/CalendarModeControl'
 export * from './widgets/CalendarWeekControl'
 
