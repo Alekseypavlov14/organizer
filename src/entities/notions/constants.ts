@@ -66,18 +66,20 @@ export const notionLevelOptions: Option<NotionLevel>[] = [
 
 export const defaultNotionEntity: NotionEntity = {
   id: 0,
-
+  
   title: '',
   description: null,
-
+  
   date: null,
   time: null,
   duration: null,
 
   deadline: null,
   done: null,
-
+  
   priority: null,
   progress: null,
-  level: null
+  level: null,
+  
+  savedAt: 0,
 }

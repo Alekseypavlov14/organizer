@@ -3,8 +3,8 @@ import type { NotionSaveCallback } from '../types/NotionSaveCallback'
 import type { Id } from '@/shared/types/id'
 import { useNotionActions, type NotionEntity } from '@/entities/notions'
 import { useNotionEditionStore } from '../edition.store'
+import { createInitialNotion } from '../constants'
 import { useNotifications } from '@/app/notifications'
-import { initialNotion } from '../constants'
 
 export function useNotionEdition() {
   const notifications = useNotifications()
@@ -52,7 +52,7 @@ export function useNotionEdition() {
 
   // notions
   function getInitialNotion(): NotionEntity {
-    return initialNotion
+    return createInitialNotion()
   }
 
   return ({

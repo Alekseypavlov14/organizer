@@ -25,6 +25,7 @@ export abstract class EntityStorage<IEntity extends Entity, IRecord extends Enti
 
   public save(entity: IEntity): IEntity {
     const records: Nullable<IRecord[]> = this.storage.getValue() ?? []
+    entity.savedAt = Date.now()
 
     const recordIndex = records.findIndex(record => record.id === entity.id)
     if (recordIndex === -1) {
