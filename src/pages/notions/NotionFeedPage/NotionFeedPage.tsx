@@ -1,7 +1,6 @@
 import { NotionFeed, NotionFeedHeader, NotionFeedItems, NotionVariantControl } from '@/features/notions/feed'
-import { FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
+import { FloatingActions, FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingActions'
 import { notionsSelector, useNotionsStore } from '@/entities/notions'
-import { FloatingActions } from '@/shared/components/FloatingActions'
 import { useNavigation } from '@/app/navigation'
 import { useNotionFeed } from './feed.feature'
 import { PageLayout } from '@/app/layouts'

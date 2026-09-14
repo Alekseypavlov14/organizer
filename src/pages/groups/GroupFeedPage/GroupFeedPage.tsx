@@ -1,7 +1,6 @@
-import { FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
+import { FloatingActions, FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingActions'
 import { GroupFeed, GroupFeedHeader, GroupFeedItems } from '@/features/groups/feed'
 import { groupsSelector, useGroupsStore } from '@/entities/groups'
-import { FloatingActions } from '@/shared/components/FloatingActions'
 import { useNavigation } from '@/app/navigation'
 import { useGroupFeed } from './feed.feature'
 import { PageLayout } from '@/app/layouts'
