@@ -1,6 +1,6 @@
 import { colorsSelector, useColorsStore, type ColorModel } from '@/entities/shared'
 import { ModalActions, ModalClose, ModalHeader } from '@/features/shared/modals'
-import { useColorSelectionModal } from '../../modals.feature'
+import { useColorSelectionModal } from '../../selection.modal'
 import { Modal } from '@/shared/components/Modal'
 import { Text } from '@/shared/components/Text'
 import styles from './ColorSelectionModal.module.css'

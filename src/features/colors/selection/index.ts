@@ -1,4 +1,4 @@
 export * from './widgets/ColorSelectionModal'
-export * from './modals.feature'
+export * from './selection.modal'
 
 export * from './components/ColorSelector'

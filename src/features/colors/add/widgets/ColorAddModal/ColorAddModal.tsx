@@ -3,7 +3,7 @@ import { ModalActions, ModalClose, ModalHeader, useOnModalOpen } from '@/feature
 import { updateValueSelector, useColorAddStore, valueSelector } from '../../add.store'
 import { Button, buttonVariantPrimary } from '@/shared/components/Button'
 import { initialColorAddControlValue } from '../../constants'
-import { useColorAddModal } from '../../modals.feature'
+import { useColorAddModal } from '../../add.modal'
 import { useNotifications } from '@/app/notifications'
 import { Modal } from '@/shared/components/Modal'
 import { Input } from '@/shared/components/Input'

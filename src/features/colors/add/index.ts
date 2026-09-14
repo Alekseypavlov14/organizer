@@ -1,2 +1,2 @@
 export * from './widgets/ColorAddModal'
-export * from './modals.feature'
+export * from './add.modal'
