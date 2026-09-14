@@ -11,29 +11,28 @@ export function useGroupActions() {
   const notionActions = useNotionActions()
 
   function saveGroup(group: GroupEntity): Nullable<GroupEntity> {
-    const result = groupEntityStorage.save(group)
+    const saved = groupEntityStorage.save(group)
     revalidate()
 
-    return result
+    return saved
   }
 
   function getGroupById(id: Id): Nullable<GroupEntity> {
-    const result = groupEntityStorage.getById(id)
-    revalidate()
-
-    return result
+    return groupEntityStorage.getById(id)
   }
 
   function deleteGroupById(id: Id): Nullable<GroupEntity> {
-    const result = groupEntityStorage.deleteById(id)
+    const deleted = groupEntityStorage.deleteById(id)
     revalidate()
 
-    return result
+    return deleted
   }
 
   function addNotionToGroupById(id: Id, notionId: Id): Nullable<GroupEntity> {
     const group = groupEntityStorage.getById(id)
     if (!group) return null
+
+    if (group.notions.some(notion => notion.id === notionId)) return group
 
     const notion = notionActions.getNotionById(notionId)
     if (!notion) return null

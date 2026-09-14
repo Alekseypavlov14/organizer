@@ -8,24 +8,21 @@ export function useNotionActions() {
   const updateNotions = useNotionsStore(updateNotionsSelector)
 
   function saveNotion(notion: NotionEntity): Nullable<NotionEntity> {
-    const result = notionEntityStorage.save(notion)
+    const saved = notionEntityStorage.save(notion)
     revalidate()
 
-    return result
+    return saved
   }
 
   function getNotionById(id: Id): Nullable<NotionEntity> {
-    const result = notionEntityStorage.getById(id)
-    revalidate()
-    
-    return result
+    return notionEntityStorage.getById(id)
   }
 
   function deleteNotionById(id: Id): Nullable<NotionEntity> {
-    const result = notionEntityStorage.deleteById(id)
+    const deleted = notionEntityStorage.deleteById(id)
     revalidate()
     
-    return result
+    return deleted
   }
 
   function revalidate() {
