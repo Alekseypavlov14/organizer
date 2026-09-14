@@ -1,5 +1,5 @@
 import type { GroupEntity } from '@/entities/groups'
-import { ColorIndicator } from '@/features/shared/colors'
+import { ColorIndicator } from '@/features/colors/shared'
 import { Palette } from '@/shared/components/Palette'
 import styles from './GroupItem.module.css'
 
