@@ -1,10 +1,7 @@
 import type { ModalModel } from '../../types/ModalModel'
 import type { ReactNode } from 'react'
+import { Modal, ModalActions, ModalBody, ModalClose, ModalHeader } from '@/shared/components/Modal'
 import { Button, type ButtonVariant } from '@/shared/components/Button'
-import { ModalActions } from '../../components/ModalActions'
-import { ModalHeader } from '../../components/ModalHeader'
-import { ModalClose } from '../../components/ModalClose'
-import { Modal } from '@/shared/components/Modal'
 import { Text } from '@/shared/components/Text'
 
 interface ConfirmationModalProps {
@@ -56,18 +53,20 @@ export function ConfirmationModal({
       onBackgroundClick={clickBackgroundHandler}
       isOpened={store.isOpened}
     >
-      <ModalHeader>
-        <Text size='l'>{title}</Text>
-        
-        {!forced ? (
-          <ModalClose onClick={cancelHandler} />
-        ) : null}
-      </ModalHeader>
-
-      <ModalActions>
-        <Button onClick={cancelHandler}>{cancelButton}</Button>
-        <Button variant={variant} onClick={confirmHandler}>{confirmButton}</Button>
-      </ModalActions>
+      <ModalBody>
+        <ModalHeader>
+          <Text size='l'>{title}</Text>
+          
+          {!forced ? (
+            <ModalClose onClick={cancelHandler} />
+          ) : null}
+        </ModalHeader>
+  
+        <ModalActions>
+          <Button onClick={cancelHandler}>{cancelButton}</Button>
+          <Button variant={variant} onClick={confirmHandler}>{confirmButton}</Button>
+        </ModalActions>
+      </ModalBody>
     </Modal>
   )
 }
