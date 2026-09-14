@@ -51,7 +51,7 @@ export function ColorAddModal({
     >
       <ModalBody>
         <ModalHeader>
-          <Text size='l'>Add new color:</Text>
+          <Text size='l'>Add new color</Text>
                     
           <ModalClose onClick={model.close} />
         </ModalHeader>

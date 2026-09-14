@@ -38,7 +38,7 @@ export function ColorSelectionModal({
     >
       <ModalBody>
         <ModalHeader>
-          <Text size='l'>Choose color:</Text>
+          <Text size='l'>Choose color</Text>
                             
           <ModalClose onClick={model.close} />
         </ModalHeader>

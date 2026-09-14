@@ -4,6 +4,8 @@ import type { Id } from '@/shared/types/id'
 import { updateGroupsSelector, useGroupsStore } from './group.store'
 import { groupEntityStorage } from './group.storage'
 import { useNotionActions } from '../notions'
+import { validateId } from '@/shared/utils/id'
+import { isNull } from '@/shared/utils/validation'
 
 export function useGroupActions() {
   const updateGroups = useGroupsStore(updateGroupsSelector)
@@ -58,6 +60,25 @@ export function useGroupActions() {
     return updated
   }
 
+  function getGroupPathById(id: Id): Nullable<GroupEntity[]> {
+    const groups: GroupEntity[] = []
+    let currentGroupId: Nullable<Id> = id
+
+    while (true) {
+      if (isNull(currentGroupId) || !validateId(currentGroupId)) break
+
+      const currentGroup = getGroupById(currentGroupId)
+      if (!currentGroup) return null
+
+      if (groups.some(group => group.id === currentGroup.id)) return null
+
+      groups.push(currentGroup)
+      currentGroupId = currentGroup.parentId
+    }
+
+    return groups.reverse()
+  }
+
   function revalidate() {
     updateGroups(groupEntityStorage.getAll())
   }
@@ -69,5 +90,7 @@ export function useGroupActions() {
     
     addNotionToGroupById,
     removeNotionFromGroupById,
+
+    getGroupPathById,
   })
 }

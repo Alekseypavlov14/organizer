@@ -1,0 +1,19 @@
+.GroupSelectionFeed {
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.Group {
+  padding-block: 5px;
+}
+
+.Title {
+  color: var(--grey-100);
+}
+.Path {
+  color: var(--grey-500);
+}
+.Date {
+  color: var(--grey-500);
+}

@@ -38,15 +38,17 @@ export const mapFlexJustifyToClassName: Record<FlexJustify, string> = {
   between: styles.JustifySpaceBetween
 }
 
-export type FlexGap = 'n' | 's' | 'm' | 'l'
+export type FlexGap = 'n' | 'xs' | 's' | 'm' | 'l'
 
 export const flexGapZero: FlexGap = 'n'
+export const flexGapExtraSmall: FlexGap = 'xs'
 export const flexGapSmall: FlexGap = 's'
 export const flexGapMedium: FlexGap = 'm'
 export const flexGapLarge: FlexGap = 'l'
 
 export const mapFlexGapToClassName: Record<FlexGap, string> = {
   n: styles.GapZero,
+  xs: styles.GapExtraSmall,
   s: styles.GapSmall,
   m: styles.GapMedium,
   l: styles.GapLarge
