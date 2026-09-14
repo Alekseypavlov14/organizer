@@ -38,8 +38,8 @@ export function CalendarWeekControl({
   return (
     <SegmentedControl
       value={new DateTime(value).normalizeDate().getTimeInMilliseconds()}
-      onChange={option => onChange(option.value)}
       options={weekDateOptions}
+      onChange={onChange}
     />
   )
 }

@@ -20,7 +20,7 @@ export function CalendarModeControl({
   return (
     <SegmentedControl
       options={calendarModeOptions}
-      onChange={option => onChange(option.value)}
+      onChange={onChange}
       value={value}
     />
   )

@@ -15,7 +15,7 @@ export function NotionVariantControl() {
   return (
     <ToggleGroup 
       options={options}
-      onChange={option => updateVariant(option.value)}
+      onChange={updateVariant}
       value={variant}
     />
   )

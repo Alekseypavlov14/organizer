@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 interface ToggleGroupProps<T> {
   options?: Option<T>[]
-  onChange?: (option: Option<T>) => void
+  onChange?: (value: T) => void
   value?: T
 }
 
@@ -19,7 +19,7 @@ export function ToggleGroup<T>({
       {options.map((option, index) => (
         <div 
           className={clsx(styles.Option, option.value === value && styles.Active)}
-          onClick={() => onChange(option)}
+          onClick={() => onChange(option.value)}
           key={index}
         >
           {option.label}

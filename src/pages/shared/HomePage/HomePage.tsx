@@ -44,11 +44,11 @@ export function HomePage() {
   }, [notionsInSelectedDate, calendar.store.selectedDate])
 
   useEffect(() => {
-    const notionsImportantInSelectedDate = notionsInSelectedDate.filter(notion => (
+    const notionsOtherInSelectedDate = notionsInSelectedDate.filter(notion => (
       notion.priority !== notionPriorityUrgent &&
       notion.priority !== notionPriorityImportant
     ))
-    notionImportantFeed.updateNotions(notionsImportantInSelectedDate)
+    notionOtherFeed.updateNotions(notionsOtherInSelectedDate)
   }, [notionsInSelectedDate, calendar.store.selectedDate])
 
   useOnPageOpened(() => calendar.setCalendarWeekMode())
