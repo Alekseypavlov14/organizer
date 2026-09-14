@@ -1,6 +1,6 @@
 import { FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
 import { useNotionForm, NotionContentForm } from '@/features/notions/form'
-import { useConfirmationCancelModal } from './confirmation.feature'
+import { useConfirmationCancelModal } from './modals.feature'
 import { buttonVariantDanger } from '@/shared/components/Button'
 import { ConfirmationModal } from '@/features/shared/modals'
 import { useNotionEdition } from '@/features/notions/edition'
@@ -22,10 +22,7 @@ export function NotionCreationPage() {
 
   const confirmationCancelModal = useConfirmationCancelModal()
 
-  useOnPageOpened(() => {
-    updateFormNotion(notionEdition.getInitialNotion())
-  })
-
+  useOnPageOpened(() => updateFormNotion(notionEdition.getInitialNotion()))
   useOnPageClosed(() => notionEdition.handleCompleteEdition())
 
   function saveNotionHandler() {

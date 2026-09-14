@@ -1,14 +1,15 @@
-import type { ModalStore } from '../../modal.store'
+import type { ModalModel } from '../../types/ModalModel'
 import type { ReactNode } from 'react'
-import { Flex, flexDirectionVertical, flexGapLarge, flexGapMedium, flexJustifyEnd, flexJustifySpaceBetween } from '@/shared/components/Flex'
 import { Button, type ButtonVariant } from '@/shared/components/Button'
+import { ModalActions } from '../../components/ModalActions'
+import { ModalHeader } from '../../components/ModalHeader'
+import { ModalClose } from '../../components/ModalClose'
 import { Modal } from '@/shared/components/Modal'
 import { Text } from '@/shared/components/Text'
-import { Icon } from '@/shared/components/Icon'
 
 interface ConfirmationModalProps {
   title: string
-  model: ModalStore
+  model: ModalModel
   
   onCancel?: () => void
   onConfirm?: () => void
@@ -33,7 +34,7 @@ export function ConfirmationModal({
   variant,
   forced,
 }: ConfirmationModalProps) {
-  const { isOpened, close } = model
+  const { store, close } = model
 
   function cancelHandler() {
     onCancel()
@@ -53,31 +54,20 @@ export function ConfirmationModal({
   return (
     <Modal 
       onBackgroundClick={clickBackgroundHandler}
-      isOpened={isOpened}
+      isOpened={store.isOpened}
     >
-      <Flex 
-        direction={flexDirectionVertical}
-        gap={flexGapLarge}
-      >
-        <Flex 
-          justify={flexJustifySpaceBetween}
-          gap={flexGapMedium}
-        >
-          <Text size='l'>{title}</Text>
-          
-          {!forced ? (
-            <Icon onClick={cancelHandler} name='x' />
-          ) : null}
-        </Flex>
+      <ModalHeader>
+        <Text size='l'>{title}</Text>
+        
+        {!forced ? (
+          <ModalClose onClick={cancelHandler} />
+        ) : null}
+      </ModalHeader>
 
-        <Flex 
-          justify={flexJustifyEnd}
-          gap={flexGapMedium}
-        >
-          <Button onClick={cancelHandler}>{cancelButton}</Button>
-          <Button variant={variant} onClick={confirmHandler}>{confirmButton}</Button>
-        </Flex>
-      </Flex>
+      <ModalActions>
+        <Button onClick={cancelHandler}>{cancelButton}</Button>
+        <Button variant={variant} onClick={confirmHandler}>{confirmButton}</Button>
+      </ModalActions>
     </Modal>
   )
 }

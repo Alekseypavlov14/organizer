@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react'
+import { Flex, flexDirectionVertical, flexGapLarge } from '../Flex'
 import { StopPropagation } from '../StopPropagation'
 import { Container } from '../Container'
 import { Palette } from '../Palette'
@@ -27,7 +28,12 @@ export function Modal({
           <StopPropagation>
             <Container>
               <Palette className={clsx(styles.Content, className)}>
-                {children}
+                <Flex 
+                  direction={flexDirectionVertical}
+                  gap={flexGapLarge}
+                >
+                  {children}
+                </Flex>
               </Palette>
             </Container>
           </StopPropagation>

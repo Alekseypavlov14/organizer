@@ -1,5 +1,5 @@
 import { FloatingAction, floatingActionVariantDanger, floatingActionVariantPrimary } from '@/shared/components/FloatingAction'
-import { useConfirmationCancelModal, useConfirmationDeleteModal } from './confirmation.feature'
+import { useConfirmationCancelModal, useConfirmationDeleteModal } from './modals.feature'
 import { NotionSettingsForm, useNotionForm } from '@/features/notions/form'
 import { useNotionByIdFromQueryParams } from '@/features/notions/shared'
 import { buttonVariantDanger } from '@/shared/components/Button'
