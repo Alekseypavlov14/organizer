@@ -8,3 +8,16 @@
 
   background-color: var(--color);
 }
+
+.Small {
+  --size: 10px;
+}
+.Medium {
+  --size: 14px;
+}
+.Large {
+  --size: 18px;
+}
+.ExtraLarge {
+  --size: 24px;
+}

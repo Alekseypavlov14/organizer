@@ -1,0 +1,16 @@
+.ColorSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.Option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Option.Active {
+  outline: 2px solid var(--primary);
+  border-radius: 100px;
+  outline-offset: 2px;
+}

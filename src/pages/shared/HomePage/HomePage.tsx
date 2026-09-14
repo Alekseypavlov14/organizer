@@ -19,6 +19,8 @@ import { isNull } from '@/shared/utils/validation'
 import { Icon } from '@/shared/components/Icon'
 import { Main } from '@/shared/components/Main'
 import { Text } from '@/shared/components/Text'
+import { ColorSelectionModal, useColorSelectionModal } from '@/features/colors/selection'
+import { ColorAddModal, useColorAddModal } from '@/features/colors/add'
 
 export function HomePage() {
   const { navigateNotionFeedPage, navigateNotionDisplayPage, navigateGroupFeedPage } = useNavigation()
@@ -28,6 +30,9 @@ export function HomePage() {
   const notionUrgentFeed = useNotionUrgentFeed()
   const notionImportantFeed = useNotionImportantFeed()
   const notionOtherFeed = useNotionOtherFeed()
+
+  const colorSelectionModal = useColorSelectionModal()
+  const colorAddModal = useColorAddModal()
 
   const notionsInSelectedDate = useNotionsStoreFilter(notion => (
     !isNull(notion.date) && isTheSameDate(notion.date?.value, calendar.store.selectedDate)
@@ -115,7 +120,18 @@ export function HomePage() {
         </Container>
       </Main>
 
+      <ColorSelectionModal />
+      <ColorAddModal />
+
       <FloatingActions>
+        <FloatingAction onClick={colorSelectionModal.open}>
+          <Icon name="album" size='l' />
+        </FloatingAction>
+
+        <FloatingAction onClick={colorAddModal.open}>
+          <Icon name="plus" size='l' />
+        </FloatingAction>
+
         <FloatingAction onClick={navigateGroupFeedPage}>
           <Icon name="folder" size='l' />
         </FloatingAction>

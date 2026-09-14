@@ -42,3 +42,9 @@
   border: 1px solid var(--red);
   color: var(--red);
 }
+
+.Button:disabled {
+  border: 1px solid var(--grey-700);
+  background-color: var(--white);
+  color: var(--grey-500);
+}

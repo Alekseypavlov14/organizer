@@ -18,7 +18,7 @@ export function GroupItem({
       onClick={onClick}
     >
       <div className={styles.Header}>
-        <ColorIndicator color={group.color} />
+        <ColorIndicator value={group.color} />
 
         <div className={styles.Title}>{group.title}</div>
       </div>
