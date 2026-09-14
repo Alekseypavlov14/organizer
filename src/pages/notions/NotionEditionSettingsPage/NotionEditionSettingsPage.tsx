@@ -16,7 +16,7 @@ import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
 
 export function NotionEditionSettingsPage() {
-  const { navigatePreviousPage, navigateBeforePreviousPage } = useNavigation()
+  const { navigateNotionDisplayPage, navigateNotionFeedPage, navigatePreviousPage } = useNavigation()
   const { createErrorNotification } = useNotifications()
 
   const { notion, updateFormNotion } = useNotionForm()
@@ -36,13 +36,17 @@ export function NotionEditionSettingsPage() {
   useOnPageClosed(() => notionEdition.handleCompleteEdition())
 
   function saveNotionHandler() {
-    notionEdition.saveNotion(notion)
-    navigatePreviousPage()
+    const saved = notionEdition.saveNotion(notion)
+    
+    if (saved) navigateNotionDisplayPage(saved.id)
+    else navigatePreviousPage()
   }
 
   function deleteNotionHandler() {
-    notionEdition.deleteNotionById(notion.id)
-    navigateBeforePreviousPage()
+    const deleted = notionEdition.deleteNotionById(notion.id)
+
+    if (deleted) navigateNotionFeedPage()
+    else navigatePreviousPage()
   }
 
   function cancelHandler() {

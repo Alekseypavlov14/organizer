@@ -1,5 +1,6 @@
 import type { NotionDeleteByIdCallback } from '../types/NotionDeleteByIdCallback'
 import type { NotionSaveCallback } from '../types/NotionSaveCallback'
+import type { Nullable } from '@/shared/types/nullable'
 import type { Id } from '@/shared/types/id'
 import { useNotionActions, type NotionEntity } from '@/entities/notions'
 import { useNotionEditionStore } from '../edition.store'
@@ -13,23 +14,35 @@ export function useNotionEdition() {
   const store = useNotionEditionStore()
 
   // actions
-  function saveNotion(notion: NotionEntity): void {
+  function saveNotion(notion: NotionEntity): Nullable<NotionEntity> {
     const saved = notionActions.saveNotion(notion)
 
-    if (saved) notifications.createSuccessNotification('The notion is saved')
-    else return notifications.createErrorNotification('The notion is not saved')
+    if (!saved) {
+      notifications.createErrorNotification('The notion is not saved')
+      return null
+    }
+    
+    notifications.createSuccessNotification('The notion is saved')
 
     store.onNotionSave(notion)
     handleCompleteEdition()
+
+    return saved
   }
-  function deleteNotionById(id: Id) {
+  function deleteNotionById(id: Id): Nullable<NotionEntity> {
     const deleted = notionActions.deleteNotionById(id)
 
-    if (deleted) notifications.createInfoNotification('The notion is deleted')
-    else return notifications.createErrorNotification('The notion is not deleted')
+    if (!deleted) {
+      notifications.createErrorNotification('The notion is not deleted')
+      return null
+    }
+
+    notifications.createInfoNotification('The notion is deleted')
 
     store.onNotionDeleteById(id)
     handleCompleteEdition()
+
+    return deleted
   }
   function cancelEdition() {
     store.onNotionCancel()

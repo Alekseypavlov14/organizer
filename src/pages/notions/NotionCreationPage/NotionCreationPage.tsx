@@ -15,7 +15,7 @@ import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
 
 export function NotionCreationPage() {
-  const { navigatePreviousPage } = useNavigation()
+  const { navigateNotionDisplayPage, navigatePreviousPage } = useNavigation()
   const { notion, updateFormNotion } = useNotionForm()
 
   const notionEdition = useNotionEdition()
@@ -29,8 +29,10 @@ export function NotionCreationPage() {
   useOnPageClosed(() => notionEdition.handleCompleteEdition())
 
   function saveNotionHandler() {
-    notionEdition.saveNotion(notion)
-    navigatePreviousPage()
+    const saved = notionEdition.saveNotion(notion)
+
+    if (saved) navigateNotionDisplayPage(saved.id)
+    else navigatePreviousPage()
   }
 
   function cancelHandler() {

@@ -21,6 +21,5 @@ export function useNavigation() {
 
     navigate: (path: string) => navigate(path),
     navigatePreviousPage: () => navigate(-1),
-    navigateBeforePreviousPage: () => navigate(-2),
   })
 }

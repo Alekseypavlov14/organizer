@@ -21,7 +21,7 @@ import { Main } from '@/shared/components/Main'
 import { Text } from '@/shared/components/Text'
 
 export function HomePage() {
-  const { navigateNotionFeedPage, navigateGroupFeedPage } = useNavigation()
+  const { navigateNotionFeedPage, navigateNotionDisplayPage, navigateGroupFeedPage } = useNavigation()
 
   const calendar = useCalendar()
 
@@ -82,7 +82,7 @@ export function HomePage() {
                   <Text size='l'>Urgent</Text>
                 </NotionFeedHeader>
                 
-                <NotionFeedItems />
+                <NotionFeedItems onNotionClick={notion => navigateNotionDisplayPage(notion.id)} />
               </NotionFeed>
             ) : null}
 
@@ -92,7 +92,7 @@ export function HomePage() {
                   <Text size='l'>Important</Text>
                 </NotionFeedHeader>
 
-                <NotionFeedItems />
+                <NotionFeedItems onNotionClick={notion => navigateNotionDisplayPage(notion.id)} />
               </NotionFeed>
             ) : null}
 
@@ -102,7 +102,7 @@ export function HomePage() {
                   <Text size='l'>Other</Text>
                 </NotionFeedHeader>
 
-                <NotionFeedItems />
+                <NotionFeedItems onNotionClick={notion => navigateNotionDisplayPage(notion.id)} />
               </NotionFeed>
             ) : null}
 
