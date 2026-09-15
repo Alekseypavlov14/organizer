@@ -7,7 +7,7 @@ export function GroupSelectionSearchbar() {
   return (
     <Input 
       value={explorer.store.searchQuery}
-      onValueChange={explorer.search}
+      onValueChange={explorer.searchGroups}
       placeholder='Search by name'
     />
   )

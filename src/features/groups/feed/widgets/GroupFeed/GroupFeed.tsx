@@ -1,6 +1,5 @@
 import type { GroupFeedStore } from '../../feed.store'
 import type { ReactNode } from 'react'
-import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { GroupFeedProvider } from '../../providers/GroupFeedProvider'
 
 interface GroupFeedProps {
@@ -14,12 +13,7 @@ export function GroupFeed({
 }: GroupFeedProps) {
   return (
     <GroupFeedProvider store={store}>
-      <Flex 
-        direction={flexDirectionVertical}
-        gap={flexGapMedium}
-      >
-        {children}
-      </Flex>
+      {children}
     </GroupFeedProvider>
   )
 }

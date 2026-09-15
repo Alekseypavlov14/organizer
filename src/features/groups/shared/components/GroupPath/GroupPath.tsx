@@ -1,16 +1,22 @@
+import type { Nullable } from '@/shared/types/nullable'
 import type { FlexGap } from '@/shared/components/Flex'
 import type { Id } from '@/shared/types/id'
 import { Breadcrumbs, BreadcrumbsItem, BreadcrumbsSeparation } from '@/shared/components/Breadcrumbs'
 import { useGroupActions, type GroupEntity } from '@/entities/groups'
 import { Text, type TextSize } from '@/shared/components/Text'
+import { Icon, type IconSize } from '@/shared/components/Icon'
 import { Fragment, useMemo } from 'react'
 
 interface GroupPathProps {
-  groupId: Id
+  groupId: Nullable<Id>
   onSegmentClick?: (group: GroupEntity) => void 
 
   size?: TextSize
   gap?: FlexGap
+
+  showRoot?: boolean
+  rootSize?: IconSize
+  onRootClick?: () => void
 }
 
 export function GroupPath({ 
@@ -19,15 +25,29 @@ export function GroupPath({
 
   size,
   gap,
+
+  showRoot,
+  rootSize,
+  onRootClick = () => {},
 }: GroupPathProps) {
   const { getGroupPathById } = useGroupActions()
 
-  const groups = useMemo(() => getGroupPathById(groupId), [groupId])
+  const groups = useMemo(() => getGroupPathById(groupId), [groupId]) ?? []
 
-  if (!groups || !groups.length) return null
+  if (!groups.length && !showRoot) return null
 
   return (
     <Breadcrumbs gap={gap}>
+      {showRoot ? (
+        <BreadcrumbsItem>
+          <Icon 
+            onClick={onRootClick}
+            size={rootSize} 
+            name='home' 
+          />
+        </BreadcrumbsItem>
+      ) : null}
+
       {groups.map((group, index) => (
         <Fragment key={index}>
           <BreadcrumbsSeparation />

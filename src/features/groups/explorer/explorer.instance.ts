@@ -1,5 +1,6 @@
 import type { GroupExplorerInstance } from './types/GroupExplorerInstance'
 import type { GroupEntity } from '@/entities/groups'
+import type { Nullable } from '@/shared/types/nullable'
 import { explorerModeHierarchy, explorerModeSearch } from './constants'
 import { createGroupExplorerStore } from './explorer.store'
 
@@ -9,7 +10,7 @@ export function createGroupExplorerInstance() {
   return function useGroupExplorer(): GroupExplorerInstance {
     const store = useStore()
 
-    function search(query: string) {
+    function searchGroups(query: string) {
       store.updateSearchQuery(query)
 
       if (query.length === 0) {
@@ -20,8 +21,18 @@ export function createGroupExplorerInstance() {
       store.updateExplorerMode(explorerModeSearch)      
     }
 
-    function select(group: GroupEntity) {
+    function selectGroup(group: Nullable<GroupEntity>) {
       store.updateCurrentGroup(group)
+      store.updateExplorerMode(explorerModeHierarchy)
+    }
+
+    function navigateRoot() {
+      store.updateCurrentGroup(null)
+    }
+
+    function reset() {
+      store.updateSearchQuery('')
+      store.updateCurrentGroup(null)
       store.updateExplorerMode(explorerModeHierarchy)
     }
 
@@ -32,10 +43,12 @@ export function createGroupExplorerInstance() {
     return ({
       store,
 
-      search,
-      select,
+      searchGroups,
+      selectGroup,
+      navigateRoot,
 
       load,
+      reset,
     })
   }
 }

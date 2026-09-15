@@ -22,7 +22,7 @@ export function GroupSelectionFeed() {
           className={styles.Group}
           direction={flexDirectionVertical}
           gap={flexGapExtraSmall}
-          onClick={() => explorer.select(group)}
+          onClick={() => explorer.selectGroup(group)}
           key={group.id}
         >
           <Text className={styles.Title}>

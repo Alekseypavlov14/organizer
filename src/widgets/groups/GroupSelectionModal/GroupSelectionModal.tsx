@@ -8,6 +8,7 @@ import { useGroupSelectionModal } from './selection.modal'
 import { GroupSelectionValue } from './components/GroupSelectionValue'
 import { GroupSelectionPath } from './components/GroupSelectionPath'
 import { GroupSelectionFeed } from './components/GroupSelectionFeed'
+import { useOnModalClose } from '@/features/shared/modals'
 import { isNull } from '@/shared/utils/validation'
 import { Text } from '@/shared/components/Text'
 import styles from './GroupSelectionModal.module.css'
@@ -21,6 +22,8 @@ export function GroupSelectionModal({
 }: GroupSelectionModalProps) {
   const explorer = useGroupSelectionExplorer()
   const modal = useGroupSelectionModal()
+
+  useOnModalClose(modal, explorer.reset)
 
   function confirmSelectionHandler() {
     if (!explorer.store.currentGroup) return

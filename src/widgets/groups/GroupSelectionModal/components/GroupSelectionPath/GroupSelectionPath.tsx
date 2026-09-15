@@ -12,7 +12,7 @@ export function GroupSelectionPath() {
   return (
     <GroupPath 
       groupId={explorer.store.currentGroup.id} 
-      onSegmentClick={explorer.select}
+      onSegmentClick={explorer.selectGroup}
       gap={flexGapExtraSmall}
     />
   )

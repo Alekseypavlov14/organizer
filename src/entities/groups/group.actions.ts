@@ -61,7 +61,7 @@ export function useGroupActions() {
     return updated
   }
 
-  function getGroupPathById(id: Id): Nullable<GroupEntity[]> {
+  function getGroupPathById(id: Nullable<Id>): Nullable<GroupEntity[]> {
     const groups: GroupEntity[] = []
     let currentGroupId: Nullable<Id> = id
 

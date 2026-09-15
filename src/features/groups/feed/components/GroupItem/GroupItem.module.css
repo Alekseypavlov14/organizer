@@ -2,16 +2,16 @@
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
-}
 
-.Header {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .Title {
-  font-size: 14px;
   font-weight: 500;
   color: var(--grey-100);
+}
+.Date {
+  color: var(--grey-500);
 }

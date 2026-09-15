@@ -4,8 +4,10 @@ import type { GroupEntity } from '@/entities/groups'
 export interface GroupExplorerInstance {
   store: GroupExplorerStore
 
-  search: (query: string) => void
-  select: (group: GroupEntity) => void
+  searchGroups: (query: string) => void
+  selectGroup: (group: GroupEntity) => void
+  navigateRoot: () => void
 
   load: (groups: GroupEntity[]) => void
+  reset: () => void
 }

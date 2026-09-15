@@ -1,1 +1,4 @@
-/* .BreadcrumbsItem {} */
+.BreadcrumbsItem {
+  display: flex;
+  align-items: center;
+}

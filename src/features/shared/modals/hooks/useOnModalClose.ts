@@ -1,9 +1,9 @@
 import type { ModalOnClose } from '../types/ModalOnClose'
 import type { ModalModel } from '../types/ModalModel'
-import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
+import { useOnPageOpened } from '@/shared/hooks/useOnPageOpened'
 
 export function useOnModalClose(modal: ModalModel, onClose: ModalOnClose) {
-  useOnPageClosed(() => {
+  useOnPageOpened(() => {
     modal.store.updateOnClose(onClose)
   })
 }
