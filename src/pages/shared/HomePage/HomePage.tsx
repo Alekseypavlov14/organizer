@@ -1,56 +1,16 @@
-import { notionPriorityImportant, notionPriorityUrgent, useNotionsStoreFilter } from '@/entities/notions'
-import { useNotionImportantFeed, useNotionOtherFeed, useNotionUrgentFeed } from './feed.feature'
-import { Flex, flexDirectionVertical, flexGapLarge, flexGapMedium } from '@/shared/components/Flex'
-import { NotionFeed, NotionFeedHeader, NotionFeedItems } from '@/features/notions/feed'
+import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { FloatingActions, FloatingAction } from '@/shared/components/FloatingActions'
-import { CalendarWeekControl } from '@/features/shared/calendars'
-import { useOnPageOpened } from '@/shared/hooks/useOnPageOpened'
-import { isTheSameDate } from '@/shared/utils/datetime'
+import { NotionWeekView } from '@/widgets/notions/NotionWeekView'
 import { useNavigation } from '@/app/navigation'
-import { Placeholder } from '@/shared/components/Placeholder'
 import { AppGreeting } from '@/widgets/shared/AppGreeting'
-import { useCalendar } from './calendar.feature'
 import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
 import { AppHeader } from '@/widgets/shared/AppHeader'
-import { useEffect } from 'react'
-import { isNull } from '@/shared/utils/validation'
 import { Icon } from '@/shared/components/Icon'
 import { Main } from '@/shared/components/Main'
-import { Text } from '@/shared/components/Text'
 
 export function HomePage() {
-  const { navigateNotionFeedPage, navigateNotionDisplayPage, navigateGroupFeedPage } = useNavigation()
-
-  const calendar = useCalendar()
-
-  const notionUrgentFeed = useNotionUrgentFeed()
-  const notionImportantFeed = useNotionImportantFeed()
-  const notionOtherFeed = useNotionOtherFeed()
-
-  const notionsInSelectedDate = useNotionsStoreFilter(notion => (
-    !isNull(notion.date) && isTheSameDate(notion.date?.value, calendar.store.selectedDate)
-  ), [calendar.store.selectedDate])
-
-  useEffect(() => {
-    const notionsUrgentInSelectedDate = notionsInSelectedDate.filter(notion => notion.priority === notionPriorityUrgent)
-    notionUrgentFeed.updateNotions(notionsUrgentInSelectedDate)
-  }, [notionsInSelectedDate, calendar.store.selectedDate])
-
-  useEffect(() => {
-    const notionsImportantInSelectedDate = notionsInSelectedDate.filter(notion => notion.priority === notionPriorityImportant)
-    notionImportantFeed.updateNotions(notionsImportantInSelectedDate)
-  }, [notionsInSelectedDate, calendar.store.selectedDate])
-
-  useEffect(() => {
-    const notionsOtherInSelectedDate = notionsInSelectedDate.filter(notion => (
-      notion.priority !== notionPriorityUrgent &&
-      notion.priority !== notionPriorityImportant
-    ))
-    notionOtherFeed.updateNotions(notionsOtherInSelectedDate)
-  }, [notionsInSelectedDate, calendar.store.selectedDate])
-
-  useOnPageOpened(() => calendar.setCalendarWeekMode())
+  const { navigateNotionFeedPage, navigateGroupFeedPage } = useNavigation()
 
   return (
     <PageLayout>
@@ -60,56 +20,11 @@ export function HomePage() {
         <Container>
           <Flex
             direction={flexDirectionVertical}
-            gap={flexGapLarge}
+            gap={flexGapMedium}
           >
-            <Flex 
-              direction={flexDirectionVertical}
-              gap={flexGapMedium}
-            >
-              <AppGreeting />
-  
-              <CalendarWeekControl 
-                value={calendar.store.selectedDate}
-                onChange={calendar.updateSelectedDate}
-                weekStart={calendar.store.anchorDate}
-              />
-            </Flex>
+            <AppGreeting />
 
-            {notionUrgentFeed.store.notions.length > 0 ? (
-              <NotionFeed store={notionUrgentFeed.store}>
-                <NotionFeedHeader>
-                  <Text size='l'>Urgent</Text>
-                </NotionFeedHeader>
-                
-                <NotionFeedItems onNotionClick={notion => navigateNotionDisplayPage(notion.id)} />
-              </NotionFeed>
-            ) : null}
-
-            {notionImportantFeed.store.notions.length > 0 ? (
-              <NotionFeed store={notionImportantFeed.store}>
-                <NotionFeedHeader>
-                  <Text size='l'>Important</Text>
-                </NotionFeedHeader>
-
-                <NotionFeedItems onNotionClick={notion => navigateNotionDisplayPage(notion.id)} />
-              </NotionFeed>
-            ) : null}
-
-            {notionOtherFeed.store.notions.length > 0 ? (
-              <NotionFeed store={notionOtherFeed.store}>
-                <NotionFeedHeader>
-                  <Text size='l'>Other</Text>
-                </NotionFeedHeader>
-
-                <NotionFeedItems onNotionClick={notion => navigateNotionDisplayPage(notion.id)} />
-              </NotionFeed>
-            ) : null}
-
-            {notionsInSelectedDate.length <= 0 ? (
-              <Placeholder>
-                <Text>You are free today</Text>
-              </Placeholder>
-            ) : null}
+            <NotionWeekView />
           </Flex>
         </Container>
       </Main>

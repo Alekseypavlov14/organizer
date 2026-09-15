@@ -1,5 +1,6 @@
 import { NotionFeed, NotionFeedHeader, NotionFeedItems, NotionVariantControl } from '@/features/notions/feed'
 import { FloatingActions, FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingActions'
+import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { notionsSelector, useNotionsStore } from '@/entities/notions'
 import { useNavigation } from '@/app/navigation'
 import { useNotionFeed } from './feed.feature'
@@ -26,13 +27,18 @@ export function NotionFeedPage() {
       <Main>
         <Container stretch>
           <NotionFeed store={notionFeed.store}>
-            <NotionFeedHeader>
-              <Text size='l'>Notions</Text>
-
-              <NotionVariantControl />
-            </NotionFeedHeader>
-
-            <NotionFeedItems onNotionClick={(notion) => navigateNotionDisplayPage(notion.id)} />
+            <Flex
+              direction={flexDirectionVertical}
+              gap={flexGapMedium}
+            >
+              <NotionFeedHeader>
+                <Text size='l'>Notions</Text>
+  
+                <NotionVariantControl />
+              </NotionFeedHeader>
+  
+              <NotionFeedItems onNotionClick={(notion) => navigateNotionDisplayPage(notion.id)} />
+            </Flex>
           </NotionFeed>
         </Container>
       </Main>
