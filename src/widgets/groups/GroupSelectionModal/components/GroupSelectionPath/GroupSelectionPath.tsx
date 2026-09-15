@@ -13,7 +13,9 @@ export function GroupSelectionPath() {
     <GroupPath 
       groupId={explorer.store.currentGroup.id} 
       onSegmentClick={explorer.selectGroup}
+      onRootClick={explorer.navigateRoot}
       gap={flexGapExtraSmall}
+      showRoot
     />
   )
 }

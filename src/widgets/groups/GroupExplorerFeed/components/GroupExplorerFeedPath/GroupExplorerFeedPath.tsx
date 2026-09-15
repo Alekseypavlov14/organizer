@@ -1,5 +1,3 @@
-import type { Nullable } from '@/shared/types/nullable'
-import type { Id } from '@/shared/types/id'
 import { flexGapExtraSmall } from '@/shared/components/Flex'
 import { useGroupExplorer } from '../../group.explorer'
 import { GroupPath } from '@/features/groups/shared'
@@ -9,12 +7,12 @@ import styles from './GroupExplorerFeedPath.module.css'
 export function GroupExplorerFeedPath() {
   const groupExplorer = useGroupExplorer()
 
-  const currentGroupId: Nullable<Id> = groupExplorer.store.currentGroup?.id ?? null
+  if (!groupExplorer.store.currentGroup) return null
 
   return (
     <Text className={styles.GroupExplorerFeedPath} size='s'>
       <GroupPath 
-        groupId={currentGroupId} 
+        groupId={groupExplorer.store.currentGroup.id} 
         onSegmentClick={groupExplorer.selectGroup}
         onRootClick={groupExplorer.navigateRoot}
         gap={flexGapExtraSmall}
