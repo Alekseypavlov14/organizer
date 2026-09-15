@@ -30,7 +30,7 @@ export function GroupSelectionFeed() {
           </Text>
 
           {explorer.store.explorerMode === explorerModeSearch ? (
-            <Text className={styles.Path} size='s'>
+            <Text className={styles.Path}>
               <GroupPath 
                 groupId={group.id}
                 size={textSizeSmall}

@@ -10,7 +10,7 @@ export function GroupExplorerFeedPath() {
   if (!groupExplorer.store.currentGroup) return null
 
   return (
-    <Text className={styles.GroupExplorerFeedPath} size='s'>
+    <Text className={styles.GroupExplorerFeedPath}>
       <GroupPath 
         groupId={groupExplorer.store.currentGroup.id} 
         onSegmentClick={groupExplorer.selectGroup}

@@ -1,4 +1,5 @@
 export * from './group.entity'
+export * from './constants'
 
 export * from './group.store'
 export * from './group.actions'

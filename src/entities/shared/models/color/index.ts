@@ -1,4 +1,5 @@
 export * from './color.model'
+export * from './constants'
 
 export * from './color.store'
 export * from './color.actions'

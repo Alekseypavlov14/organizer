@@ -39,16 +39,4 @@ export const routing = createBrowserRouter([
     path: '/groups',
     element: <GroupFeedPage />
   },
-  {
-    path: '/groups/create',
-  },
-  {
-    path: `/groups/:${defaultEntityIdParam}`,
-  },
-  {
-    path: `/groups/:${defaultEntityIdParam}/edit`,
-  },
-  {
-    path: `/groups/:${defaultEntityIdParam}/edit/settings`,
-  },
 ])
