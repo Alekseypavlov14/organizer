@@ -1,4 +1,5 @@
 import type { NotionDeleteByIdCallback } from '../types/NotionDeleteByIdCallback'
+import type { NotionCancelCallback } from '../types/NotionCancelCallback'
 import type { NotionSaveCallback } from '../types/NotionSaveCallback'
 import type { Nullable } from '@/shared/types/nullable'
 import type { Id } from '@/shared/types/id'
@@ -60,9 +61,14 @@ export function useNotionEdition() {
   function updateOnNotionDeleteByIdCallback(onNotionDeleteById: NotionDeleteByIdCallback) {
     store.updateOnNotionDeleteById(onNotionDeleteById)
   }
+  function updateOnNotionCancel(onNotionCancel: NotionCancelCallback) {
+    store.updateOnNotionCancel(onNotionCancel)
+  }
+
   function resetCallbacks() {
     store.updateOnNotionSave(() => {})
     store.updateOnNotionDeleteById(() => {})
+    store.updateOnNotionCancel(() => {})
   }
 
   // notions
@@ -79,6 +85,7 @@ export function useNotionEdition() {
 
     updateOnNotionSaveCallback,
     updateOnNotionDeleteByIdCallback,
+    updateOnNotionCancel,
 
     getInitialNotion,
   })
