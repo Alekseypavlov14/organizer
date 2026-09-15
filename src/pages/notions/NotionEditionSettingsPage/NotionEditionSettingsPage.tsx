@@ -10,7 +10,7 @@ import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
 import { useNavigation } from '@/app/navigation'
 import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
-import { AppHeader } from '@/widgets/AppHeader'
+import { AppHeader } from '@/widgets/shared/AppHeader'
 import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
 
