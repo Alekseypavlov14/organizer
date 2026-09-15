@@ -1,13 +1,14 @@
 import type { GroupEntity } from './group.entity'
 import type { Nullable } from '@/shared/types/nullable'
 import type { Id } from '@/shared/types/id'
-import { updateGroupsSelector, useGroupsStore } from './group.store'
+import { groupsSelector, updateGroupsSelector, useGroupsStore } from './group.store'
 import { groupEntityStorage } from './group.storage'
 import { useNotionActions } from '../notions'
 import { validateId } from '@/shared/utils/id'
 import { isNull } from '@/shared/utils/validation'
 
 export function useGroupActions() {
+  const groups = useGroupsStore(groupsSelector)
   const updateGroups = useGroupsStore(updateGroupsSelector)
 
   const notionActions = useNotionActions()
@@ -79,6 +80,20 @@ export function useGroupActions() {
     return groups.reverse()
   }
 
+  function getGroupChildrenById(id: Nullable<Id>): Nullable<GroupEntity[]> {
+    if (isNull(id)) return groups.filter(group => group.parentId === id)
+
+    const group = getGroupById(id)
+    if (isNull(group)) return null
+
+    const children = groups.filter(group => group.parentId === id)
+    return children
+  }
+
+  function getGroupsBySearchQuery(query: string): GroupEntity[] {
+    return groups.filter(group => group.title.toLowerCase().includes(query.toLowerCase()))
+  }
+
   function revalidate() {
     updateGroups(groupEntityStorage.getAll())
   }
@@ -92,5 +107,8 @@ export function useGroupActions() {
     removeNotionFromGroupById,
 
     getGroupPathById,
+    getGroupChildrenById,
+
+    getGroupsBySearchQuery,
   })
 }
