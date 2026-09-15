@@ -1,4 +1,4 @@
-import { useGroupSelectionExplorer } from '../../selection.explorer'
+import { useGroupSelectionExplorer } from '../../../GroupSelectionModal/selection.explorer'
 import { Text } from '@/shared/components/Text'
 import styles from './GroupSelectionValue.module.css'
 

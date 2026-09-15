@@ -1,4 +1,4 @@
-import { useGroupSelectionExplorer } from '../../selection.explorer'
+import { useGroupSelectionExplorer } from '../../../GroupSelectionModal/selection.explorer'
 import { explorerModeHierarchy } from '@/features/groups/explorer'
 import { flexGapExtraSmall } from '@/shared/components/Flex'
 import { GroupPath } from '@/features/groups/shared'

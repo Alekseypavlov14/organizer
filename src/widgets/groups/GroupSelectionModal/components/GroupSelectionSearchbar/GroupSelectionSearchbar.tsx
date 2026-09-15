@@ -1,4 +1,4 @@
-import { useGroupSelectionExplorer } from '../../selection.explorer'
+import { useGroupSelectionExplorer } from '../../../GroupSelectionModal/selection.explorer'
 import { Input } from '@/shared/components/Input'
 
 export function GroupSelectionSearchbar() {
