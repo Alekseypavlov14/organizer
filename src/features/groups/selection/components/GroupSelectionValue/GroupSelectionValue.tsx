@@ -5,7 +5,7 @@ import styles from './GroupSelectionValue.module.css'
 export function GroupSelectionValue() {
   const currentGroup = useGroupSelectionStore(currentGroupSelector)
 
-  if (!currentGroup) return <div />
+  if (!currentGroup) return null
 
   return (
     <Text className={styles.GroupSelectionValue}>

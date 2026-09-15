@@ -51,7 +51,9 @@ export function GroupSelectionModal({
           justify={flexJustifySpaceBetween}
           align={flexAlignCenter}
         >
-          <GroupSelectionValue />
+          <Flex>
+            <GroupSelectionValue />
+          </Flex>
 
           <ModalActions>
             <Button
