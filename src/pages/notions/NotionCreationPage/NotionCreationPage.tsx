@@ -48,7 +48,7 @@ export function NotionCreationPage() {
 
       <ConfirmationModal 
         title='Do you want to cancel this edition?'
-        model={confirmationCancelModal}
+        modal={confirmationCancelModal}
         onConfirm={cancelHandler} 
         variant={buttonVariantDanger}
         cancelButton='Continue'

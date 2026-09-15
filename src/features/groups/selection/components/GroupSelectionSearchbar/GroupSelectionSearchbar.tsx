@@ -1,26 +1,13 @@
-import { useGroupSelectionStore, searchQuerySelector, updateSearchQuerySelector, updateSelectionModeSelector, updateCurrentGroupSelector } from '../../selection.store'
-import { selectionModeHierarchy, selectionModeSearch } from '../../constants'
-import { useEffect } from 'react'
+import { useGroupSelectionExplorer } from '../../selection.explorer'
 import { Input } from '@/shared/components/Input'
 
 export function GroupSelectionSearchbar() {
-  const searchQuery = useGroupSelectionStore(searchQuerySelector)
-  const updateSearchQuery = useGroupSelectionStore(updateSearchQuerySelector)
-
-  const updateCurrentGroup = useGroupSelectionStore(updateCurrentGroupSelector)
-  const updateSelectionMode = useGroupSelectionStore(updateSelectionModeSelector)
-
-  useEffect(() => {
-    if (searchQuery.length !== 0) return updateSelectionMode(selectionModeSearch)
-    
-    updateSelectionMode(selectionModeHierarchy)
-    updateCurrentGroup(null)
-  }, [searchQuery])
+  const explorer = useGroupSelectionExplorer()
 
   return (
     <Input 
-      value={searchQuery}
-      onValueChange={updateSearchQuery}
+      value={explorer.store.searchQuery}
+      onValueChange={explorer.search}
       placeholder='Search by name'
     />
   )

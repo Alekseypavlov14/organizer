@@ -1,44 +1,35 @@
-import type { GroupEntity } from '@/entities/groups'
-import { selectionModeSelector, updateCurrentGroupSelector, updateSelectionModeSelector, useGroupSelectionStore } from '../../selection.store'
-import { groupSavedAtFormat, selectionModeHierarchy, selectionModeSearch } from '../../constants'
+import { explorerModeHierarchy, explorerModeSearch, useGroupExplorerDisplayGroups } from '@/features/groups/explorer'
 import { Flex, flexDirectionVertical, flexGapExtraSmall, flexGapSmall } from '@/shared/components/Flex'
+import { useGroupSelectionExplorer } from '../../selection.explorer'
 import { Text, textSizeSmall } from '@/shared/components/Text'
-import { useDisplayGroups } from '../../hooks/useDisplayGroups'
+import { groupSavedAtFormat } from '../../constants'
 import { Placeholder } from '@/shared/components/Placeholder'
 import { GroupPath } from '@/features/groups/shared'
 import styles from './GroupSelectionFeed.module.css'
 
 export function GroupSelectionFeed() {
-  const groups = useDisplayGroups()
-  const selectionMode = useGroupSelectionStore(selectionModeSelector)
+  const explorer = useGroupSelectionExplorer()
+  const displayGroups = useGroupExplorerDisplayGroups(explorer)
 
-  const updateCurrentGroup = useGroupSelectionStore(updateCurrentGroupSelector)
-  const updateSelectionMode = useGroupSelectionStore(updateSelectionModeSelector)
-
-  function updateCurrentGroupHandler(group: GroupEntity) {
-    updateCurrentGroup(group)
-    updateSelectionMode(selectionModeHierarchy)
-  }
-  
   return (
     <Flex 
       className={styles.GroupSelectionFeed}
       direction={flexDirectionVertical}
       gap={flexGapSmall}  
     >
-      {groups.map(group => (
+      {displayGroups.map(group => (
         <Flex 
           className={styles.Group}
           direction={flexDirectionVertical}
           gap={flexGapExtraSmall}
-          onClick={() => updateCurrentGroupHandler(group)}
+          onClick={() => explorer.select(group)}
           key={group.id}
         >
           <Text className={styles.Title}>
             {group.title}
           </Text>
 
-          {selectionMode === selectionModeSearch ? (
+          {explorer.store.explorerMode === explorerModeSearch ? (
             <Text className={styles.Path} size='s'>
               <GroupPath 
                 groupId={group.id}
@@ -53,11 +44,11 @@ export function GroupSelectionFeed() {
         </Flex>
       ))}
 
-      {groups.length <= 0 ? (
+      {displayGroups.length <= 0 ? (
         <Placeholder>
           <Text>
-            {selectionMode === selectionModeHierarchy ? "No subgroups" : null}
-            {selectionMode === selectionModeSearch ? "No groups found" : null}
+            {explorer.store.explorerMode === explorerModeHierarchy ? "No subgroups" : null}
+            {explorer.store.explorerMode === explorerModeSearch ? "No groups found" : null}
           </Text>
         </Placeholder>
       ) : null}

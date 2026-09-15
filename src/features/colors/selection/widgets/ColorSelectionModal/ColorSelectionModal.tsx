@@ -17,7 +17,7 @@ export function ColorSelectionModal({
 }: ColorSelectionModalProps) {
   const colors = useColorsStore(colorsSelector)
 
-  const model = useColorSelectionModal()
+  const modal = useColorSelectionModal()
 
   const selectedColor = useColorSelectionStore(selectedColorSelector)
   const updateSelectedColor = useColorSelectionStore(updateSelectedColorSelector)
@@ -25,7 +25,7 @@ export function ColorSelectionModal({
   function selectHandler() {
     if (isNull(selectedColor)) return
 
-    model.close()
+    modal.close()
 
     onSelect(selectedColor)
   }
@@ -33,14 +33,14 @@ export function ColorSelectionModal({
   return (
     <Modal 
       className={styles.ColorSelectionModal}
-      onBackgroundClick={model.close}
-      isOpened={model.store.isOpened}  
+      onBackgroundClick={modal.close}
+      isOpened={modal.store.isOpened}  
     >
       <ModalBody>
         <ModalHeader>
           <Text size='l'>Choose color</Text>
                             
-          <ModalClose onClick={model.close} />
+          <ModalClose onClick={modal.close} />
         </ModalHeader>
   
         <ColorSelector 

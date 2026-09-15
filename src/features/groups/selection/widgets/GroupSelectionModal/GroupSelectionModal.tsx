@@ -1,8 +1,8 @@
 import type { GroupEntity } from '@/entities/groups'
 import { Modal, ModalActions, ModalBody, ModalClose, ModalHeader } from '@/shared/components/Modal'
 import { Flex, flexAlignCenter, flexJustifySpaceBetween } from '@/shared/components/Flex'
-import { currentGroupSelector, useGroupSelectionStore } from '../../selection.store'
 import { Button, buttonVariantPrimary } from '@/shared/components/Button'
+import { useGroupSelectionExplorer } from '../../selection.explorer'
 import { GroupSelectionSearchbar } from '../../components/GroupSelectionSearchbar'
 import { useGroupSelectionModal } from '../../selection.modal'
 import { GroupSelectionValue } from '../../components/GroupSelectionValue'
@@ -19,28 +19,27 @@ interface GroupSelectionModalProps {
 export function GroupSelectionModal({
   onSelect = () => {},
 }: GroupSelectionModalProps) {
-  const model = useGroupSelectionModal()
-
-  const currentGroup = useGroupSelectionStore(currentGroupSelector) 
+  const explorer = useGroupSelectionExplorer()
+  const modal = useGroupSelectionModal()
 
   function confirmSelectionHandler() {
-    if (!currentGroup) return
+    if (!explorer.store.currentGroup) return
 
-    onSelect(currentGroup)
-    model.close()
+    onSelect(explorer.store.currentGroup)
+    modal.close()
   }
 
   return (
     <Modal 
       className={styles.GroupSelectionModal}
-      onBackgroundClick={model.close}
-      isOpened={model.store.isOpened}
+      onBackgroundClick={modal.close}
+      isOpened={modal.store.isOpened}
     >
       <ModalBody>
         <ModalHeader>
           <Text size='l'>Select group</Text>
           
-          <ModalClose onClick={model.close} />
+          <ModalClose onClick={modal.close} />
         </ModalHeader>
   
         <GroupSelectionSearchbar />
@@ -59,7 +58,7 @@ export function GroupSelectionModal({
             <Button
               variant={buttonVariantPrimary}
               onClick={confirmSelectionHandler}
-              disabled={isNull(currentGroup)}
+              disabled={isNull(explorer.store.currentGroup)}
             >
               Confirm
             </Button>

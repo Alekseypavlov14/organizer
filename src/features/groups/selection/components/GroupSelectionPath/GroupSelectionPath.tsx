@@ -1,21 +1,18 @@
-import { currentGroupSelector, selectionModeSelector, updateCurrentGroupSelector, useGroupSelectionStore } from '../../selection.store'
-import { selectionModeHierarchy } from '../../constants'
-import { GroupPath } from '@/features/groups/shared'
+import { useGroupSelectionExplorer } from '../../selection.explorer'
+import { explorerModeHierarchy } from '@/features/groups/explorer'
 import { flexGapExtraSmall } from '@/shared/components/Flex'
+import { GroupPath } from '@/features/groups/shared'
 
 export function GroupSelectionPath() {
-  const currentGroup = useGroupSelectionStore(currentGroupSelector)
-  const updateCurrentGroup = useGroupSelectionStore(updateCurrentGroupSelector)
+  const explorer = useGroupSelectionExplorer()
 
-  const selectionMode = useGroupSelectionStore(selectionModeSelector)
-
-  if (selectionMode !== selectionModeHierarchy) return
-  if (!currentGroup) return null
+  if (explorer.store.explorerMode !== explorerModeHierarchy) return
+  if (!explorer.store.currentGroup) return null
 
   return (
     <GroupPath 
-      groupId={currentGroup.id} 
-      onSegmentClick={updateCurrentGroup}
+      groupId={explorer.store.currentGroup.id} 
+      onSegmentClick={explorer.select}
       gap={flexGapExtraSmall}
     />
   )

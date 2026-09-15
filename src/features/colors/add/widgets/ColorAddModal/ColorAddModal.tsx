@@ -20,12 +20,12 @@ export function ColorAddModal({
   const notifications = useNotifications()
   const colorActions = useColorActions()
 
-  const model = useColorAddModal()
+  const modal = useColorAddModal()
 
   const value = useColorAddStore(valueSelector)
   const updateValue = useColorAddStore(updateValueSelector)
 
-  useOnModalOpen(model, () => {
+  useOnModalOpen(modal, () => {
     updateValue(initialColorAddControlValue)
   })
 
@@ -38,7 +38,7 @@ export function ColorAddModal({
     if (!created) return notifications.createErrorNotification('The color is not saved')
 
     notifications.createSuccessNotification('The color is saved')
-    model.close()
+    modal.close()
 
     onAdd(created)
   }
@@ -46,14 +46,14 @@ export function ColorAddModal({
   return (
     <Modal 
       className={styles.ColorAddModal}
-      onBackgroundClick={model.close}
-      isOpened={model.store.isOpened}
+      onBackgroundClick={modal.close}
+      isOpened={modal.store.isOpened}
     >
       <ModalBody>
         <ModalHeader>
           <Text size='l'>Add new color</Text>
                     
-          <ModalClose onClick={model.close} />
+          <ModalClose onClick={modal.close} />
         </ModalHeader>
   
         <Input 
@@ -62,7 +62,7 @@ export function ColorAddModal({
         />
   
         <ModalActions>
-          <Button onClick={model.close}>Cancel</Button>
+          <Button onClick={modal.close}>Cancel</Button>
   
           <Button 
             variant={buttonVariantPrimary}

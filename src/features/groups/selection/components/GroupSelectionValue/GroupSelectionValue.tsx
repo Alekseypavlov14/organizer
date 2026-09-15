@@ -1,15 +1,15 @@
-import { currentGroupSelector, useGroupSelectionStore } from '../../selection.store'
+import { useGroupSelectionExplorer } from '../../selection.explorer'
 import { Text } from '@/shared/components/Text'
 import styles from './GroupSelectionValue.module.css'
 
 export function GroupSelectionValue() {
-  const currentGroup = useGroupSelectionStore(currentGroupSelector)
+  const explorer = useGroupSelectionExplorer()
 
-  if (!currentGroup) return null
+  if (!explorer.store.currentGroup) return null
 
   return (
     <Text className={styles.GroupSelectionValue}>
-      Selected: {currentGroup.title}
+      Selected: {explorer.store.currentGroup.title}
     </Text>
   )
 }

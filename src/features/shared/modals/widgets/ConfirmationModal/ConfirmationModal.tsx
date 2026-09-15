@@ -6,7 +6,7 @@ import { Text } from '@/shared/components/Text'
 
 interface ConfirmationModalProps {
   title: string
-  model: ModalModel
+  modal: ModalModel
   
   onCancel?: () => void
   onConfirm?: () => void
@@ -20,7 +20,7 @@ interface ConfirmationModalProps {
 
 export function ConfirmationModal({ 
   title,
-  model,
+  modal,
 
   onCancel = () => {},
   onConfirm = () => {},
@@ -31,7 +31,7 @@ export function ConfirmationModal({
   variant,
   forced,
 }: ConfirmationModalProps) {
-  const { store, close } = model
+  const { store, close } = modal
 
   function cancelHandler() {
     onCancel()
