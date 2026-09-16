@@ -23,7 +23,6 @@ export function HomePage() {
             gap={flexGapMedium}
           >
             <AppGreeting />
-
             <NotionWeekView />
           </Flex>
         </Container>

@@ -1,16 +1,24 @@
+import type { NotionEntity } from '@/entities/notions'
 import { useGroupExplorerDisplayGroups, useGroupExplorerGroups } from '@/features/groups/explorer'
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { groupsSelector, useGroupsStore } from '@/entities/groups'
+import { NotionFeed, NotionFeedItems } from '@/features/notions/feed'
 import { GroupFeed, GroupFeedItems } from '@/features/groups/feed'
 import { GroupExplorerFeedPath } from './components/GroupExplorerFeedPath'
 import { useGroupExplorer } from './group.explorer'
 import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
+import { useNavigation } from '@/app/navigation'
+import { useNotionFeed } from './notion.feed'
 import { useGroupFeed } from './group.feed'
 import { useEffect } from 'react'
 
 export function GroupExplorerFeed() {
-  const groupFeed = useGroupFeed()
+  const navigation = useNavigation()
+
   const groupExplorer = useGroupExplorer()
+  const groupFeed = useGroupFeed()
+  
+  useOnPageClosed(groupExplorer.reset)
 
   const groups = useGroupsStore(groupsSelector)
   useGroupExplorerGroups(groupExplorer, groups)
@@ -18,7 +26,15 @@ export function GroupExplorerFeed() {
   const displayGroups = useGroupExplorerDisplayGroups(groupExplorer)
   useEffect(() => groupFeed.updateGroups(displayGroups), [displayGroups])
 
-  useOnPageClosed(groupExplorer.reset)
+  const notionFeed = useNotionFeed()
+  useEffect(() => {
+    const currentGroupNotions = groupExplorer.store.currentGroup?.notions ?? []
+    notionFeed.updateNotions(currentGroupNotions)
+  }, [groupExplorer.store.currentGroup])
+
+  function onNotionClick(notion: NotionEntity) {
+    navigation.navigateNotionDisplayPage(notion.id)
+  }
 
   return (
     <GroupFeed store={groupFeed.store}>
@@ -29,6 +45,10 @@ export function GroupExplorerFeed() {
         <GroupExplorerFeedPath />
 
         <GroupFeedItems onGroupClick={groupExplorer.selectGroup} />
+
+        <NotionFeed store={notionFeed.store}>
+          <NotionFeedItems onNotionClick={onNotionClick} />
+        </NotionFeed>
       </Flex>
     </GroupFeed>
   )

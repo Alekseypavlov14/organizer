@@ -44,6 +44,10 @@ export function GroupFeedPage() {
     groupCreationModal.open()
   }
 
+  function cancelColorSelection() {
+    groupCreationModal.open()
+  }
+
   function addColor(color: ColorModel) {
     colorSelection.updateColor(color)
     colorSelectionModal.open()
@@ -67,6 +71,7 @@ export function GroupFeedPage() {
       <ColorSelectionModal 
         onSelect={selectColor}
         onAddNew={openColorAddModal} 
+        onCancel={cancelColorSelection}
       />
       <ColorAddModal 
         onAdd={addColor} 
