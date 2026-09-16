@@ -1,4 +1,4 @@
-import type { EntityFilter } from '../shared/interfaces/entity.filter'
+import type { EntityFilter } from '../shared'
 import type { NotionEntity } from './notion.entity'
 import { notionsSelector, useNotionsStore } from './notion.store'
 import { useMemo, type DependencyList } from 'react'

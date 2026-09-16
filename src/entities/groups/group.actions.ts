@@ -61,6 +61,18 @@ export function useGroupActions() {
     return updated
   }
 
+  function moveGroupById(groupId: Id, parentId: Nullable<Id>): Nullable<GroupEntity> {
+    const group = getGroupById(groupId)
+    if (!group) return null
+    
+    if (isSubgroupOf(parentId, groupId)) return null
+
+    const moved = groupEntityStorage.save({ ...group, parentId })
+    revalidate()
+
+    return moved
+  }
+
   function getGroupPathById(id: Nullable<Id>): Nullable<GroupEntity[]> {
     const groups: GroupEntity[] = []
     let currentGroupId: Nullable<Id> = id
@@ -90,6 +102,21 @@ export function useGroupActions() {
     return children
   }
 
+  function isSubgroupOf(groupId: Nullable<Id>, parentId: Nullable<Id>): boolean {
+    if (groupId === parentId) return false
+    if (isNull(groupId)) return false
+    if (isNull(parentId)) return true
+
+    const group = getGroupById(groupId)
+    if (!group) return false
+
+    const parent = getGroupById(parentId)
+    if (!parent) return false
+
+    const path = getGroupPathById(groupId) ?? []
+    return path.some(group => group.id === parentId)
+  }
+
   function getGroupsBySearchQuery(query: string): GroupEntity[] {
     return groups.filter(group => group.title.toLowerCase().includes(query.toLowerCase()))
   }
@@ -105,9 +132,11 @@ export function useGroupActions() {
     
     addNotionToGroupById,
     removeNotionFromGroupById,
-
+    
+    moveGroupById,
     getGroupPathById,
     getGroupChildrenById,
+    isSubgroupOf,
 
     getGroupsBySearchQuery,
   })

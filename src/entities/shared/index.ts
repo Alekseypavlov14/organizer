@@ -1,4 +1,6 @@
 export * from './interfaces/entity.validator'
+export * from './interfaces/entity.filter'
+
 export * from './interfaces/model.format'
 export * from './interfaces/model.validator'
 
