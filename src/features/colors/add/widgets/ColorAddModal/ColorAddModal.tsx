@@ -1,6 +1,6 @@
 import { colorValidator, createColorModel, useColorActions, type ColorModel } from '@/entities/shared'
-import { Modal, ModalActions, ModalBody, ModalClose, ModalHeader } from '@/shared/components/Modal'
 import { updateValueSelector, useColorAddStore, valueSelector } from '../../add.store'
+import { Modal, ModalActions, ModalBody, ModalHeader } from '@/shared/components/Modal'
 import { Button, buttonVariantPrimary } from '@/shared/components/Button'
 import { initialColorAddControlValue } from '../../constants'
 import { useColorAddModal } from '../../add.modal'
@@ -12,10 +12,12 @@ import styles from './ColorAddModal.module.css'
 
 interface ColorAddModalProps {
   onAdd?: (color: ColorModel) => void
+  onCancel?: () => void
 }
 
 export function ColorAddModal({ 
   onAdd = () => {}, 
+  onCancel = () => {},
 }: ColorAddModalProps) {
   const notifications = useNotifications()
   const colorActions = useColorActions()
@@ -36,22 +38,25 @@ export function ColorAddModal({
     if (!created) return notifications.createErrorNotification('The color is not saved')
 
     notifications.createSuccessNotification('The color is saved')
+    
     modal.close()
-
     onAdd(created)
+  }
+
+  function cancelHandler() {
+    modal.close()
+    onCancel()
   }
 
   return (
     <Modal 
       className={styles.ColorAddModal}
-      onBackgroundClick={modal.close}
+      onBackgroundClick={cancelHandler}
       isOpened={modal.store.isOpened}
     >
       <ModalBody>
         <ModalHeader>
           <Text size='l'>Add new color</Text>
-                    
-          <ModalClose onClick={modal.close} />
         </ModalHeader>
   
         <Input 
@@ -60,8 +65,6 @@ export function ColorAddModal({
         />
   
         <ModalActions>
-          <Button onClick={modal.close}>Cancel</Button>
-  
           <Button 
             variant={buttonVariantPrimary}
             onClick={addColorHandler}

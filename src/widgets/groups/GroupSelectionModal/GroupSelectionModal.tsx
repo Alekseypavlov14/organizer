@@ -1,6 +1,6 @@
 import type { GroupEntity } from '@/entities/groups'
-import { Modal, ModalActions, ModalBody, ModalClose, ModalHeader } from '@/shared/components/Modal'
 import { Flex, flexAlignCenter, flexJustifySpaceBetween } from '@/shared/components/Flex'
+import { Modal, ModalActions, ModalBody, ModalHeader } from '@/shared/components/Modal'
 import { Button, buttonVariantPrimary } from '@/shared/components/Button'
 import { useGroupSelectionExplorer } from './selection.explorer'
 import { GroupSelectionSearchbar } from './components/GroupSelectionSearchbar'
@@ -15,10 +15,12 @@ import styles from './GroupSelectionModal.module.css'
 
 interface GroupSelectionModalProps {
   onSelect?: (group: GroupEntity) => void
+  onCancel?: () => void
 }
 
 export function GroupSelectionModal({
   onSelect = () => {},
+  onCancel = () => {},
 }: GroupSelectionModalProps) {
   const explorer = useGroupSelectionExplorer()
   const modal = useGroupSelectionModal()
@@ -28,21 +30,24 @@ export function GroupSelectionModal({
   function confirmSelectionHandler() {
     if (!explorer.store.currentGroup) return
 
-    onSelect(explorer.store.currentGroup)
     modal.close()
+    onSelect(explorer.store.currentGroup)
+  }
+
+  function cancelHandler() {
+    modal.close()
+    onCancel()
   }
 
   return (
     <Modal 
       className={styles.GroupSelectionModal}
-      onBackgroundClick={modal.close}
+      onBackgroundClick={cancelHandler}
       isOpened={modal.store.isOpened}
     >
       <ModalBody>
         <ModalHeader>
           <Text size='l'>Select group</Text>
-          
-          <ModalClose onClick={modal.close} />
         </ModalHeader>
   
         <GroupSelectionSearchbar />

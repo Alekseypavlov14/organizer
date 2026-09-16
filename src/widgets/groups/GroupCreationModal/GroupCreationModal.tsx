@@ -44,10 +44,6 @@ export function GroupCreationModal({
         <GroupForm onColorClick={onColorClick} />
   
         <ModalActions>
-          <Button onClick={cancelHandler}>
-            Cancel
-          </Button>
-
           <Button
             variant={buttonVariantPrimary}
             onClick={saveHandler}

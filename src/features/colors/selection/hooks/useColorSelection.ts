@@ -8,8 +8,13 @@ export function useColorSelection() {
     updateSelectedColor(color)
   }
 
+  function resetColor() {
+    updateSelectedColor(null)
+  }
+
   return ({
     selectedColor,
     updateColor,
+    resetColor,
   })
 }

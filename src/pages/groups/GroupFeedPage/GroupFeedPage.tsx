@@ -24,6 +24,8 @@ export function GroupFeedPage() {
 
   function openGroupCreationModal() {
     groupForm.updateFormGroup(groupEdition.getInitialGroup())
+    colorSelection.resetColor()
+
     groupCreationModal.open()
   }
 
@@ -47,6 +49,10 @@ export function GroupFeedPage() {
     colorSelectionModal.open()
   }
 
+  function cancelColorAddition() {
+    colorSelectionModal.open()
+  }
+
   return (
     <PageLayout>
       <AppHeader />
@@ -62,7 +68,10 @@ export function GroupFeedPage() {
         onSelect={selectColor}
         onAddNew={openColorAddModal} 
       />
-      <ColorAddModal onAdd={addColor} />
+      <ColorAddModal 
+        onAdd={addColor} 
+        onCancel={cancelColorAddition}
+      />
 
       <FloatingActions>
         <FloatingAction 

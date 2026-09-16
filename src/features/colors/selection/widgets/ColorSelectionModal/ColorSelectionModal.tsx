@@ -1,9 +1,8 @@
 import { selectedColorSelector, updateSelectedColorSelector, useColorSelectionStore } from '../../selection.store'
 import { colorsSelector, predefinedColors, useColorsStore, type ColorModel } from '@/entities/shared'
-import { Modal, ModalActions, ModalBody, ModalClose, ModalHeader } from '@/shared/components/Modal'
+import { Modal, ModalActions, ModalBody, ModalHeader } from '@/shared/components/Modal'
 import { Button, buttonVariantPrimary } from '@/shared/components/Button'
 import { useColorSelectionModal } from '../../selection.modal'
-import { useOnModalOpen } from '@/features/shared/modals'
 import { ColorSelector } from '../../components/ColorSelector'
 import { isNull } from '@/shared/utils/validation'
 import { Text } from '@/shared/components/Text'
@@ -12,10 +11,12 @@ import styles from './ColorSelectionModal.module.css'
 interface ColorSelectionModalProps {
   onSelect?: (color: ColorModel) => void
   onAddNew?: () => void
+  onCancel?: () => void
 }
 
 export function ColorSelectionModal({
   onSelect = () => {},
+  onCancel = () => {},
   onAddNew,
 }: ColorSelectionModalProps) {
   const colors = useColorsStore(colorsSelector)
@@ -25,8 +26,6 @@ export function ColorSelectionModal({
   const selectedColor = useColorSelectionStore(selectedColorSelector)
   const updateSelectedColor = useColorSelectionStore(updateSelectedColorSelector)
 
-  useOnModalOpen(modal, () => updateSelectedColor(null))
-
   function selectHandler() {
     if (isNull(selectedColor)) return
 
@@ -34,17 +33,20 @@ export function ColorSelectionModal({
     onSelect(selectedColor)
   }
 
+  function cancelHandler() {
+    modal.close()
+    onCancel()
+  }
+
   return (
     <Modal 
       className={styles.ColorSelectionModal}
-      onBackgroundClick={modal.close}
+      onBackgroundClick={cancelHandler}
       isOpened={modal.store.isOpened}  
     >
       <ModalBody>
         <ModalHeader>
           <Text size='l'>Choose color</Text>
-                            
-          <ModalClose onClick={modal.close} />
         </ModalHeader>
 
         <ColorSelector 

@@ -1,6 +1,6 @@
 import type { ModalModel } from '../../types/ModalModel'
 import type { ReactNode } from 'react'
-import { Modal, ModalActions, ModalBody, ModalClose, ModalHeader } from '@/shared/components/Modal'
+import { Modal, ModalActions, ModalBody, ModalHeader } from '@/shared/components/Modal'
 import { Button, type ButtonVariant } from '@/shared/components/Button'
 import { Text } from '@/shared/components/Text'
 
@@ -15,7 +15,6 @@ interface ConfirmationModalProps {
   confirmButton?: ReactNode
 
   variant?: ButtonVariant
-  forced?: boolean
 }
 
 export function ConfirmationModal({ 
@@ -29,7 +28,6 @@ export function ConfirmationModal({
   confirmButton = 'Confirm',
 
   variant,
-  forced,
 }: ConfirmationModalProps) {
   const { store, close } = modal
 
@@ -44,7 +42,6 @@ export function ConfirmationModal({
   }
 
   function clickBackgroundHandler() {
-    if (forced) return
     cancelHandler()
   }
 
@@ -56,10 +53,6 @@ export function ConfirmationModal({
       <ModalBody>
         <ModalHeader>
           <Text size='l'>{title}</Text>
-          
-          {!forced ? (
-            <ModalClose onClick={cancelHandler} />
-          ) : null}
         </ModalHeader>
   
         <ModalActions>
