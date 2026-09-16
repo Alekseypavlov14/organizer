@@ -2,8 +2,8 @@ import type { ColorModel } from '@/entities/shared'
 import { ColorSelectionModal, useColorSelection, useColorSelectionModal } from '@/features/colors/selection'
 import { FloatingActions, FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingActions'
 import { GroupCreationModal, useGroupCreationModal } from '@/widgets/groups/GroupCreationModal'
+import { GroupExplorerFeed, useGroupExplorer } from '@/widgets/groups/GroupExplorerFeed'
 import { ColorAddModal, useColorAddModal } from '@/features/colors/add'
-import { GroupExplorerFeed } from '@/widgets/groups/GroupExplorerFeed'
 import { useGroupEdition } from '@/features/groups/edition'
 import { useGroupForm } from '@/features/groups/form'
 import { PageLayout } from '@/app/layouts'
@@ -13,6 +13,8 @@ import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
 
 export function GroupFeedPage() {
+  const groupExplorer = useGroupExplorer()
+
   const groupForm = useGroupForm()
   const groupEdition = useGroupEdition()
 
@@ -24,6 +26,10 @@ export function GroupFeedPage() {
 
   function openGroupCreationModal() {
     groupForm.updateFormGroup(groupEdition.getInitialGroup())
+
+    const currentGroupId = groupExplorer.store.currentGroup?.id ?? null
+    groupForm.updateGroupParentId(currentGroupId)
+    
     colorSelection.resetColor()
 
     groupCreationModal.open()
