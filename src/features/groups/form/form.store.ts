@@ -7,6 +7,8 @@ interface GroupFormState {
 }
 
 interface GroupFormActions {
+  updateGroup: (group: GroupEntity) => void
+
   updateTitle: (title: string) => void
   updateColor: (color: ColorModel) => void
 }
@@ -16,6 +18,7 @@ export interface GroupFormStore extends GroupFormState, GroupFormActions {}
 export const useGroupFormStore = create<GroupFormStore>(set => ({
   group: defaultGroupEntity,
 
+  updateGroup: (group) => set(state => ({ ...state, group })),
   updateTitle: (title) => set(state => ({ ...state, group: { ...state.group, title } })),
   updateColor: (color) => set(state => ({ ...state, group: { ...state.group, color } })),
 }))

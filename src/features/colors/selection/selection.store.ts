@@ -7,7 +7,7 @@ interface ColorSelectionState {
 }
 
 interface ColorSelectionActions {
-  updateSelectedColor: (color: ColorModel) => void
+  updateSelectedColor: (color: Nullable<ColorModel>) => void
 }
 
 export interface ColorSelectionStore extends ColorSelectionState, ColorSelectionActions {}

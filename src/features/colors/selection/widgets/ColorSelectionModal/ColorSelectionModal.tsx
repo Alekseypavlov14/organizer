@@ -3,6 +3,7 @@ import { Modal, ModalActions, ModalBody, ModalClose, ModalHeader } from '@/share
 import { colorsSelector, useColorsStore, type ColorModel } from '@/entities/shared'
 import { Button, buttonVariantPrimary } from '@/shared/components/Button'
 import { useColorSelectionModal } from '../../selection.modal'
+import { useOnModalOpen } from '@/features/shared/modals'
 import { ColorSelector } from '../../components/ColorSelector'
 import { isNull } from '@/shared/utils/validation'
 import { Text } from '@/shared/components/Text'
@@ -22,11 +23,12 @@ export function ColorSelectionModal({
   const selectedColor = useColorSelectionStore(selectedColorSelector)
   const updateSelectedColor = useColorSelectionStore(updateSelectedColorSelector)
 
+  useOnModalOpen(modal, () => updateSelectedColor(null))
+
   function selectHandler() {
     if (isNull(selectedColor)) return
 
     modal.close()
-
     onSelect(selectedColor)
   }
 
