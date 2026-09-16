@@ -3,7 +3,7 @@ import { buttonSizeMedium, buttonVariantBase, mapButtonSizeToClassName, mapButto
 import styles from './Button.module.css'
 import clsx from 'clsx'
 
-interface ButtonProps extends ComponentProps<'button'> {
+export interface ButtonProps extends ComponentProps<'button'> {
   variant?: ButtonVariant
   size?: ButtonSize
   block?: boolean

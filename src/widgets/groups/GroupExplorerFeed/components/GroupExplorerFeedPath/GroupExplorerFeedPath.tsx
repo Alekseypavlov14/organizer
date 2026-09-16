@@ -1,11 +1,11 @@
+import { useGroupExplorerFeedExplorer } from '../../group.explorer'
 import { flexGapExtraSmall } from '@/shared/components/Flex'
-import { useGroupExplorer } from '../../group.explorer'
 import { GroupPath } from '@/features/groups/shared'
 import { Text } from '@/shared/components/Text'
 import styles from './GroupExplorerFeedPath.module.css'
 
 export function GroupExplorerFeedPath() {
-  const groupExplorer = useGroupExplorer()
+  const groupExplorer = useGroupExplorerFeedExplorer()
 
   if (!groupExplorer.store.currentGroup) return null
 

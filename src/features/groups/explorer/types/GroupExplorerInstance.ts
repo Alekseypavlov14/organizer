@@ -6,6 +6,8 @@ export interface GroupExplorerInstance {
 
   searchGroups: (query: string) => void
   selectGroup: (group: GroupEntity) => void
+
+  navigateParent: () => void
   navigateRoot: () => void
 
   load: (groups: GroupEntity[]) => void

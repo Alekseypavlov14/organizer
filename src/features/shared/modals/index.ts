@@ -1,5 +1,8 @@
 export * from './widgets/ConfirmationModal'
+export * from './widgets/SelectActionModal'
 export * from './modal.instance'
+
+export * from './components/SelectActionModalOption'
 
 export * from './hooks/useOnModalOpen'
 export * from './hooks/useOnModalClose'

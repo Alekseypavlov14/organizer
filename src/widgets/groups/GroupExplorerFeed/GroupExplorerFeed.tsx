@@ -2,10 +2,10 @@ import type { NotionEntity } from '@/entities/notions'
 import { useGroupExplorerDisplayGroups, useGroupExplorerGroups } from '@/features/groups/explorer'
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { groupsSelector, useGroupsStore } from '@/entities/groups'
+import { useGroupExplorerFeedExplorer } from './group.explorer'
 import { NotionFeed, NotionFeedItems } from '@/features/notions/feed'
 import { GroupFeed, GroupFeedItems } from '@/features/groups/feed'
 import { GroupExplorerFeedPath } from './components/GroupExplorerFeedPath'
-import { useGroupExplorer } from './group.explorer'
 import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
 import { useNavigation } from '@/app/navigation'
 import { useNotionFeed } from './notion.feed'
@@ -17,7 +17,7 @@ import { Text } from '@/shared/components/Text'
 export function GroupExplorerFeed() {
   const navigation = useNavigation()
 
-  const groupExplorer = useGroupExplorer()
+  const groupExplorer = useGroupExplorerFeedExplorer()
   const groupFeed = useGroupFeed()
 
   useOnPageClosed(groupExplorer.reset)
