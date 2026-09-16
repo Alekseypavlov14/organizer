@@ -1,6 +1,6 @@
 import { selectedColorSelector, updateSelectedColorSelector, useColorSelectionStore } from '../../selection.store'
+import { colorsSelector, predefinedColors, useColorsStore, type ColorModel } from '@/entities/shared'
 import { Modal, ModalActions, ModalBody, ModalClose, ModalHeader } from '@/shared/components/Modal'
-import { colorsSelector, useColorsStore, type ColorModel } from '@/entities/shared'
 import { Button, buttonVariantPrimary } from '@/shared/components/Button'
 import { useColorSelectionModal } from '../../selection.modal'
 import { useOnModalOpen } from '@/features/shared/modals'
@@ -11,10 +11,12 @@ import styles from './ColorSelectionModal.module.css'
 
 interface ColorSelectionModalProps {
   onSelect?: (color: ColorModel) => void
+  onAddNew?: () => void
 }
 
 export function ColorSelectionModal({
-  onSelect = () => {}
+  onSelect = () => {},
+  onAddNew,
 }: ColorSelectionModalProps) {
   const colors = useColorsStore(colorsSelector)
 
@@ -44,6 +46,12 @@ export function ColorSelectionModal({
                             
           <ModalClose onClick={modal.close} />
         </ModalHeader>
+
+        <ColorSelector 
+          colors={predefinedColors}
+          onChange={updateSelectedColor}
+          selectedColor={selectedColor}
+        />
   
         <ColorSelector 
           colors={colors}
@@ -52,6 +60,12 @@ export function ColorSelectionModal({
         />
   
         <ModalActions>
+          {onAddNew ? (
+            <Button onClick={onAddNew}>
+              Add
+            </Button>
+          ) : null} 
+
           <Button 
             variant={buttonVariantPrimary}
             disabled={isNull(selectedColor)}

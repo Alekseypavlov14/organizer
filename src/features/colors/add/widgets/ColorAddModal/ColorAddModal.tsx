@@ -25,9 +25,7 @@ export function ColorAddModal({
   const value = useColorAddStore(valueSelector)
   const updateValue = useColorAddStore(updateValueSelector)
 
-  useOnModalOpen(modal, () => {
-    updateValue(initialColorAddControlValue)
-  })
+  useOnModalOpen(modal, () => updateValue(initialColorAddControlValue))
 
   function addColorHandler() {
     if (!colorValidator.validateControlValue(value)) return notifications.createErrorNotification('The color value is invalid')

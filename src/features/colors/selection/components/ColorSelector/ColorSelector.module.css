@@ -1,7 +1,7 @@
 .ColorSelector {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 5px;
 }
 
 .Option {
@@ -10,7 +10,7 @@
   justify-content: center;
 }
 .Option.Active {
-  outline: 2px solid var(--primary);
   border-radius: 100px;
-  outline-offset: 2px;
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
 }

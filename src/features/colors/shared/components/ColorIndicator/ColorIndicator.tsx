@@ -12,11 +12,12 @@ interface ColorIndicatorProps extends ComponentProps<'div'> {
 export function ColorIndicator({ 
   value, 
   size = colorIndicatorSizeMedium,
+  className,
   ...props
 }: ColorIndicatorProps) {
   const injection = { '--color': value.value } as CSSProperties
 
-  const classNames = clsx(styles.ColorIndicator, mapColorIndicatorSizeToClassName[size])
+  const classNames = clsx(styles.ColorIndicator, mapColorIndicatorSizeToClassName[size], className)
 
   return (
     <div 

@@ -1,7 +1,8 @@
 import type { ColorModel } from '@/entities/shared'
+import { ColorSelectionModal, useColorSelection, useColorSelectionModal } from '@/features/colors/selection'
 import { FloatingActions, FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingActions'
-import { ColorSelectionModal, useColorSelectionModal } from '@/features/colors/selection'
 import { GroupCreationModal, useGroupCreationModal } from '@/widgets/groups/GroupCreationModal'
+import { ColorAddModal, useColorAddModal } from '@/features/colors/add'
 import { GroupExplorerFeed } from '@/widgets/groups/GroupExplorerFeed'
 import { useGroupEdition } from '@/features/groups/edition'
 import { useGroupForm } from '@/features/groups/form'
@@ -15,8 +16,11 @@ export function GroupFeedPage() {
   const groupForm = useGroupForm()
   const groupEdition = useGroupEdition()
 
+  const colorSelection = useColorSelection()
+
   const groupCreationModal = useGroupCreationModal()
   const colorSelectionModal = useColorSelectionModal()
+  const colorAddModal = useColorAddModal()
 
   function openGroupCreationModal() {
     groupForm.updateFormGroup(groupEdition.getInitialGroup())
@@ -28,9 +32,19 @@ export function GroupFeedPage() {
     colorSelectionModal.open()
   }
 
+  function openColorAddModal() {
+    colorSelectionModal.close()
+    colorAddModal.open()
+  }
+
   function selectColor(color: ColorModel) {
     groupForm.updateGroupColor(color)
     groupCreationModal.open()
+  }
+
+  function addColor(color: ColorModel) {
+    colorSelection.updateColor(color)
+    colorSelectionModal.open()
   }
 
   return (
@@ -44,7 +58,11 @@ export function GroupFeedPage() {
       </Main>
       
       <GroupCreationModal onColorClick={openColorSelectionModal} />
-      <ColorSelectionModal onSelect={selectColor} />
+      <ColorSelectionModal 
+        onSelect={selectColor}
+        onAddNew={openColorAddModal} 
+      />
+      <ColorAddModal onAdd={addColor} />
 
       <FloatingActions>
         <FloatingAction 
