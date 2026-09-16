@@ -9,6 +9,7 @@ import clsx from 'clsx'
 interface InputProps extends ComponentProps<'input'> {
   value?: string
   onValueChange?: (value: string) => void
+  onValueInput?: (value: string) => void
 
   validate?: (value: string) => boolean
   format?: (value: string) => string
@@ -21,6 +22,7 @@ interface InputProps extends ComponentProps<'input'> {
 export function Input({ 
   value = '',
   onValueChange = () => {},
+  onValueInput = () => {},
   
   validate = () => true,
   format = (value) => value,
@@ -50,11 +52,7 @@ export function Input({
   const internalChangeHandler = merge(onChange, (e) => {
     const value = e.target.value
     setInternalValue(value)
-  })
-
-  const focusHandler = merge(onFocus, () => {
-    setInternalValue(value)
-    setFocused(true)
+    onValueInput(value)
   })
 
   function updateHandler() {
@@ -62,7 +60,12 @@ export function Input({
     setFocused(false)
   }
 
-  const blurHandler = merge(onFocus, updateHandler)
+  const focusHandler = merge(onFocus, () => {
+    setInternalValue(value)
+    setFocused(true)
+  })
+
+  const blurHandler = merge(onBlur, updateHandler)
 
   const inputClassNames = clsx(
     styles.Input, 

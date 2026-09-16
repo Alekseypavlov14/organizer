@@ -5,6 +5,7 @@ import { Button, buttonVariantPrimary } from '@/shared/components/Button'
 import { initialColorAddControlValue } from '../../constants'
 import { useColorAddModal } from '../../add.modal'
 import { useNotifications } from '@/app/notifications'
+import { ColorAddPreview } from '../../components/ColorAddPreview'
 import { useOnModalOpen } from '@/features/shared/modals'
 import { Input } from '@/shared/components/Input'
 import { Text } from '@/shared/components/Text'
@@ -58,9 +59,11 @@ export function ColorAddModal({
         <ModalHeader>
           <Text size='l'>Add new color</Text>
         </ModalHeader>
+
+        <ColorAddPreview />
   
         <Input 
-          onValueChange={updateValue}
+          onValueInput={updateValue}
           value={value}
         />
   
