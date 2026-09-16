@@ -3,3 +3,6 @@
   flex-direction: column;
   gap: 10px;
 }
+.GroupFeedItems:empty {
+  display: none;
+}

@@ -1,6 +1,9 @@
 .NotionFeedItems {
   width: 100%;
 }
+.NotionFeedItems:empty {
+  display: none;
+}
 
 .FeedList {
   display: flex;

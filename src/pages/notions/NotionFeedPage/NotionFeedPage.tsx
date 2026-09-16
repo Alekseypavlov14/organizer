@@ -1,4 +1,4 @@
-import { NotionFeed, NotionFeedHeader, NotionFeedItems, NotionVariantControl } from '@/features/notions/feed'
+import { NotionFeed, NotionFeedHeader, NotionFeedItems, NotionFeedPlaceholder, NotionVariantControl } from '@/features/notions/feed'
 import { FloatingActions, FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingActions'
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { notionsSelector, useNotionsStore } from '@/entities/notions'
@@ -38,6 +38,10 @@ export function NotionFeedPage() {
               </NotionFeedHeader>
   
               <NotionFeedItems onNotionClick={(notion) => navigateNotionDisplayPage(notion.id)} />
+
+              <NotionFeedPlaceholder>
+                No items here
+              </NotionFeedPlaceholder>
             </Flex>
           </NotionFeed>
         </Container>

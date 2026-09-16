@@ -10,14 +10,16 @@ import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
 import { useNavigation } from '@/app/navigation'
 import { useNotionFeed } from './notion.feed'
 import { useGroupFeed } from './group.feed'
+import { Placeholder } from '@/shared/components/Placeholder'
 import { useEffect } from 'react'
+import { Text } from '@/shared/components/Text'
 
 export function GroupExplorerFeed() {
   const navigation = useNavigation()
 
   const groupExplorer = useGroupExplorer()
   const groupFeed = useGroupFeed()
-  
+
   useOnPageClosed(groupExplorer.reset)
 
   const groups = useGroupsStore(groupsSelector)
@@ -49,6 +51,12 @@ export function GroupExplorerFeed() {
         <NotionFeed store={notionFeed.store}>
           <NotionFeedItems onNotionClick={onNotionClick} />
         </NotionFeed>
+
+        {displayGroups.length <= 0 && notionFeed.store.notions.length <= 0 ? (
+          <Placeholder>
+            <Text>This group is empty</Text>
+          </Placeholder>
+        ) : null}
       </Flex>
     </GroupFeed>
   )
