@@ -1,6 +1,8 @@
 export * from './widgets/ConfirmationModal'
 export * from './widgets/SelectActionModal'
+
 export * from './modal.instance'
+export * from './stack.instance'
 
 export * from './components/SelectActionModalOption'
 

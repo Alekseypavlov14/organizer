@@ -1,6 +1,6 @@
 import type { ColorModel } from '@/entities/shared'
+import { useGroupDeleteConfirmationModal, useGroupEditionSelectActionModal, useGroupFeedModalStack } from './modals.feature'
 import { GroupSelectionModal, useGroupSelectionExplorer, useGroupSelectionModal } from '@/widgets/groups/GroupSelectionModal'
-import { useGroupDeleteConfirmationModal, useGroupEditionSelectActionModal } from './modals.feature'
 import { ColorSelectionModal, useColorSelection, useColorSelectionModal } from '@/features/colors/selection'
 import { FloatingActions, FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingActions'
 import { ConfirmationModal, SelectActionModal, SelectActionModalOption } from '@/features/shared/modals'
@@ -26,12 +26,15 @@ export function GroupFeedPage() {
   const groupActions = useGroupActions()
 
   const groupExplorerFeedExplorer = useGroupExplorerFeedExplorer()
+  const currentGroupId = groupExplorerFeedExplorer.store.currentGroup?.id ?? null
 
   const groupForm = useGroupForm()
   const groupEdition = useGroupEdition()
   const groupMove = useGroupMove()
 
   const colorSelection = useColorSelection()
+
+  const groupFeedModalStack = useGroupFeedModalStack()
 
   const groupCreationModal = useGroupCreationModal()
   const colorSelectionModal = useColorSelectionModal()
@@ -41,64 +44,66 @@ export function GroupFeedPage() {
   const groupMoveSelectionModal = useGroupSelectionModal()
   const groupDeleteConfirmationModal = useGroupDeleteConfirmationModal()
   
-  const groupMoveSelection = useGroupSelectionExplorer()
-  const groupMoveCandidates = useGroupMoveCandidates(groupExplorerFeedExplorer.store.currentGroup?.id ?? null) 
-  useGroupExplorerGroups(groupMoveSelection, groupMoveCandidates)
+  const groupMoveSelectionExplorer = useGroupSelectionExplorer()
+  const groupMoveCandidates = useGroupMoveCandidates(currentGroupId) 
+  useGroupExplorerGroups(groupMoveSelectionExplorer, groupMoveCandidates)
 
   function openGroupCreationModal() {
     groupForm.updateFormGroup(groupEdition.getInitialGroup())
-
-    const currentGroupId = groupExplorerFeedExplorer.store.currentGroup?.id ?? null
     groupForm.updateGroupParentId(currentGroupId)
-
+    
     colorSelection.resetColor()
-
-    groupCreationModal.open()
+    
+    groupFeedModalStack.clear()
+    groupFeedModalStack.open(groupCreationModal)
   }
   function openColorSelectionModal() {
-    groupCreationModal.close()
-    colorSelectionModal.open()
+    groupFeedModalStack.open(colorSelectionModal)
   }
   function openColorAddModal() {
-    colorSelectionModal.close()
-    colorAddModal.open()
+    groupFeedModalStack.open(colorAddModal)
   }
+
   function selectColor(color: ColorModel) {
     groupForm.updateGroupColor(color)
-    groupCreationModal.open()
+    groupFeedModalStack.openPrevious()
   }
   function addColor(color: ColorModel) {
     colorSelection.updateColor(color)
-    colorSelectionModal.open()
+    groupFeedModalStack.openPrevious()
   }
 
-  function onGroupMoveClick() {
-    groupEditionSelectActionModal.close()
-    groupMoveSelectionModal.open()
+  function openGroupEditionSelectActionModal() {
+    groupFeedModalStack.clear()
+    groupFeedModalStack.open(groupEditionSelectActionModal)
   }
+  function openGroupMoveSelectionModal() {
+    groupFeedModalStack.open(groupMoveSelectionModal)
+  }
+  function openGroupDeleteModal() {
+    groupFeedModalStack.open(groupDeleteConfirmationModal)
+  }
+
   function moveGroupHandler(group: GroupEntity) {
     if (!groupExplorerFeedExplorer.store.currentGroup) return
 
     const moved = groupMove.moveGroupById(groupExplorerFeedExplorer.store.currentGroup.id, group.id)
     if (!moved) return
 
+    groupFeedModalStack.clear()
+
     if (isNull(moved.parentId)) return groupExplorerFeedExplorer.navigateRoot()
 
     const parent = groupActions.getGroupById(moved.parentId)
-    if (parent) groupExplorerFeedExplorer.selectGroup(parent)
-  }
-  function onGroupDeleteClick() {
-    groupEditionSelectActionModal.close()
-    groupDeleteConfirmationModal.open()
+    if (parent) return groupExplorerFeedExplorer.selectGroup(parent)
   }
   function deleteGroupHandler() {
-    const currentGroupId = groupExplorerFeedExplorer.store.currentGroup?.id ?? null
-    if (!currentGroupId) return 
+    if (isNull(currentGroupId)) return 
 
     const deleted = groupEdition.deleteGroupById(currentGroupId)
     if (!deleted) return 
     
-    groupDeleteConfirmationModal.close()
+    groupFeedModalStack.clear()
     groupExplorerFeedExplorer.navigateParent()
   }
 
@@ -112,15 +117,17 @@ export function GroupFeedPage() {
         </Container>
       </Main>
       
-      <GroupCreationModal onColorClick={openColorSelectionModal} />
+      <GroupCreationModal 
+        onColorClick={openColorSelectionModal} 
+      />
       <ColorSelectionModal 
         onSelect={selectColor}
         onAddNew={openColorAddModal} 
-        onCancel={groupCreationModal.open}
+        onCancel={groupFeedModalStack.openPrevious}
       />
       <ColorAddModal 
         onAdd={addColor} 
-        onCancel={colorSelectionModal.open}
+        onCancel={groupFeedModalStack.openPrevious}
       />
 
       <SelectActionModal modal={groupEditionSelectActionModal}> 
@@ -128,7 +135,9 @@ export function GroupFeedPage() {
           direction={flexDirectionVertical}
           gap={flexGapSmall}
         >
-          <SelectActionModalOption onClick={onGroupMoveClick}>
+          <SelectActionModalOption 
+            onClick={openGroupMoveSelectionModal}
+          >
             <Text>Move</Text>
           </SelectActionModalOption>
   
@@ -138,7 +147,7 @@ export function GroupFeedPage() {
   
           <SelectActionModalOption 
             variant={buttonVariantDanger}
-            onClick={onGroupDeleteClick}
+            onClick={openGroupDeleteModal}
           >
             <Text>Delete</Text>
           </SelectActionModalOption>
@@ -147,19 +156,19 @@ export function GroupFeedPage() {
 
       <GroupSelectionModal 
         onSelect={moveGroupHandler}
-        onCancel={groupEditionSelectActionModal.open}
+        onCancel={groupFeedModalStack.openPrevious}
       />
       <ConfirmationModal 
         title='Do you want to delete this group?'
         modal={groupDeleteConfirmationModal}
         onConfirm={deleteGroupHandler}
-        onCancel={groupEditionSelectActionModal.open}
+        onCancel={groupFeedModalStack.openPrevious}
         variant={buttonVariantDanger}
       />
 
       <FloatingActions>
         {groupExplorerFeedExplorer.store.currentGroup ? (
-          <FloatingAction onClick={groupEditionSelectActionModal.open}>
+          <FloatingAction onClick={openGroupEditionSelectActionModal}>
             <Icon name='pen' size='l' />
           </FloatingAction>
         ) : null}
