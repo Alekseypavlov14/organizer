@@ -1,22 +1,20 @@
 import type { Nullable } from '@/shared/types/nullable'
 import type { FlexGap } from '@/shared/components/Flex'
 import type { Id } from '@/shared/types/id'
+import { groupsSelector, useGroupActions, useGroupsStore, type GroupEntity } from '@/entities/groups'
 import { Breadcrumbs, BreadcrumbsItem, BreadcrumbsSeparation } from '@/shared/components/Breadcrumbs'
-import { useGroupActions, type GroupEntity } from '@/entities/groups'
-import { Text, type TextSize } from '@/shared/components/Text'
-import { Icon, type IconSize } from '@/shared/components/Icon'
 import { Fragment, useMemo } from 'react'
+import { Text } from '@/shared/components/Text'
+import { Icon } from '@/shared/components/Icon'
 
 interface GroupPathProps {
   groupId: Nullable<Id>
   onSegmentClick?: (group: GroupEntity) => void 
 
   className?: string
-  size?: TextSize
   gap?: FlexGap
 
   showRoot?: boolean
-  rootSize?: IconSize
   onRootClick?: () => void
 }
 
@@ -25,18 +23,16 @@ export function GroupPath({
   onSegmentClick = () => {},
 
   className,
-  size,
   gap,
 
   showRoot,
-  rootSize,
   onRootClick = () => {},
 }: GroupPathProps) {
+  const groups = useGroupsStore(groupsSelector)
   const { getGroupPathById } = useGroupActions()
 
-  const groups = useMemo(() => getGroupPathById(groupId), [groupId]) ?? []
-
-  if (!groups.length && !showRoot) return null
+  const segments = useMemo(() => getGroupPathById(groupId), [groups, groupId]) ?? []
+  if (!segments.length && !showRoot) return null
 
   return (
     <Breadcrumbs 
@@ -47,18 +43,17 @@ export function GroupPath({
         <BreadcrumbsItem>
           <Icon 
             onClick={onRootClick}
-            size={rootSize} 
             name='home' 
           />
         </BreadcrumbsItem>
       ) : null}
 
-      {groups.map((group, index) => (
+      {segments.map((group, index) => (
         <Fragment key={index}>
           <BreadcrumbsSeparation />
 
           <BreadcrumbsItem onClick={() => onSegmentClick(group)}>
-            <Text size={size}>{group.title}</Text>
+            <Text>{group.title}</Text>
           </BreadcrumbsItem>
         </Fragment>
       ))}

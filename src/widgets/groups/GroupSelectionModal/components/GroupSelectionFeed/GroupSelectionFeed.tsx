@@ -1,10 +1,10 @@
 import { explorerModeHierarchy, explorerModeSearch, useGroupExplorerDisplayGroups } from '@/features/groups/explorer'
 import { Flex, flexDirectionVertical, flexGapExtraSmall, flexGapSmall } from '@/shared/components/Flex'
 import { useGroupSelectionExplorer } from '../../../GroupSelectionModal/selection.explorer'
-import { Text, textSizeSmall } from '@/shared/components/Text'
 import { groupSavedAtFormat } from '../../../GroupSelectionModal/constants'
 import { Placeholder } from '@/shared/components/Placeholder'
 import { GroupPath } from '@/features/groups/shared'
+import { Text } from '@/shared/components/Text'
 import styles from './GroupSelectionFeed.module.css'
 
 export function GroupSelectionFeed() {
@@ -33,7 +33,6 @@ export function GroupSelectionFeed() {
             <GroupPath 
               groupId={group.id}
               className={styles.Path}
-              size={textSizeSmall}
             />
           ) : null}
         
