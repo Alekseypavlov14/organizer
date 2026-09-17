@@ -1,5 +1,6 @@
 .Text {
   display: block;
+  text-box-trim: trim-both;
 }
 
 .TextSmall {

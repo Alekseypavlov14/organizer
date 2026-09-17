@@ -1,6 +1,7 @@
 .Icon {
   --size: 0px;
 
+  vertical-align: middle;
   color: inherit;
 
   width: var(--size);

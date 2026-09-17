@@ -138,10 +138,12 @@ export function GroupFeedPage() {
           <SelectActionModalOption 
             onClick={openGroupMoveSelectionModal}
           >
+            <Icon name='folder' />
             <Text>Move</Text>
           </SelectActionModalOption>
   
           <SelectActionModalOption>
+            <Icon name='pen' />
             <Text>Edit</Text>
           </SelectActionModalOption>
   
@@ -149,6 +151,7 @@ export function GroupFeedPage() {
             variant={buttonVariantDanger}
             onClick={openGroupDeleteModal}
           >
+            <Icon name='trash' />
             <Text>Delete</Text>
           </SelectActionModalOption>
         </Flex>
