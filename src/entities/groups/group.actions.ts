@@ -25,6 +25,17 @@ export function useGroupActions() {
   }
 
   function deleteGroupById(id: Id): Nullable<GroupEntity> {
+    const group = getGroupById(id)
+    if (!group) return null
+
+    const deletedNotions = group.notions.map(notion => notionActions.deleteNotionById(notion.id))
+    if (deletedNotions.some(isNull)) return null
+
+    const children = getGroupChildrenById(id) ?? []
+
+    const deletedChildren = children.map(child => deleteGroupById(child.id))
+    if (deletedChildren.some(isNull)) return null
+
     const deleted = groupEntityStorage.deleteById(id)
     revalidate()
 
@@ -66,6 +77,7 @@ export function useGroupActions() {
     if (!group) return null
     
     if (isSubgroupOf(parentId, groupId)) return null
+    if (groupId === parentId) return null
 
     const moved = groupEntityStorage.save({ ...group, parentId })
     revalidate()
