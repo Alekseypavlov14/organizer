@@ -97,7 +97,6 @@ export function GroupFeedPage() {
     groupFeedModalStack.open(groupMoveSelectionModal)
 
     const parentId = groupExplorerFeedExplorer.store.currentGroup.parentId
-
     if (isNull(parentId)) return groupMoveSelectionExplorer.navigateRoot()
 
     const parent = groupActions.getGroupById(parentId)
