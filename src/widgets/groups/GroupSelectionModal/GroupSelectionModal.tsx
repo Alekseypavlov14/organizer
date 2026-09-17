@@ -1,4 +1,5 @@
 import type { GroupEntity } from '@/entities/groups'
+import type { Nullable } from '@/shared/types/nullable'
 import { Flex, flexAlignCenter, flexJustifySpaceBetween } from '@/shared/components/Flex'
 import { Modal, ModalActions, ModalBody, ModalHeader } from '@/shared/components/Modal'
 import { Button, buttonVariantPrimary } from '@/shared/components/Button'
@@ -14,13 +15,15 @@ import { Text } from '@/shared/components/Text'
 import styles from './GroupSelectionModal.module.css'
 
 interface GroupSelectionModalProps {
-  onSelect?: (group: GroupEntity) => void
+  onSelect?: (group: Nullable<GroupEntity>) => void
   onCancel?: () => void
+  allowRoot?: boolean
 }
 
 export function GroupSelectionModal({
   onSelect = () => {},
   onCancel = () => {},
+  allowRoot
 }: GroupSelectionModalProps) {
   const explorer = useGroupSelectionExplorer()
   const modal = useGroupSelectionModal()
@@ -28,7 +31,7 @@ export function GroupSelectionModal({
   useOnModalOpen(modal, explorer.reset)
 
   function confirmSelectionHandler() {
-    if (!explorer.store.currentGroup) return
+    if (!allowRoot && !explorer.store.currentGroup) return
 
     modal.close()
     onSelect(explorer.store.currentGroup)
@@ -38,6 +41,8 @@ export function GroupSelectionModal({
     modal.close()
     onCancel()
   }
+
+  const confirmDisabled = !allowRoot && isNull(explorer.store.currentGroup)
 
   return (
     <Modal 
@@ -66,7 +71,7 @@ export function GroupSelectionModal({
             <Button
               variant={buttonVariantPrimary}
               onClick={confirmSelectionHandler}
-              disabled={isNull(explorer.store.currentGroup)}
+              disabled={confirmDisabled}
             >
               Confirm
             </Button>

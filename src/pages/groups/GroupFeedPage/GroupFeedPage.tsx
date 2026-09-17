@@ -1,4 +1,5 @@
 import type { ColorModel } from '@/entities/shared'
+import type { Nullable } from '@/shared/types/nullable'
 import { useGroupDeleteConfirmationModal, useGroupEditionSelectActionModal, useGroupFeedModalStack } from './modals.feature'
 import { GroupSelectionModal, useGroupSelectionExplorer, useGroupSelectionModal } from '@/widgets/groups/GroupSelectionModal'
 import { ColorSelectionModal, useColorSelection, useColorSelectionModal } from '@/features/colors/selection'
@@ -90,18 +91,31 @@ export function GroupFeedPage() {
     groupFeedModalStack.open(groupEditionSelectActionModal)
   }
   function openGroupMoveSelectionModal() {
+    if (!groupExplorerFeedExplorer.store.currentGroup) return
+
     groupFeedModalStack.clear()
     groupFeedModalStack.open(groupMoveSelectionModal)
+
+    const parentId = groupExplorerFeedExplorer.store.currentGroup.parentId
+
+    if (isNull(parentId)) return groupMoveSelectionExplorer.navigateRoot()
+
+    const parent = groupActions.getGroupById(parentId)
+    if (parent) return groupMoveSelectionExplorer.selectGroup(parent)
+    
+    groupMoveSelectionExplorer.navigateRoot()
   }
   function openGroupDeleteModal() {
     groupFeedModalStack.clear()
     groupFeedModalStack.open(groupDeleteConfirmationModal)
   }
 
-  function moveGroupHandler(group: GroupEntity) {
+  function moveGroupHandler(group: Nullable<GroupEntity>) {
     if (!groupExplorerFeedExplorer.store.currentGroup) return
 
-    const moved = groupMove.moveGroupById(groupExplorerFeedExplorer.store.currentGroup.id, group.id)
+    const parentGroupId = group?.id ?? null
+
+    const moved = groupMove.moveGroupById(groupExplorerFeedExplorer.store.currentGroup.id, parentGroupId)
     if (!moved) return
 
     groupFeedModalStack.clear()
@@ -179,6 +193,7 @@ export function GroupFeedPage() {
       <GroupSelectionModal 
         onSelect={moveGroupHandler}
         onCancel={groupFeedModalStack.openPrevious}
+        allowRoot
       />
       <ConfirmationModal 
         title='Do you want to delete this group?'
