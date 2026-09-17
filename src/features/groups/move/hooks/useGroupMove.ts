@@ -22,7 +22,10 @@ export function useGroupMove() {
   }
 
   function getGroupMoveCandidatesById(groupId: Nullable<Id>) {
-    return groups.filter(group => !groupActions.isSubgroupOf(group.id, groupId))
+    return groups.filter(group => (
+      group.id !== groupId && 
+      !groupActions.isSubgroupOf(group.id, groupId)
+    ))
   }
 
   return ({
