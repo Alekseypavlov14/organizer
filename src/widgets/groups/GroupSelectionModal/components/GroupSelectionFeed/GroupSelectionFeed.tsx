@@ -30,12 +30,11 @@ export function GroupSelectionFeed() {
           </Text>
 
           {explorer.store.explorerMode === explorerModeSearch ? (
-            <Text className={styles.Path}>
-              <GroupPath 
-                groupId={group.id}
-                size={textSizeSmall}
-              />
-            </Text>
+            <GroupPath 
+              groupId={group.id}
+              className={styles.Path}
+              size={textSizeSmall}
+            />
           ) : null}
         
           <Text className={styles.Date} size='s'>

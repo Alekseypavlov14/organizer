@@ -1,34 +1,34 @@
 import type { GroupEntity } from '@/entities/groups'
 import { Flex, flexDirectionVertical, flexGapExtraSmall, flexGapMedium, flexGapSmall } from '@/shared/components/Flex'
-import { Modal, ModalActions, ModalBody, ModalHeader } from '@/shared/components/Modal'
+import { Modal, ModalBody, ModalHeader, ModalActions } from '@/shared/components/Modal'
 import { Button, buttonVariantPrimary } from '@/shared/components/Button'
 import { GroupForm, useGroupForm } from '@/features/groups/form'
-import { useGroupCreationModal } from './creation.modal'
+import { useGroupEditionModal } from './edition.modal'
 import { useGroupEdition } from '@/features/groups/edition'
 import { GroupPath } from '@/features/groups/shared'
 import { Text } from '@/shared/components/Text'
-import styles from './GroupCreationModal.module.css'
+import styles from './GroupEditionModal.module.css'
 
-interface GroupCreationModalProps {
+interface GroupEditionModalProps {
   onSave?: (group: GroupEntity) => void
   onColorClick?: () => void
   onCancel?: () => void
 }
 
-export function GroupCreationModal({
+export function GroupEditionModal({
   onSave = () => {},
   onColorClick = () => {},
   onCancel = () => {},
-}: GroupCreationModalProps) {
-  const modal = useGroupCreationModal()
-
+}: GroupEditionModalProps) {
+  const modal = useGroupEditionModal()
+  
   const groupForm = useGroupForm()
   const groupEdition = useGroupEdition()
 
   function saveHandler() {
     const saved = groupEdition.saveGroup(groupForm.group)
-    if (!saved) return
-      
+    if (!saved) return 
+    
     modal.close()
     onSave(saved)
   }
@@ -40,13 +40,13 @@ export function GroupCreationModal({
 
   return (
     <Modal 
-      className={styles.GroupCreationModal}
+      className={styles.GroupEditionModal}
       onBackgroundClick={cancelHandler}
       isOpened={modal.store.isOpened}
     >
       <ModalBody gap={flexGapMedium}>
         <ModalHeader>
-          <Text size='l'>Create group</Text>
+          <Text size='l'>Edit group</Text>
         </ModalHeader>
   
         <Flex
@@ -57,7 +57,7 @@ export function GroupCreationModal({
             className={styles.Path}
             groupId={groupForm.group.parentId}
             gap={flexGapExtraSmall} 
-            showRoot   
+            showRoot
           />
           
           <GroupForm onColorClick={onColorClick} />

@@ -7,6 +7,7 @@ import { ConfirmationModal, SelectActionModal, SelectActionModalOption } from '@
 import { GroupExplorerFeed, useGroupExplorerFeedExplorer } from '@/widgets/groups/GroupExplorerFeed'
 import { GroupCreationModal, useGroupCreationModal } from '@/widgets/groups/GroupCreationModal'
 import { Flex, flexDirectionVertical, flexGapSmall } from '@/shared/components/Flex'
+import { GroupEditionModal, useGroupEditionModal } from '@/widgets/groups/GroupEditionModal'
 import { useGroupMove, useGroupMoveCandidates } from '@/features/groups/move'
 import { useGroupActions, type GroupEntity } from '@/entities/groups'
 import { ColorAddModal, useColorAddModal } from '@/features/colors/add'
@@ -37,13 +38,14 @@ export function GroupFeedPage() {
   const groupFeedModalStack = useGroupFeedModalStack()
 
   const groupCreationModal = useGroupCreationModal()
+  const groupEditionModal = useGroupEditionModal()
   const colorSelectionModal = useColorSelectionModal()
   const colorAddModal = useColorAddModal()
 
   const groupEditionSelectActionModal = useGroupEditionSelectActionModal()
   const groupMoveSelectionModal = useGroupSelectionModal()
   const groupDeleteConfirmationModal = useGroupDeleteConfirmationModal()
-  
+
   const groupMoveSelectionExplorer = useGroupSelectionExplorer()
   const groupMoveCandidates = useGroupMoveCandidates(currentGroupId) 
   useGroupExplorerGroups(groupMoveSelectionExplorer, groupMoveCandidates)
@@ -56,6 +58,16 @@ export function GroupFeedPage() {
     
     groupFeedModalStack.clear()
     groupFeedModalStack.open(groupCreationModal)
+  }
+  function openGroupEditionModal() {
+    if (!groupExplorerFeedExplorer.store.currentGroup) return
+
+    groupForm.updateFormGroup(groupExplorerFeedExplorer.store.currentGroup)
+
+    colorSelection.resetColor()
+    
+    groupFeedModalStack.clear()
+    groupFeedModalStack.open(groupEditionModal)
   }
   function openColorSelectionModal() {
     groupFeedModalStack.open(colorSelectionModal)
@@ -78,9 +90,11 @@ export function GroupFeedPage() {
     groupFeedModalStack.open(groupEditionSelectActionModal)
   }
   function openGroupMoveSelectionModal() {
+    groupFeedModalStack.clear()
     groupFeedModalStack.open(groupMoveSelectionModal)
   }
   function openGroupDeleteModal() {
+    groupFeedModalStack.clear()
     groupFeedModalStack.open(groupDeleteConfirmationModal)
   }
 
@@ -120,6 +134,9 @@ export function GroupFeedPage() {
       <GroupCreationModal 
         onColorClick={openColorSelectionModal} 
       />
+      <GroupEditionModal 
+        onColorClick={openColorSelectionModal}
+      />
       <ColorSelectionModal 
         onSelect={selectColor}
         onAddNew={openColorAddModal} 
@@ -142,7 +159,9 @@ export function GroupFeedPage() {
             <Text>Move</Text>
           </SelectActionModalOption>
   
-          <SelectActionModalOption>
+          <SelectActionModalOption
+            onClick={openGroupEditionModal}
+          >
             <Icon name='pen' />
             <Text>Edit</Text>
           </SelectActionModalOption>

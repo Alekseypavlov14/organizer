@@ -16,7 +16,7 @@ export function useGroupEdition() {
       return null
     }
 
-    notifications.createSuccessNotification('The group is created')
+    notifications.createSuccessNotification('The group is saved')
     return saved
   }
 

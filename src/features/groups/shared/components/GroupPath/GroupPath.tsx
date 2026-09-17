@@ -11,6 +11,7 @@ interface GroupPathProps {
   groupId: Nullable<Id>
   onSegmentClick?: (group: GroupEntity) => void 
 
+  className?: string
   size?: TextSize
   gap?: FlexGap
 
@@ -23,6 +24,7 @@ export function GroupPath({
   groupId,
   onSegmentClick = () => {},
 
+  className,
   size,
   gap,
 
@@ -37,7 +39,10 @@ export function GroupPath({
   if (!groups.length && !showRoot) return null
 
   return (
-    <Breadcrumbs gap={gap}>
+    <Breadcrumbs 
+      className={className} 
+      gap={gap}
+    >
       {showRoot ? (
         <BreadcrumbsItem>
           <Icon 
