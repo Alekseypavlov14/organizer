@@ -1,7 +1,7 @@
-import { NotionFeed, NotionFeedHeader, NotionFeedItems, NotionFeedPlaceholder, NotionVariantControl } from '@/features/notions/feed'
+import { NotionFeed, NotionFeedHeader, NotionFeedItems, NotionFeedPlaceholder, NotionItem, NotionVariantControl } from '@/features/notions/feed'
 import { FloatingActions, FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingActions'
+import { notionsSelector, useNotionsStore, type NotionEntity } from '@/entities/notions'
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
-import { notionsSelector, useNotionsStore } from '@/entities/notions'
 import { useNavigation } from '@/app/navigation'
 import { useNotionFeed } from './feed.feature'
 import { PageLayout } from '@/app/layouts'
@@ -20,6 +20,10 @@ export function NotionFeedPage() {
 
   useEffect(() => notionFeed.updateNotions(notions), [notions])
 
+  function onNotionClick(notion: NotionEntity) {
+    navigateNotionDisplayPage(notion.id)
+  }
+
   return (
     <PageLayout>
       <AppHeader />
@@ -37,7 +41,14 @@ export function NotionFeedPage() {
                 <NotionVariantControl />
               </NotionFeedHeader>
   
-              <NotionFeedItems onNotionClick={(notion) => navigateNotionDisplayPage(notion.id)} />
+              <NotionFeedItems>
+                {(notion) => (
+                  <NotionItem 
+                    onClick={onNotionClick} 
+                    notion={notion}
+                  />
+                )}
+              </NotionFeedItems>
 
               <NotionFeedPlaceholder>
                 No items here

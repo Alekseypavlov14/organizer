@@ -1,5 +1,5 @@
-import { useNotionActions, type NotionEntity } from '@/entities/notions'
 import { NotionLevelBadge, NotionPriorityBadge, NotionProgressBadge } from '@/features/notions/shared'
+import { useNotionActions, type NotionEntity } from '@/entities/notions'
 import { notionSavedAtFormat } from '../../constants'
 import { StopPropagation } from '@/shared/components/StopPropagation'
 import { Checkbox } from '@/shared/components/Checkbox'
@@ -10,7 +10,7 @@ import clsx from 'clsx'
 
 interface NotionItemProps {
   notion: NotionEntity
-  onClick?: () => void
+  onClick?: (notion: NotionEntity) => void
 }
 
 export function NotionItem({ 
@@ -26,10 +26,14 @@ export function NotionItem({
     notion.done && styles.Done
   )
 
+  function clickHandler() {
+    onClick(notion)
+  }
+
   return (
     <Palette 
       className={classNames} 
-      onClick={onClick}
+      onClick={clickHandler}
     >
       <div className={styles.Header}>
         <div className={styles.Title}>{notion.title}</div>

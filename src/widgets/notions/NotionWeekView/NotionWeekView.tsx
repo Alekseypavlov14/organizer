@@ -1,6 +1,6 @@
-import { useNotionsStoreFilter, notionPriorityUrgent, notionPriorityImportant } from '@/entities/notions'
+import { useNotionsStoreFilter, notionPriorityUrgent, notionPriorityImportant, type NotionEntity } from '@/entities/notions'
 import { useNotionUrgentFeed, useNotionImportantFeed, useNotionOtherFeed } from './view.feed'
-import { NotionFeed, NotionFeedHeader, NotionFeedItems } from '@/features/notions/feed'
+import { NotionFeed, NotionFeedHeader, NotionFeedItems, NotionItem } from '@/features/notions/feed'
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { useNotionWeekViewCalendar } from './view.calendar'
 import { CalendarWeekControl } from '@/features/shared/calendars'
@@ -46,6 +46,10 @@ export function NotionWeekView() {
 
   useOnPageOpened(() => calendar.setCalendarWeekMode())
 
+  function onNotionClick(notion: NotionEntity) {
+    navigateNotionDisplayPage(notion.id)
+  }
+
   return (
     <Flex 
       className={styles.NotionWeekView}
@@ -68,7 +72,14 @@ export function NotionWeekView() {
               <Text size='l'>Urgent</Text>
             </NotionFeedHeader>
             
-            <NotionFeedItems onNotionClick={notion => navigateNotionDisplayPage(notion.id)} />
+            <NotionFeedItems>
+              {(notion) => (
+                <NotionItem 
+                  onClick={onNotionClick} 
+                  notion={notion}
+                />
+              )}
+            </NotionFeedItems>
           </Flex>
         </NotionFeed>
       ) : null}
@@ -83,7 +94,14 @@ export function NotionWeekView() {
               <Text size='l'>Important</Text>
             </NotionFeedHeader>
   
-            <NotionFeedItems onNotionClick={notion => navigateNotionDisplayPage(notion.id)} />
+            <NotionFeedItems>
+              {(notion) => (
+                <NotionItem 
+                  onClick={onNotionClick} 
+                  notion={notion}
+                />
+              )}
+            </NotionFeedItems>
           </Flex>
         </NotionFeed>
       ) : null}
@@ -98,7 +116,14 @@ export function NotionWeekView() {
               <Text size='l'>Other</Text>
             </NotionFeedHeader>
   
-            <NotionFeedItems onNotionClick={notion => navigateNotionDisplayPage(notion.id)} />
+            <NotionFeedItems>
+              {(notion) => (
+                <NotionItem 
+                  onClick={onNotionClick} 
+                  notion={notion}
+                />
+              )}
+            </NotionFeedItems>
           </Flex>
         </NotionFeed>
       ) : null}

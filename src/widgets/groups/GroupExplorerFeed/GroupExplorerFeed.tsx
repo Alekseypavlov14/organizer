@@ -1,9 +1,9 @@
-import type { NotionEntity } from '@/entities/notions'
+import { notionsSelector, useNotionsStore, type NotionEntity } from '@/entities/notions'
 import { useGroupExplorerDisplayGroups, useGroupExplorerGroups } from '@/features/groups/explorer'
 import { groupsSelector, useGroupActions, useGroupsStore } from '@/entities/groups'
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
+import { NotionFeed, NotionFeedItems, NotionItem } from '@/features/notions/feed'
 import { useGroupExplorerFeedExplorer } from './group.explorer'
-import { NotionFeed, NotionFeedItems } from '@/features/notions/feed'
 import { GroupFeed, GroupFeedItems } from '@/features/groups/feed'
 import { GroupExplorerFeedTitle } from './components/GroupExplorerFeedTitle'
 import { GroupExplorerFeedPath } from './components/GroupExplorerFeedPath'
@@ -30,11 +30,13 @@ export function GroupExplorerFeed() {
   const displayGroups = useGroupExplorerDisplayGroups(groupExplorer)
   useEffect(() => groupFeed.updateGroups(displayGroups), [displayGroups])
 
+  const notions = useNotionsStore(notionsSelector)
   const notionFeed = useNotionFeed()
+
   useEffect(() => {
     const currentGroupNotions = groupExplorer.store.currentGroup?.notions ?? groupActions.getRootGroupNotions()
     notionFeed.updateNotions(currentGroupNotions)
-  }, [groupExplorer.store.currentGroup])
+  }, [notions, groupExplorer.store.currentGroup])
 
   function onNotionClick(notion: NotionEntity) {
     navigation.navigateNotionDisplayPage(notion.id)
@@ -52,7 +54,14 @@ export function GroupExplorerFeed() {
         <GroupFeedItems onGroupClick={groupExplorer.selectGroup} />
 
         <NotionFeed store={notionFeed.store}>
-          <NotionFeedItems onNotionClick={onNotionClick} />
+          <NotionFeedItems>
+            {(notion) => (
+              <NotionItem 
+                onClick={onNotionClick} 
+                notion={notion}
+              />
+            )}
+          </NotionFeedItems>
         </NotionFeed>
 
         {displayGroups.length <= 0 && notionFeed.store.notions.length <= 0 ? (
