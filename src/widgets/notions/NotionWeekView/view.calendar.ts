@@ -1,3 +1,3 @@
-import { createCalendarInstance } from '@/features/shared/calendars'
+import { calendarModeWeek, createCalendarInstance } from '@/features/shared/calendars'
 
-export const useCalendar = createCalendarInstance()
+export const useNotionWeekViewCalendar = createCalendarInstance(calendarModeWeek)

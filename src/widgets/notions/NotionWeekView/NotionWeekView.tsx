@@ -2,12 +2,12 @@ import { useNotionsStoreFilter, notionPriorityUrgent, notionPriorityImportant } 
 import { useNotionUrgentFeed, useNotionImportantFeed, useNotionOtherFeed } from './view.feed'
 import { NotionFeed, NotionFeedHeader, NotionFeedItems } from '@/features/notions/feed'
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
+import { useNotionWeekViewCalendar } from './view.calendar'
 import { CalendarWeekControl } from '@/features/shared/calendars'
 import { useOnPageOpened } from '@/shared/hooks/useOnPageOpened'
 import { isTheSameDate } from '@/shared/utils/datetime'
 import { useNavigation } from '@/app/navigation'
 import { Placeholder } from '@/shared/components/Placeholder'
-import { useCalendar } from './view.calendar'
 import { useEffect } from 'react'
 import { isNull } from '@/shared/utils/validation'
 import { Text } from '@/shared/components/Text'
@@ -16,7 +16,7 @@ import styles from './NotionWeekView.module.css'
 export function NotionWeekView() {
   const { navigateNotionDisplayPage } = useNavigation()
 
-  const calendar = useCalendar()
+  const calendar = useNotionWeekViewCalendar()
 
   const notionUrgentFeed = useNotionUrgentFeed()
   const notionImportantFeed = useNotionImportantFeed()

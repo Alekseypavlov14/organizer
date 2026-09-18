@@ -1,13 +1,17 @@
+import { calendarModeDay, calendarModeMonth, calendarModeWeek, type CalendarMode } from './constants'
 import { getFirstDayOfMonth, getFirstDayOfWeek, type Timestamp } from '@/shared/utils/datetime'
-import { calendarModeDay, calendarModeMonth, calendarModeWeek } from './constants'
 import { createCalendarStore } from './calendar.store'
 import { DateTime } from '@oleksii-pavlov/date-time'
 
-export function createCalendarInstance() {
-  const useCalendarStore = createCalendarStore()
+export function createCalendarInstance(mode: CalendarMode) {
+  const useCalendarStore = createCalendarStore(mode)
 
   function useCalendar() {
     const store = useCalendarStore()
+
+    function setCalendarMode(mode: CalendarMode) {
+      store.updateMode(mode)
+    }
 
     function setCalendarDayMode() {
       store.updateMode(calendarModeDay)
@@ -32,6 +36,11 @@ export function createCalendarInstance() {
       store.updateSelectedDate(date)
       store.updateAnchorDate(getAnchorDate(date))
     }
+    
+    function selectToday() {
+      const today = new DateTime().normalizeDate()
+      updateSelectedDate(today.getTimeInMilliseconds())
+    }
 
     function getAnchorDate(date: Timestamp): Timestamp {
       return ({
@@ -45,7 +54,9 @@ export function createCalendarInstance() {
       store,
 
       updateSelectedDate,
+      selectToday,
       
+      setCalendarMode,
       setCalendarMonthMode,
       setCalendarWeekMode,
       setCalendarDayMode,

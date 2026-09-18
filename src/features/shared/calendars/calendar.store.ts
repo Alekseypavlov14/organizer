@@ -1,5 +1,5 @@
 import { getFirstDayOfMonth, getNormalizedToday, type Timestamp } from '@/shared/utils/datetime'
-import { calendarModeMonth, type CalendarMode } from './constants'
+import { type CalendarMode } from './constants'
 import { create } from 'zustand'
 
 interface CalendarState {
@@ -16,9 +16,9 @@ interface CalendarActions {
 
 export interface CalendarStore extends CalendarState, CalendarActions {}
 
-export function createCalendarStore() {
+export function createCalendarStore(mode: CalendarMode) {
   return create<CalendarStore>(set => ({
-    mode: calendarModeMonth,
+    mode: mode,
     anchorDate: getFirstDayOfMonth(Date.now()).getTimeInMilliseconds(),
     selectedDate: getNormalizedToday().getTimeInMilliseconds(),
 
