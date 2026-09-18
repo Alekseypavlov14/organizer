@@ -129,15 +129,15 @@ export function GroupFeedPage() {
     })
   }
   function openNotionMoveModal() {
-    if (!groupExplorerFeedExplorer.store.currentGroup) return
-
     groupFeedModalStack.clear()
     groupFeedModalStack.open(groupMoveSelectionModal)
     
     groupMoveSelectionDynamicAction.updateAction(moveNotionHandler)
 
     groupMoveSelectionExplorer.load(groups)
-    groupMoveSelectionExplorer.selectGroup(groupExplorerFeedExplorer.store.currentGroup)
+
+    if (!groupExplorerFeedExplorer.store.currentGroup) groupExplorerFeedExplorer.navigateRoot()
+    else groupMoveSelectionExplorer.selectGroup(groupExplorerFeedExplorer.store.currentGroup)
   }
   function openNotionDeleteModal() {
     groupFeedModalStack.clear()
@@ -151,13 +151,8 @@ export function GroupFeedPage() {
     groupFeedModalStack.open(colorAddModal)
   }
 
-  function selectColor(color: ColorModel) {
-    groupForm.updateGroupColor(color)
-    groupFeedModalStack.openPrevious()
-  }
-  function addColor(color: ColorModel) {
-    colorSelection.updateColor(color)
-    groupFeedModalStack.openPrevious()
+  function editGroupHandler(group: GroupEntity) {
+    groupExplorerFeedExplorer.selectGroup(group)
   }
   function moveGroupHandler(group: Nullable<GroupEntity>) {
     if (!groupExplorerFeedExplorer.store.currentGroup) return
@@ -202,6 +197,17 @@ export function GroupFeedPage() {
 
     const deleted = notionEdition.deleteNotionById(groupExplorerFeedNotionFeed.store.selectedNotion.id)
     if (deleted && !isNull(currentGroupId)) groupActions.removeNotionFromGroupById(currentGroupId, deleted.id)
+
+    const children = groupExplorerFeedExplorer.store.currentGroup?.notions ?? groupActions.getRootGroupNotions()
+    groupExplorerFeedNotionFeed.updateNotions(children)
+  }
+  function selectColor(color: ColorModel) {
+    groupForm.updateGroupColor(color)
+    groupFeedModalStack.openPrevious()
+  }
+  function addColor(color: ColorModel) {
+    colorSelection.updateColor(color)
+    groupFeedModalStack.openPrevious()
   }
 
   return (
@@ -277,6 +283,7 @@ export function GroupFeedPage() {
         onColorClick={openColorSelectionModal} 
       />
       <GroupEditionModal 
+        onSave={editGroupHandler}
         onColorClick={openColorSelectionModal}
       />
 
