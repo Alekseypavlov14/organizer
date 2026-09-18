@@ -1,9 +1,9 @@
 import type { GroupEntity } from './group.entity'
 import type { Nullable } from '@/shared/types/nullable'
 import type { Id } from '@/shared/types/id'
+import { notionsSelector, useNotionActions, useNotionsStore, type NotionEntity } from '../notions'
 import { groupsSelector, updateGroupsSelector, useGroupsStore } from './group.store'
 import { groupEntityStorage } from './group.storage'
-import { useNotionActions } from '../notions'
 import { validateId } from '@/shared/utils/id'
 import { isNull } from '@/shared/utils/validation'
 
@@ -11,6 +11,7 @@ export function useGroupActions() {
   const groups = useGroupsStore(groupsSelector)
   const updateGroups = useGroupsStore(updateGroupsSelector)
 
+  const notions = useNotionsStore(notionsSelector)
   const notionActions = useNotionActions()
 
   function saveGroup(group: GroupEntity): Nullable<GroupEntity> {
@@ -40,36 +41,6 @@ export function useGroupActions() {
     revalidate()
 
     return deleted
-  }
-
-  function addNotionToGroupById(id: Id, notionId: Id): Nullable<GroupEntity> {
-    const group = groupEntityStorage.getById(id)
-    if (!group) return null
-
-    if (group.notions.some(notion => notion.id === notionId)) return group
-
-    const notion = notionActions.getNotionById(notionId)
-    if (!notion) return null
-
-    const newGroup: GroupEntity = { ...group, notions: group.notions.concat([ notion ]) }
-
-    const updated = groupEntityStorage.save(newGroup)
-    revalidate()
-
-    return updated
-  }
-
-  function removeNotionFromGroupById(id: Id, notionId: Id): Nullable<GroupEntity> {
-    const group = groupEntityStorage.getById(id)
-    if (!group) return null
-
-    const newNotions = group.notions.filter(notion => notion.id !== notionId)
-    const newGroup: GroupEntity = { ...group, notions: newNotions }
-
-    const updated = groupEntityStorage.save(newGroup)
-    revalidate()
-
-    return updated
   }
 
   function moveGroupById(groupId: Id, parentId: Nullable<Id>): Nullable<GroupEntity> {
@@ -129,6 +100,65 @@ export function useGroupActions() {
     return path.some(group => group.id === parentId)
   }
 
+  function moveNotionToGroupById(fromGroupId: Nullable<Id>, toGroupId: Nullable<Id>, notionId: Id): boolean {
+    if (fromGroupId === toGroupId) return true
+
+    if (!isNull(fromGroupId)) {
+      const fromGroup = removeNotionFromGroupById(fromGroupId, notionId)
+      if (!fromGroup) return false
+    }
+
+    if (!isNull(toGroupId)) {
+      const toGroup = addNotionToGroupById(toGroupId, notionId)
+      if (!toGroup) return false
+    }
+
+    return true
+  }
+
+  function addNotionToGroupById(id: Id, notionId: Id): Nullable<GroupEntity> {
+    const group = groupEntityStorage.getById(id)
+    if (!group) return null
+
+    if (group.notions.some(notion => notion.id === notionId)) return group
+
+    const notion = notionActions.getNotionById(notionId)
+    if (!notion) return null
+
+    const newGroup: GroupEntity = { ...group, notions: group.notions.concat([ notion ]) }
+
+    const updated = groupEntityStorage.save(newGroup)
+    revalidate()
+
+    return updated
+  }
+
+  function removeNotionFromGroupById(id: Id, notionId: Id): Nullable<GroupEntity> {
+    const group = groupEntityStorage.getById(id)
+    if (!group) return null
+
+    const newNotions = group.notions.filter(notion => notion.id !== notionId)
+    const newGroup: GroupEntity = { ...group, notions: newNotions }
+
+    const updated = groupEntityStorage.save(newGroup)
+    revalidate()
+
+    return updated
+  }
+
+  function getRootGroupNotions(): NotionEntity[] {
+    const rootNotions = notions.filter(notion => {
+      const anyGroupHasNotion = groups.some(group => {
+        const groupIncludesNotion = group.notions.some(groupNotion => groupNotion.id === notion.id)
+        return groupIncludesNotion
+      })
+
+      return !anyGroupHasNotion
+    })
+
+    return rootNotions
+  }
+
   function getGroupsBySearchQuery(query: string): GroupEntity[] {
     return groups.filter(group => group.title.toLowerCase().includes(query.toLowerCase()))
   }
@@ -141,14 +171,16 @@ export function useGroupActions() {
     saveGroup,
     getGroupById,
     deleteGroupById,
-    
-    addNotionToGroupById,
-    removeNotionFromGroupById,
-    
+
     moveGroupById,
     getGroupPathById,
     getGroupChildrenById,
     isSubgroupOf,
+    
+    moveNotionToGroupById,
+    addNotionToGroupById,
+    removeNotionFromGroupById,
+    getRootGroupNotions,
 
     getGroupsBySearchQuery,
   })

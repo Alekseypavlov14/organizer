@@ -15,7 +15,6 @@ export function GroupSelectionPath() {
       onSegmentClick={explorer.selectGroup}
       onRootClick={explorer.navigateRoot}
       gap={flexGapExtraSmall}
-      showRoot
     />
   )
 }

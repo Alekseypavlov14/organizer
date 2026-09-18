@@ -1,10 +1,11 @@
 import type { NotionEntity } from '@/entities/notions'
 import { useGroupExplorerDisplayGroups, useGroupExplorerGroups } from '@/features/groups/explorer'
+import { groupsSelector, useGroupActions, useGroupsStore } from '@/entities/groups'
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
-import { groupsSelector, useGroupsStore } from '@/entities/groups'
 import { useGroupExplorerFeedExplorer } from './group.explorer'
 import { NotionFeed, NotionFeedItems } from '@/features/notions/feed'
 import { GroupFeed, GroupFeedItems } from '@/features/groups/feed'
+import { GroupExplorerFeedTitle } from './components/GroupExplorerFeedTitle'
 import { GroupExplorerFeedPath } from './components/GroupExplorerFeedPath'
 import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
 import { useNavigation } from '@/app/navigation'
@@ -16,6 +17,7 @@ import { Text } from '@/shared/components/Text'
 
 export function GroupExplorerFeed() {
   const navigation = useNavigation()
+  const groupActions = useGroupActions()
 
   const groupExplorer = useGroupExplorerFeedExplorer()
   const groupFeed = useGroupFeed()
@@ -30,7 +32,7 @@ export function GroupExplorerFeed() {
 
   const notionFeed = useNotionFeed()
   useEffect(() => {
-    const currentGroupNotions = groupExplorer.store.currentGroup?.notions ?? []
+    const currentGroupNotions = groupExplorer.store.currentGroup?.notions ?? groupActions.getRootGroupNotions()
     notionFeed.updateNotions(currentGroupNotions)
   }, [groupExplorer.store.currentGroup])
 
@@ -45,6 +47,7 @@ export function GroupExplorerFeed() {
         gap={flexGapMedium}
       >
         <GroupExplorerFeedPath />
+        <GroupExplorerFeedTitle />
 
         <GroupFeedItems onGroupClick={groupExplorer.selectGroup} />
 

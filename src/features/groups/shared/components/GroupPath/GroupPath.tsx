@@ -39,14 +39,12 @@ export function GroupPath({
       className={className} 
       gap={gap}
     >
-      {showRoot ? (
-        <BreadcrumbsItem>
-          <Icon 
-            onClick={onRootClick}
-            name='home' 
-          />
-        </BreadcrumbsItem>
-      ) : null}
+      <BreadcrumbsItem>
+        <Icon 
+          onClick={onRootClick}
+          name='home' 
+        />
+      </BreadcrumbsItem>
 
       {segments.map((group, index) => (
         <Fragment key={index}>

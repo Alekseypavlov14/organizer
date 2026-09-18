@@ -5,7 +5,6 @@ import styles from './GroupExplorerFeedPath.module.css'
 
 export function GroupExplorerFeedPath() {
   const groupExplorer = useGroupExplorerFeedExplorer()
-
   if (!groupExplorer.store.currentGroup) return null
 
   return (
@@ -15,7 +14,6 @@ export function GroupExplorerFeedPath() {
       className={styles.GroupExplorerFeedPath}
       onRootClick={groupExplorer.navigateRoot}
       gap={flexGapExtraSmall}
-      showRoot
     />
   )
 }

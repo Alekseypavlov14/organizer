@@ -57,7 +57,6 @@ export function GroupEditionModal({
             className={styles.Path}
             groupId={groupForm.group.parentId}
             gap={flexGapExtraSmall} 
-            showRoot
           />
           
           <GroupForm onColorClick={onColorClick} />

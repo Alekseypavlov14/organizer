@@ -1,6 +1,6 @@
 import type { ColorModel } from '@/entities/shared'
 import type { Nullable } from '@/shared/types/nullable'
-import { useGroupDeleteConfirmationModal, useGroupEditionSelectActionModal, useGroupFeedModalStack } from './modals.feature'
+import { useGroupCreationSelectActionModal, useGroupDeleteConfirmationModal, useGroupEditionSelectActionModal, useGroupFeedModalStack } from './modals.feature'
 import { GroupSelectionModal, useGroupSelectionExplorer, useGroupSelectionModal } from '@/widgets/groups/GroupSelectionModal'
 import { ColorSelectionModal, useColorSelection, useColorSelectionModal } from '@/features/colors/selection'
 import { FloatingActions, FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingActions'
@@ -14,7 +14,9 @@ import { useGroupActions, type GroupEntity } from '@/entities/groups'
 import { ColorAddModal, useColorAddModal } from '@/features/colors/add'
 import { useGroupExplorerGroups } from '@/features/groups/explorer'
 import { buttonVariantDanger } from '@/shared/components/Button'
+import { useNotionEdition } from '@/features/notions/edition'
 import { useGroupEdition } from '@/features/groups/edition'
+import { useNavigation } from '@/app/navigation'
 import { useGroupForm } from '@/features/groups/form'
 import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
@@ -25,6 +27,7 @@ import { Icon } from '@/shared/components/Icon'
 import { Text } from '@/shared/components/Text'
 
 export function GroupFeedPage() {
+  const navigation = useNavigation()
   const groupActions = useGroupActions()
 
   const groupExplorerFeedExplorer = useGroupExplorerFeedExplorer()
@@ -34,22 +37,33 @@ export function GroupFeedPage() {
   const groupEdition = useGroupEdition()
   const groupMove = useGroupMove()
 
+  const notionEdition = useNotionEdition()
   const colorSelection = useColorSelection()
 
   const groupFeedModalStack = useGroupFeedModalStack()
 
+  const groupCreationSelectActionModal = useGroupCreationSelectActionModal()
+  const groupEditionSelectActionModal = useGroupEditionSelectActionModal()
+
   const groupCreationModal = useGroupCreationModal()
   const groupEditionModal = useGroupEditionModal()
-  const colorSelectionModal = useColorSelectionModal()
-  const colorAddModal = useColorAddModal()
-
-  const groupEditionSelectActionModal = useGroupEditionSelectActionModal()
   const groupMoveSelectionModal = useGroupSelectionModal()
   const groupDeleteConfirmationModal = useGroupDeleteConfirmationModal()
+  const colorSelectionModal = useColorSelectionModal()
+  const colorAddModal = useColorAddModal()
 
   const groupMoveSelectionExplorer = useGroupSelectionExplorer()
   const groupMoveCandidates = useGroupMoveCandidates(currentGroupId) 
   useGroupExplorerGroups(groupMoveSelectionExplorer, groupMoveCandidates)
+
+  function openGroupCreationSelectActionModal() {
+    groupFeedModalStack.clear()
+    groupFeedModalStack.open(groupCreationSelectActionModal)
+  }
+  function openGroupEditionSelectActionModal() {
+    groupFeedModalStack.clear()
+    groupFeedModalStack.open(groupEditionSelectActionModal)
+  }
 
   function openGroupCreationModal() {
     groupForm.updateFormGroup(groupEdition.getInitialGroup())
@@ -70,26 +84,6 @@ export function GroupFeedPage() {
     groupFeedModalStack.clear()
     groupFeedModalStack.open(groupEditionModal)
   }
-  function openColorSelectionModal() {
-    groupFeedModalStack.open(colorSelectionModal)
-  }
-  function openColorAddModal() {
-    groupFeedModalStack.open(colorAddModal)
-  }
-
-  function selectColor(color: ColorModel) {
-    groupForm.updateGroupColor(color)
-    groupFeedModalStack.openPrevious()
-  }
-  function addColor(color: ColorModel) {
-    colorSelection.updateColor(color)
-    groupFeedModalStack.openPrevious()
-  }
-
-  function openGroupEditionSelectActionModal() {
-    groupFeedModalStack.clear()
-    groupFeedModalStack.open(groupEditionSelectActionModal)
-  }
   function openGroupMoveSelectionModal() {
     if (!groupExplorerFeedExplorer.store.currentGroup) return
 
@@ -107,6 +101,30 @@ export function GroupFeedPage() {
   function openGroupDeleteModal() {
     groupFeedModalStack.clear()
     groupFeedModalStack.open(groupDeleteConfirmationModal)
+  }
+  function openNotionCreationPage() {
+    navigation.navigateNotionCreationPage()
+    
+    notionEdition.updateOnNotionSaveCallback(notion => {
+      if (!currentGroupId) return
+
+      groupActions.addNotionToGroupById(currentGroupId, notion.id)
+    })
+  }
+  function openColorSelectionModal() {
+    groupFeedModalStack.open(colorSelectionModal)
+  }
+  function openColorAddModal() {
+    groupFeedModalStack.open(colorAddModal)
+  }
+
+  function selectColor(color: ColorModel) {
+    groupForm.updateGroupColor(color)
+    groupFeedModalStack.openPrevious()
+  }
+  function addColor(color: ColorModel) {
+    colorSelection.updateColor(color)
+    groupFeedModalStack.openPrevious()
   }
 
   function moveGroupHandler(group: Nullable<GroupEntity>) {
@@ -143,6 +161,43 @@ export function GroupFeedPage() {
           <GroupExplorerFeed />
         </Container>
       </Main>
+
+      <SelectActionModal modal={groupEditionSelectActionModal}> 
+        <Flex
+          direction={flexDirectionVertical}
+          gap={flexGapSmall}
+        >
+          <SelectActionModalOption onClick={openGroupEditionModal}>
+            <Text>Edit</Text>
+          </SelectActionModalOption>
+  
+          <SelectActionModalOption onClick={openGroupMoveSelectionModal}>
+            <Text>Move</Text>
+          </SelectActionModalOption>
+  
+          <SelectActionModalOption 
+            variant={buttonVariantDanger}
+            onClick={openGroupDeleteModal}
+          >
+            <Text>Delete</Text>
+          </SelectActionModalOption>
+        </Flex>
+      </SelectActionModal>
+
+      <SelectActionModal modal={groupCreationSelectActionModal}>
+        <Flex
+          direction={flexDirectionVertical}
+          gap={flexGapSmall}
+        >
+          <SelectActionModalOption onClick={openGroupCreationModal}>
+            <Text>Group</Text>
+          </SelectActionModalOption>
+
+          <SelectActionModalOption onClick={openNotionCreationPage}>
+            <Text>Notion</Text>
+          </SelectActionModalOption>
+        </Flex>
+      </SelectActionModal>
       
       <GroupCreationModal 
         onColorClick={openColorSelectionModal} 
@@ -159,35 +214,6 @@ export function GroupFeedPage() {
         onAdd={addColor} 
         onCancel={groupFeedModalStack.openPrevious}
       />
-
-      <SelectActionModal modal={groupEditionSelectActionModal}> 
-        <Flex
-          direction={flexDirectionVertical}
-          gap={flexGapSmall}
-        >
-          <SelectActionModalOption 
-            onClick={openGroupMoveSelectionModal}
-          >
-            <Icon name='folder' />
-            <Text>Move</Text>
-          </SelectActionModalOption>
-  
-          <SelectActionModalOption
-            onClick={openGroupEditionModal}
-          >
-            <Icon name='pen' />
-            <Text>Edit</Text>
-          </SelectActionModalOption>
-  
-          <SelectActionModalOption 
-            variant={buttonVariantDanger}
-            onClick={openGroupDeleteModal}
-          >
-            <Icon name='trash' />
-            <Text>Delete</Text>
-          </SelectActionModalOption>
-        </Flex>
-      </SelectActionModal>
 
       <GroupSelectionModal 
         onSelect={moveGroupHandler}
@@ -210,8 +236,8 @@ export function GroupFeedPage() {
         ) : null}
 
         <FloatingAction 
+          onClick={openGroupCreationSelectActionModal}
           variant={floatingActionVariantPrimary}
-          onClick={openGroupCreationModal}
         >
           <Icon name='plus' size='l' />
         </FloatingAction>
