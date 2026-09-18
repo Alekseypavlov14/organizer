@@ -1,6 +1,6 @@
+import { createMomentModelWithDate, dateFormat, dateValidator, momentFormat, momentValidator } from '@/entities/shared'
 import { Flex, flexAlignCenter, flexDirectionVertical, flexGapMedium, flexGapSmall } from '@/shared/components/Flex'
 import { Separation, separationDirectionHorizontal } from '@/shared/components/Separation'
-import { momentFormat, momentValidator } from '@/entities/shared'
 import { useNotionFormStore } from '../../form.store'
 import { Checkbox } from '@/shared/components/Checkbox'
 import { Switch } from '@/shared/components/Switch'
@@ -20,10 +20,24 @@ export function NotionSettingsFormTodoGroup() {
 
   function updateDeadlineHandler(value: string) {
     if (!value.length) return updateDeadline(null)
-    updateDeadline(momentFormat.toModel(value))
+    
+    if (momentValidator.validateControlValue(value)) {
+      return updateDeadline(momentFormat.toModel(value))
+    }
+
+    if (dateValidator.validateControlValue(value)) {
+      const date = dateFormat.toModel(value)
+      return updateDeadline(createMomentModelWithDate(date))
+    }
   }
 
-  const validateDeadlineValue = (value: string) => value.length === 0 || momentValidator.validateControlValue(value)
+  function validateDeadlineValue(value: string) {
+    return (
+      value.length === 0 || 
+      dateValidator.validateControlValue(value) ||
+      momentValidator.validateControlValue(value)
+    )
+  }
 
   return (
     <Flex
