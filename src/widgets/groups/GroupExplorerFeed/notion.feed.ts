@@ -1,3 +1,3 @@
 import { createNotionFeedInstance } from '@/features/notions/feed'
 
-export const useNotionFeed = createNotionFeedInstance()
+export const useGroupExplorerFeedNotionFeed = createNotionFeedInstance()

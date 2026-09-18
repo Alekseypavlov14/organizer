@@ -1,22 +1,23 @@
+import type { NotionEntity } from '@/entities/notions'
 import type { ColorModel } from '@/entities/shared'
 import type { Nullable } from '@/shared/types/nullable'
-import { useGroupCreationSelectActionModal, useGroupDeleteConfirmationModal, useGroupEditionSelectActionModal, useGroupFeedModalStack } from './modals.feature'
+import { useGroupCreationSelectActionModal, useGroupDeleteConfirmationModal, useGroupEditionSelectActionModal, useGroupFeedModalStack, useNotionDeleteConfirmationModal, useNotionDetailsSelectActionModal } from './modals.feature'
+import { GroupExplorerFeed, useGroupExplorerFeedExplorer, useGroupExplorerFeedNotionFeed } from '@/widgets/groups/GroupExplorerFeed'
 import { GroupSelectionModal, useGroupSelectionExplorer, useGroupSelectionModal } from '@/widgets/groups/GroupSelectionModal'
+import { groupsSelector, useGroupActions, useGroupsStore, type GroupEntity } from '@/entities/groups'
 import { ColorSelectionModal, useColorSelection, useColorSelectionModal } from '@/features/colors/selection'
 import { FloatingActions, FloatingAction, floatingActionVariantPrimary } from '@/shared/components/FloatingActions'
 import { ConfirmationModal, SelectActionModal, SelectActionModalOption } from '@/features/shared/modals'
-import { GroupExplorerFeed, useGroupExplorerFeedExplorer } from '@/widgets/groups/GroupExplorerFeed'
 import { GroupCreationModal, useGroupCreationModal } from '@/widgets/groups/GroupCreationModal'
 import { Flex, flexDirectionVertical, flexGapSmall } from '@/shared/components/Flex'
 import { GroupEditionModal, useGroupEditionModal } from '@/widgets/groups/GroupEditionModal'
-import { useGroupMove, useGroupMoveCandidates } from '@/features/groups/move'
-import { useGroupActions, type GroupEntity } from '@/entities/groups'
 import { ColorAddModal, useColorAddModal } from '@/features/colors/add'
-import { useGroupExplorerGroups } from '@/features/groups/explorer'
 import { buttonVariantDanger } from '@/shared/components/Button'
+import { useDynamicAction } from '@/shared/hooks/useDynamicAction'
 import { useNotionEdition } from '@/features/notions/edition'
 import { useGroupEdition } from '@/features/groups/edition'
 import { useNavigation } from '@/app/navigation'
+import { useGroupMove } from '@/features/groups/move'
 import { useGroupForm } from '@/features/groups/form'
 import { PageLayout } from '@/app/layouts'
 import { Container } from '@/shared/components/Container'
@@ -31,8 +32,11 @@ export function GroupFeedPage() {
   const groupActions = useGroupActions()
 
   const groupExplorerFeedExplorer = useGroupExplorerFeedExplorer()
+  const groupExplorerFeedNotionFeed = useGroupExplorerFeedNotionFeed()
+
   const currentGroupId = groupExplorerFeedExplorer.store.currentGroup?.id ?? null
 
+  const groups = useGroupsStore(groupsSelector)
   const groupForm = useGroupForm()
   const groupEdition = useGroupEdition()
   const groupMove = useGroupMove()
@@ -44,17 +48,18 @@ export function GroupFeedPage() {
 
   const groupCreationSelectActionModal = useGroupCreationSelectActionModal()
   const groupEditionSelectActionModal = useGroupEditionSelectActionModal()
+  const notionDetailsSelectActionModal = useNotionDetailsSelectActionModal()
 
   const groupCreationModal = useGroupCreationModal()
   const groupEditionModal = useGroupEditionModal()
   const groupMoveSelectionModal = useGroupSelectionModal()
   const groupDeleteConfirmationModal = useGroupDeleteConfirmationModal()
+  const notionDeleteConfirmationModal = useNotionDeleteConfirmationModal()
   const colorSelectionModal = useColorSelectionModal()
   const colorAddModal = useColorAddModal()
 
   const groupMoveSelectionExplorer = useGroupSelectionExplorer()
-  const groupMoveCandidates = useGroupMoveCandidates(currentGroupId) 
-  useGroupExplorerGroups(groupMoveSelectionExplorer, groupMoveCandidates)
+  const groupMoveSelectionDynamicAction = useDynamicAction(moveGroupHandler)
 
   function openGroupCreationSelectActionModal() {
     groupFeedModalStack.clear()
@@ -63,6 +68,12 @@ export function GroupFeedPage() {
   function openGroupEditionSelectActionModal() {
     groupFeedModalStack.clear()
     groupFeedModalStack.open(groupEditionSelectActionModal)
+  }
+  function openNotionDetailsSelectActionModal(notion: NotionEntity) {
+    groupFeedModalStack.clear()
+    groupFeedModalStack.open(notionDetailsSelectActionModal)
+
+    groupExplorerFeedNotionFeed.updateSelectedNotion(notion)
   }
 
   function openGroupCreationModal() {
@@ -84,11 +95,16 @@ export function GroupFeedPage() {
     groupFeedModalStack.clear()
     groupFeedModalStack.open(groupEditionModal)
   }
-  function openGroupMoveSelectionModal() {
+  function openGroupMoveModal() {
     if (!groupExplorerFeedExplorer.store.currentGroup) return
 
     groupFeedModalStack.clear()
     groupFeedModalStack.open(groupMoveSelectionModal)
+
+    groupMoveSelectionDynamicAction.updateAction(moveGroupHandler)
+
+    const candidates = groupMove.getGroupMoveCandidatesById(currentGroupId)
+    groupMoveSelectionExplorer.load(candidates)
 
     const parentId = groupExplorerFeedExplorer.store.currentGroup.parentId
     if (isNull(parentId)) return groupMoveSelectionExplorer.navigateRoot()
@@ -102,6 +118,7 @@ export function GroupFeedPage() {
     groupFeedModalStack.clear()
     groupFeedModalStack.open(groupDeleteConfirmationModal)
   }
+
   function openNotionCreationPage() {
     navigation.navigateNotionCreationPage()
     
@@ -111,6 +128,22 @@ export function GroupFeedPage() {
       groupActions.addNotionToGroupById(currentGroupId, notion.id)
     })
   }
+  function openNotionMoveModal() {
+    if (!groupExplorerFeedExplorer.store.currentGroup) return
+
+    groupFeedModalStack.clear()
+    groupFeedModalStack.open(groupMoveSelectionModal)
+    
+    groupMoveSelectionDynamicAction.updateAction(moveNotionHandler)
+
+    groupMoveSelectionExplorer.load(groups)
+    groupMoveSelectionExplorer.selectGroup(groupExplorerFeedExplorer.store.currentGroup)
+  }
+  function openNotionDeleteModal() {
+    groupFeedModalStack.clear()
+    groupFeedModalStack.open(notionDeleteConfirmationModal)
+  }
+
   function openColorSelectionModal() {
     groupFeedModalStack.open(colorSelectionModal)
   }
@@ -126,7 +159,6 @@ export function GroupFeedPage() {
     colorSelection.updateColor(color)
     groupFeedModalStack.openPrevious()
   }
-
   function moveGroupHandler(group: Nullable<GroupEntity>) {
     if (!groupExplorerFeedExplorer.store.currentGroup) return
 
@@ -142,6 +174,20 @@ export function GroupFeedPage() {
     const parent = groupActions.getGroupById(moved.parentId)
     if (parent) return groupExplorerFeedExplorer.selectGroup(parent)
   }
+  function moveNotionHandler(group: Nullable<GroupEntity>) {
+    if (!groupExplorerFeedNotionFeed.store.selectedNotion) return null
+
+    const toGroupId = group?.id ?? null
+    const notionId = groupExplorerFeedNotionFeed.store.selectedNotion.id
+
+    groupActions.moveNotionById(currentGroupId, toGroupId, notionId)
+
+    const parentGroupId = group?.id ?? null
+    if (isNull(parentGroupId)) return groupExplorerFeedExplorer.navigateRoot()
+
+    const parent = groupActions.getGroupById(parentGroupId)
+    if (parent) return groupExplorerFeedExplorer.selectGroup(parent)
+  }
   function deleteGroupHandler() {
     if (isNull(currentGroupId)) return 
 
@@ -151,6 +197,12 @@ export function GroupFeedPage() {
     groupFeedModalStack.clear()
     groupExplorerFeedExplorer.navigateParent()
   }
+  function deleteNotionHandler() {
+    if (!groupExplorerFeedNotionFeed.store.selectedNotion) return null
+
+    const deleted = notionEdition.deleteNotionById(groupExplorerFeedNotionFeed.store.selectedNotion.id)
+    if (deleted && !isNull(currentGroupId)) groupActions.removeNotionFromGroupById(currentGroupId, deleted.id)
+  }
 
   return (
     <PageLayout>
@@ -158,7 +210,9 @@ export function GroupFeedPage() {
 
       <Main>
         <Container stretch>
-          <GroupExplorerFeed />
+          <GroupExplorerFeed 
+            onNotionDetailsClick={openNotionDetailsSelectActionModal} 
+          />
         </Container>
       </Main>
 
@@ -171,7 +225,7 @@ export function GroupFeedPage() {
             <Text>Edit</Text>
           </SelectActionModalOption>
   
-          <SelectActionModalOption onClick={openGroupMoveSelectionModal}>
+          <SelectActionModalOption onClick={openGroupMoveModal}>
             <Text>Move</Text>
           </SelectActionModalOption>
   
@@ -198,12 +252,38 @@ export function GroupFeedPage() {
           </SelectActionModalOption>
         </Flex>
       </SelectActionModal>
+
+      <SelectActionModal modal={notionDetailsSelectActionModal}>
+        <Flex
+          direction={flexDirectionVertical}
+          gap={flexGapSmall}
+        >
+          <SelectActionModalOption
+            onClick={openNotionMoveModal}
+          >
+            <Text>Move</Text>
+          </SelectActionModalOption>
+          
+          <SelectActionModalOption
+            onClick={openNotionDeleteModal}
+            variant={buttonVariantDanger}
+          >
+            <Text>Delete</Text>
+          </SelectActionModalOption>
+        </Flex>
+      </SelectActionModal>
       
       <GroupCreationModal 
         onColorClick={openColorSelectionModal} 
       />
       <GroupEditionModal 
         onColorClick={openColorSelectionModal}
+      />
+
+      <GroupSelectionModal 
+        onSelect={groupMoveSelectionDynamicAction.action}
+        onCancel={groupFeedModalStack.openPrevious}
+        allowRoot
       />
       <ColorSelectionModal 
         onSelect={selectColor}
@@ -215,15 +295,17 @@ export function GroupFeedPage() {
         onCancel={groupFeedModalStack.openPrevious}
       />
 
-      <GroupSelectionModal 
-        onSelect={moveGroupHandler}
-        onCancel={groupFeedModalStack.openPrevious}
-        allowRoot
-      />
       <ConfirmationModal 
         title='Do you want to delete this group?'
         modal={groupDeleteConfirmationModal}
         onConfirm={deleteGroupHandler}
+        onCancel={groupFeedModalStack.openPrevious}
+        variant={buttonVariantDanger}
+      />
+      <ConfirmationModal 
+        title='Do you want to delete this notion?'
+        modal={notionDeleteConfirmationModal}
+        onConfirm={deleteNotionHandler}
         onCancel={groupFeedModalStack.openPrevious}
         variant={buttonVariantDanger}
       />

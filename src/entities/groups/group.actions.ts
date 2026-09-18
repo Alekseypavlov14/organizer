@@ -100,7 +100,7 @@ export function useGroupActions() {
     return path.some(group => group.id === parentId)
   }
 
-  function moveNotionToGroupById(fromGroupId: Nullable<Id>, toGroupId: Nullable<Id>, notionId: Id): boolean {
+  function moveNotionById(fromGroupId: Nullable<Id>, toGroupId: Nullable<Id>, notionId: Id): boolean {
     if (fromGroupId === toGroupId) return true
 
     if (!isNull(fromGroupId)) {
@@ -177,7 +177,7 @@ export function useGroupActions() {
     getGroupChildrenById,
     isSubgroupOf,
     
-    moveNotionToGroupById,
+    moveNotionById,
     addNotionToGroupById,
     removeNotionFromGroupById,
     getRootGroupNotions,

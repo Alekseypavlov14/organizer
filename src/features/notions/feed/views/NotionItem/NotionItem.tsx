@@ -1,21 +1,27 @@
 import { NotionLevelBadge, NotionPriorityBadge, NotionProgressBadge } from '@/features/notions/shared'
+import { Flex, flexAlignCenter, flexGapSmall } from '@/shared/components/Flex'
 import { useNotionActions, type NotionEntity } from '@/entities/notions'
 import { notionSavedAtFormat } from '../../constants'
 import { StopPropagation } from '@/shared/components/StopPropagation'
 import { Checkbox } from '@/shared/components/Checkbox'
 import { Palette } from '@/shared/components/Palette'
 import { isNull } from '@/shared/utils/validation'
+import { Icon } from '@/shared/components/Icon'
 import styles from './NotionItem.module.css'
 import clsx from 'clsx'
 
 interface NotionItemProps {
   notion: NotionEntity
   onClick?: (notion: NotionEntity) => void
+  onDetailsClick?: (notion: NotionEntity) => void
+  showDetails?: boolean
 }
 
 export function NotionItem({ 
   notion,
-  onClick = () => {}
+  onClick = () => {},
+  onDetailsClick = () => {},
+  showDetails
 }: NotionItemProps) {
   const { saveNotion } = useNotionActions()
   
@@ -30,6 +36,10 @@ export function NotionItem({
     onClick(notion)
   }
 
+  function clickDetailsHandler() {
+    onDetailsClick && onDetailsClick(notion)
+  }
+
   return (
     <Palette 
       className={classNames} 
@@ -38,14 +48,30 @@ export function NotionItem({
       <div className={styles.Header}>
         <div className={styles.Title}>{notion.title}</div>
 
-        {!isNull(notion.done) ? (
-          <StopPropagation>
-            <Checkbox
-              onCheckedChange={(done) => saveNotion({ ...notion, done })}
-              checked={notion.done}
-            />
-          </StopPropagation>
-        ) : null}
+        <Flex
+          align={flexAlignCenter}
+          gap={flexGapSmall}
+        >
+          {!isNull(notion.done) ? (
+            <StopPropagation>
+              <Checkbox
+                onCheckedChange={(done) => saveNotion({ ...notion, done })}
+                checked={notion.done}
+              />
+            </StopPropagation>
+          ) : null}
+
+          {showDetails ? (
+            <StopPropagation>
+              <div className={styles.Details}>
+                <Icon 
+                  onClick={clickDetailsHandler} 
+                  name='ellipsis-vertical' 
+                />
+              </div>
+            </StopPropagation>
+          ) : null}
+        </Flex>
       </div>
 
       <div className={styles.Body}>

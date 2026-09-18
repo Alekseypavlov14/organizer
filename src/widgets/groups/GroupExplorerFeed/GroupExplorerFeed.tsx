@@ -1,21 +1,31 @@
-import { notionsSelector, useNotionsStore, type NotionEntity } from '@/entities/notions'
+import { groupsSelector, useGroupActions, useGroupsStore, type GroupEntity } from '@/entities/groups'
 import { useGroupExplorerDisplayGroups, useGroupExplorerGroups } from '@/features/groups/explorer'
-import { groupsSelector, useGroupActions, useGroupsStore } from '@/entities/groups'
+import { notionsSelector, useNotionsStore, type NotionEntity } from '@/entities/notions'
 import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/Flex'
 import { NotionFeed, NotionFeedItems, NotionItem } from '@/features/notions/feed'
+import { useGroupExplorerFeedNotionFeed } from './notion.feed'
 import { useGroupExplorerFeedExplorer } from './group.explorer'
 import { GroupFeed, GroupFeedItems } from '@/features/groups/feed'
 import { GroupExplorerFeedTitle } from './components/GroupExplorerFeedTitle'
 import { GroupExplorerFeedPath } from './components/GroupExplorerFeedPath'
 import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
 import { useNavigation } from '@/app/navigation'
-import { useNotionFeed } from './notion.feed'
 import { useGroupFeed } from './group.feed'
 import { Placeholder } from '@/shared/components/Placeholder'
 import { useEffect } from 'react'
 import { Text } from '@/shared/components/Text'
 
-export function GroupExplorerFeed() {
+interface GroupExplorerFeedProps {
+  onGroupClick?: (group: GroupEntity) => void
+  onNotionClick?: (notion: NotionEntity) => void
+  onNotionDetailsClick?: (notion: NotionEntity) => void
+}
+
+export function GroupExplorerFeed({
+  onGroupClick = () => {},
+  onNotionClick = () => {},
+  onNotionDetailsClick = () => {},
+}: GroupExplorerFeedProps) {
   const navigation = useNavigation()
   const groupActions = useGroupActions()
 
@@ -31,15 +41,25 @@ export function GroupExplorerFeed() {
   useEffect(() => groupFeed.updateGroups(displayGroups), [displayGroups])
 
   const notions = useNotionsStore(notionsSelector)
-  const notionFeed = useNotionFeed()
+  const notionFeed = useGroupExplorerFeedNotionFeed()
 
   useEffect(() => {
     const currentGroupNotions = groupExplorer.store.currentGroup?.notions ?? groupActions.getRootGroupNotions()
     notionFeed.updateNotions(currentGroupNotions)
   }, [notions, groupExplorer.store.currentGroup])
 
-  function onNotionClick(notion: NotionEntity) {
+  function onGroupClickHandler(group: GroupEntity) {
+    groupExplorer.selectGroup(group)
+    onGroupClick(group)
+  }
+
+  function onNotionClickHandler(notion: NotionEntity) {
     navigation.navigateNotionDisplayPage(notion.id)
+    onNotionClick(notion)
+  }
+
+  function onNotionDetailsClickHandler(notion: NotionEntity) {
+    onNotionDetailsClick(notion)
   }
 
   return (
@@ -51,14 +71,16 @@ export function GroupExplorerFeed() {
         <GroupExplorerFeedPath />
         <GroupExplorerFeedTitle />
 
-        <GroupFeedItems onGroupClick={groupExplorer.selectGroup} />
+        <GroupFeedItems onGroupClick={onGroupClickHandler} />
 
         <NotionFeed store={notionFeed.store}>
           <NotionFeedItems>
             {(notion) => (
               <NotionItem 
-                onClick={onNotionClick} 
                 notion={notion}
+                onClick={onNotionClickHandler} 
+                onDetailsClick={onNotionDetailsClickHandler}
+                showDetails
               />
             )}
           </NotionFeedItems>
