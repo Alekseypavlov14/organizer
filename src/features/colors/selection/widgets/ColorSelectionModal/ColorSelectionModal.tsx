@@ -12,12 +12,14 @@ interface ColorSelectionModalProps {
   onSelect?: (color: ColorModel) => void
   onAddNew?: () => void
   onCancel?: () => void
+  showAddButton?: boolean
 }
 
 export function ColorSelectionModal({
   onSelect = () => {},
   onCancel = () => {},
-  onAddNew,
+  onAddNew = () => {},
+  showAddButton,
 }: ColorSelectionModalProps) {
   const colors = useColorsStore(colorsSelector)
 
@@ -62,7 +64,7 @@ export function ColorSelectionModal({
         />
   
         <ModalActions>
-          {onAddNew ? (
+          {showAddButton ? (
             <Button onClick={onAddNew}>
               Add
             </Button>

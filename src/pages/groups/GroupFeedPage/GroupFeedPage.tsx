@@ -12,6 +12,7 @@ import { GroupCreationModal, useGroupCreationModal } from '@/widgets/groups/Grou
 import { Flex, flexDirectionVertical, flexGapSmall } from '@/shared/components/Flex'
 import { GroupEditionModal, useGroupEditionModal } from '@/widgets/groups/GroupEditionModal'
 import { ColorAddModal, useColorAddModal } from '@/features/colors/add'
+import { useGroupByIdFromQueryParams } from '@/features/groups/shared'
 import { buttonVariantDanger } from '@/shared/components/Button'
 import { useDynamicAction } from '@/shared/hooks/useDynamicAction'
 import { useNotionEdition } from '@/features/notions/edition'
@@ -26,6 +27,7 @@ import { isNull } from '@/shared/utils/validation'
 import { Main } from '@/shared/components/Main'
 import { Icon } from '@/shared/components/Icon'
 import { Text } from '@/shared/components/Text'
+import { useEffect } from 'react'
 
 export function GroupFeedPage() {
   const navigation = useNavigation()
@@ -35,6 +37,18 @@ export function GroupFeedPage() {
   const groupExplorerFeedNotionFeed = useGroupExplorerFeedNotionFeed()
 
   const currentGroupId = groupExplorerFeedExplorer.store.currentGroup?.id ?? null
+
+  useGroupByIdFromQueryParams({
+    success: (group) => groupExplorerFeedExplorer.navigateGroup(group),
+    failure: () => {
+      groupExplorerFeedExplorer.navigateRoot()
+      navigation.navigateGroupFeedPage()
+    } 
+  })
+
+  useEffect(() => {
+    openGroup(groupExplorerFeedExplorer.store.currentGroup)
+  }, [groupExplorerFeedExplorer.store.currentGroup])
 
   const groups = useGroupsStore(groupsSelector)
   const groupForm = useGroupForm()
@@ -60,6 +74,10 @@ export function GroupFeedPage() {
 
   const groupMoveSelectionExplorer = useGroupSelectionExplorer()
   const groupMoveSelectionDynamicAction = useDynamicAction(moveGroupHandler)
+
+  function openGroup(group: Nullable<GroupEntity>) {
+    navigation.navigateGroupFeedPage(group?.id ?? null)
+  }
 
   function openGroupCreationSelectActionModal() {
     groupFeedModalStack.clear()
@@ -107,7 +125,7 @@ export function GroupFeedPage() {
     groupMoveSelectionExplorer.load(candidates)
 
     const parentId = groupExplorerFeedExplorer.store.currentGroup.parentId
-    groupExplorerFeedExplorer.navigateGroupById(parentId)
+    navigation.navigateGroupFeedPage(parentId)
   }
   function openGroupDeleteModal() {
     groupFeedModalStack.clear()
@@ -154,7 +172,7 @@ export function GroupFeedPage() {
     const moved = groupMove.moveGroupById(groupExplorerFeedExplorer.store.currentGroup.id, parentGroupId)
     if (!moved) return
 
-    groupExplorerFeedExplorer.navigateGroupById(moved.parentId)
+    navigation.navigateGroupFeedPage(moved.parentId)
   }
   function moveNotionHandler(group: Nullable<GroupEntity>) {
     if (!groupExplorerFeedNotionFeed.store.selectedNotion) return null
@@ -166,7 +184,7 @@ export function GroupFeedPage() {
     if (!moved) return
 
     const parentGroupId = group?.id ?? null
-    groupExplorerFeedExplorer.navigateGroupById(parentGroupId)
+    navigation.navigateGroupFeedPage(parentGroupId)
   }
   function deleteGroupHandler() {
     if (isNull(currentGroupId)) return 
@@ -281,6 +299,7 @@ export function GroupFeedPage() {
         onSelect={selectColor}
         onAddNew={openColorAddModal} 
         onCancel={groupFeedModalStack.openPrevious}
+        showAddButton
       />
       <ColorAddModal 
         onAdd={addColor} 

@@ -36,7 +36,7 @@ export const routing = createBrowserRouter([
   },
 
   {
-    path: '/groups',
+    path: '/groups/:id?',
     element: <GroupFeedPage />
   },
 ])

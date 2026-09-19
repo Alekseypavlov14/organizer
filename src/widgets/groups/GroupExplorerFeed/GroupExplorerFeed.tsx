@@ -8,7 +8,6 @@ import { useGroupExplorerFeedExplorer } from './group.explorer'
 import { GroupFeed, GroupFeedItems, GroupItem } from '@/features/groups/feed'
 import { GroupExplorerFeedTitle } from './components/GroupExplorerFeedTitle'
 import { GroupExplorerFeedPath } from './components/GroupExplorerFeedPath'
-import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
 import { useNavigation } from '@/app/navigation'
 import { useGroupFeed } from './group.feed'
 import { Placeholder } from '@/shared/components/Placeholder'
@@ -32,8 +31,6 @@ export function GroupExplorerFeed({
   const groupExplorer = useGroupExplorerFeedExplorer()
   const groupFeed = useGroupFeed()
 
-  useOnPageClosed(groupExplorer.reset)
-
   const groups = useGroupsStore(groupsSelector)
   useGroupExplorerGroups(groupExplorer, groups)
 
@@ -46,7 +43,7 @@ export function GroupExplorerFeed({
   useEffect(() => {
     const currentGroupId = groupExplorer.store.currentGroup?.id ?? null
     const currentGroupNotions = groupActions.getGroupNotionsById(currentGroupId) ?? []
-    
+
     notionFeed.updateNotions(currentGroupNotions)
   }, [notions, groupExplorer.store.currentGroup])
 
