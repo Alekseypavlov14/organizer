@@ -31,7 +31,7 @@ export function createGroupExplorerInstance() {
       if (!id) return navigateRoot()
 
       const group = store.groups.find(group => group.id === id)
-      if (!group) return
+      if (!group) return navigateRoot()
 
       navigateGroup(group)
     }

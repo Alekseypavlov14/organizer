@@ -5,7 +5,7 @@ import { Flex, flexDirectionVertical, flexGapMedium } from '@/shared/components/
 import { NotionFeed, NotionFeedItems, NotionItem } from '@/features/notions/feed'
 import { useGroupExplorerFeedNotionFeed } from './notion.feed'
 import { useGroupExplorerFeedExplorer } from './group.explorer'
-import { GroupFeed, GroupFeedItems } from '@/features/groups/feed'
+import { GroupFeed, GroupFeedItems, GroupItem } from '@/features/groups/feed'
 import { GroupExplorerFeedTitle } from './components/GroupExplorerFeedTitle'
 import { GroupExplorerFeedPath } from './components/GroupExplorerFeedPath'
 import { useOnPageClosed } from '@/shared/hooks/useOnPageClosed'
@@ -71,7 +71,14 @@ export function GroupExplorerFeed({
         <GroupExplorerFeedPath />
         <GroupExplorerFeedTitle />
 
-        <GroupFeedItems onGroupClick={onGroupClickHandler} />
+        <GroupFeedItems>
+          {(group) => (
+            <GroupItem 
+              group={group}
+              onClick={onGroupClickHandler}
+            />
+          )}
+        </GroupFeedItems>
 
         <NotionFeed store={notionFeed.store}>
           <NotionFeedItems>

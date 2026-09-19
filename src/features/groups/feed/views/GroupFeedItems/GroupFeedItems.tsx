@@ -1,25 +1,23 @@
 import type { GroupEntity } from '@/entities/groups'
+import { Fragment, type ReactNode } from 'react'
 import { useGroupFeedContext } from '../../hooks/useGroupFeedContext'
-import { GroupItem } from '../../components/GroupItem'
 import styles from './GroupFeedItems.module.css'
 
 export interface GroupFeedItemsProps {
-  onGroupClick?: (group: GroupEntity) => void
+  children?: (group: GroupEntity) => ReactNode
 }
 
 export function GroupFeedItems({ 
-  onGroupClick = () => {},
+  children = () => null,
 }: GroupFeedItemsProps) {
   const { groups } = useGroupFeedContext()
 
   return (
     <div className={styles.GroupFeedItems}>
       {groups.map(group => (
-        <GroupItem 
-          group={group}
-          onClick={() => onGroupClick(group)}
-          key={group.id}
-        />
+        <Fragment key={group.id}>
+          {children(group)}
+        </Fragment>
       ))}
     </div>
   )

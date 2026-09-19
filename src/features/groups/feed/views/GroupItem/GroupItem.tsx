@@ -7,7 +7,7 @@ import { Text } from '@/shared/components/Text'
 
 interface GroupItemProps {
   group: GroupEntity
-  onClick?: () => void
+  onClick?: (group: GroupEntity) => void
 }
 
 export function GroupItem({
@@ -17,7 +17,7 @@ export function GroupItem({
   return (
     <Palette 
       className={styles.GroupItem}
-      onClick={onClick}
+      onClick={() => onClick(group)}
     >
       <ColorIndicator value={group.color} />
 
