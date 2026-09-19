@@ -1,3 +1,3 @@
 import { createGroupFeedInstance } from '@/features/groups/feed'
 
-export const useGroupFeed = createGroupFeedInstance()
+export const useGroupFeedGroupFeed = createGroupFeedInstance()

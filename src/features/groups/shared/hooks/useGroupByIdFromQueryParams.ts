@@ -18,10 +18,10 @@ export function useGroupByIdFromQueryParams({
   const id = Number(useParams()[param])
 
   useEffect(() => {
-    if (!id) return failure()
+    if (!id) return void failure()
     
     const group = getGroupById(id)
-    if (!group) return failure()
+    if (!group) return void failure()
   
     success(group)
   }, [id])

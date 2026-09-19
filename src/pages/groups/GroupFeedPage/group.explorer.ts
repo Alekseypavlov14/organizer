@@ -1,3 +1,3 @@
 import { createGroupExplorerInstance } from '@/features/groups/explorer'
 
-export const useGroupExplorerFeedExplorer = createGroupExplorerInstance()
+export const useGroupFeedGroupExplorer = createGroupExplorerInstance()
