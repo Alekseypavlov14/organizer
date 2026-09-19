@@ -49,7 +49,7 @@ export function GroupExplorerFeed({
   }, [notions, groupExplorer.store.currentGroup])
 
   function onGroupClickHandler(group: GroupEntity) {
-    groupExplorer.selectGroup(group)
+    groupExplorer.navigateGroup(group)
     onGroupClick(group)
   }
 

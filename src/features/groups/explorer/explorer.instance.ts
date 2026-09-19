@@ -1,16 +1,15 @@
 import type { GroupExplorerInstance } from './types/GroupExplorerInstance'
 import type { Nullable } from '@/shared/types/nullable'
+import type { Id } from '@/shared/types/id'
 import { explorerModeHierarchy, explorerModeSearch } from './constants'
-import { useGroupActions, type GroupEntity } from '@/entities/groups'
 import { createGroupExplorerStore } from './explorer.store'
-import { isNull } from '@/shared/utils/validation'
+import { type GroupEntity } from '@/entities/groups'
 
 export function createGroupExplorerInstance() {
   const useStore = createGroupExplorerStore()
   
   return function useGroupExplorer(): GroupExplorerInstance {
     const store = useStore()
-    const groupActions = useGroupActions()
 
     function searchGroups(query: string) {
       store.updateSearchQuery(query)
@@ -23,24 +22,27 @@ export function createGroupExplorerInstance() {
       store.updateExplorerMode(explorerModeSearch)      
     }
 
-    function selectGroup(group: Nullable<GroupEntity>) {
+    function navigateGroup(group: Nullable<GroupEntity>) {
       store.updateCurrentGroup(group)
       store.updateExplorerMode(explorerModeHierarchy)
     }
 
+    function navigateGroupById(id: Nullable<Id>) {
+      if (!id) return navigateRoot()
+
+      const group = store.groups.find(group => group.id === id)
+      if (!group) return
+
+      navigateGroup(group)
+    }
+
     function navigateParent() {
-      if (!store.currentGroup) return
-
-      if (isNull(store.currentGroup.parentId)) return navigateRoot()
-
-      const parent = groupActions.getGroupById(store.currentGroup.parentId)
-      if (!parent) return
-
-      store.updateCurrentGroup(parent)
+      const parentId = store.currentGroup?.parentId ?? null
+      navigateGroupById(parentId)
     }
 
     function navigateRoot() {
-      store.updateCurrentGroup(null)
+      navigateGroup(null)
     }
 
     function reset() {
@@ -57,8 +59,9 @@ export function createGroupExplorerInstance() {
       store,
 
       searchGroups,
-      selectGroup,
 
+      navigateGroup,
+      navigateGroupById,
       navigateParent,
       navigateRoot,
 

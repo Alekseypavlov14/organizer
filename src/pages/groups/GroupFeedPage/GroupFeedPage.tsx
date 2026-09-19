@@ -107,12 +107,7 @@ export function GroupFeedPage() {
     groupMoveSelectionExplorer.load(candidates)
 
     const parentId = groupExplorerFeedExplorer.store.currentGroup.parentId
-    if (isNull(parentId)) return groupMoveSelectionExplorer.navigateRoot()
-
-    const parent = groupActions.getGroupById(parentId)
-    if (parent) return groupMoveSelectionExplorer.selectGroup(parent)
-    
-    groupMoveSelectionExplorer.navigateRoot()
+    groupExplorerFeedExplorer.navigateGroupById(parentId)
   }
   function openGroupDeleteModal() {
     groupFeedModalStack.clear()
@@ -135,9 +130,7 @@ export function GroupFeedPage() {
     groupMoveSelectionDynamicAction.updateAction(moveNotionHandler)
 
     groupMoveSelectionExplorer.load(groups)
-
-    if (!groupExplorerFeedExplorer.store.currentGroup) groupExplorerFeedExplorer.navigateRoot()
-    else groupMoveSelectionExplorer.selectGroup(groupExplorerFeedExplorer.store.currentGroup)
+    groupMoveSelectionExplorer.navigateGroup(groupExplorerFeedExplorer.store.currentGroup)
   }
   function openNotionDeleteModal() {
     groupFeedModalStack.clear()
@@ -152,7 +145,7 @@ export function GroupFeedPage() {
   }
 
   function editGroupHandler(group: GroupEntity) {
-    groupExplorerFeedExplorer.selectGroup(group)
+    groupExplorerFeedExplorer.navigateGroup(group)
   }
   function moveGroupHandler(group: Nullable<GroupEntity>) {
     if (!groupExplorerFeedExplorer.store.currentGroup) return
@@ -163,11 +156,7 @@ export function GroupFeedPage() {
     if (!moved) return
 
     groupFeedModalStack.clear()
-
-    if (isNull(moved.parentId)) return groupExplorerFeedExplorer.navigateRoot()
-
-    const parent = groupActions.getGroupById(moved.parentId)
-    if (parent) return groupExplorerFeedExplorer.selectGroup(parent)
+    groupExplorerFeedExplorer.navigateGroupById(moved.parentId)
   }
   function moveNotionHandler(group: Nullable<GroupEntity>) {
     if (!groupExplorerFeedNotionFeed.store.selectedNotion) return null
@@ -178,10 +167,7 @@ export function GroupFeedPage() {
     groupActions.moveNotionById(currentGroupId, toGroupId, notionId)
 
     const parentGroupId = group?.id ?? null
-    if (isNull(parentGroupId)) return groupExplorerFeedExplorer.navigateRoot()
-
-    const parent = groupActions.getGroupById(parentGroupId)
-    if (parent) return groupExplorerFeedExplorer.selectGroup(parent)
+    groupExplorerFeedExplorer.navigateGroupById(parentGroupId)
   }
   function deleteGroupHandler() {
     if (isNull(currentGroupId)) return 

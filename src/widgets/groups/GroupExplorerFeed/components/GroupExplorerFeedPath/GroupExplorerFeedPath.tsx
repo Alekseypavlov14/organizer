@@ -10,7 +10,7 @@ export function GroupExplorerFeedPath() {
   return (
     <GroupPath 
       groupId={groupExplorer.store.currentGroup.id} 
-      onSegmentClick={groupExplorer.selectGroup}
+      onSegmentClick={groupExplorer.navigateGroup}
       className={styles.GroupExplorerFeedPath}
       onRootClick={groupExplorer.navigateRoot}
       gap={flexGapExtraSmall}
