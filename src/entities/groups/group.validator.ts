@@ -12,7 +12,7 @@ export class GroupValidator implements EntityValidator<GroupEntity> {
     if (!isString(entity.title) || entity.title.length === 0) return false
     if (!colorValidator.validateModelValue(entity.color)) return false
     
-    if (entity.notionIds.some(validateId)) return false
+    if (entity.notionIds.some(id => !validateId(id))) return false
 
     if (!isTimestamp(entity.savedAt) || entity.savedAt <= 0) return false
     

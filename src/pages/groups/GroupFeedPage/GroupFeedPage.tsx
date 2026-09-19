@@ -160,6 +160,7 @@ export function GroupFeedPage() {
       <GroupFeedNotionDetailsSelectActionModal />
       
       <GroupCreationModal 
+        onSave={groupFeedCreation.createGroupHandler}
         onColorClick={openColorSelectionModal} 
       />
       <GroupEditionModal 

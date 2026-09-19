@@ -117,7 +117,7 @@ export function useGroupActions() {
   }
 
   function addNotionToGroupById(id: Id, notionId: Id): Nullable<GroupEntity> {
-    const group = groupEntityStorage.getById(id)
+    const group = getGroupById(id)
     if (!group) return null
 
     if (group.notionIds.some(id => id === notionId)) return group
@@ -134,7 +134,7 @@ export function useGroupActions() {
   }
 
   function removeNotionFromGroupById(id: Id, notionId: Id): Nullable<GroupEntity> {
-    const group = groupEntityStorage.getById(id)
+    const group = getGroupById(id)
     if (!group) return null
 
     const newNotionIds = group.notionIds.filter(id => id !== notionId)

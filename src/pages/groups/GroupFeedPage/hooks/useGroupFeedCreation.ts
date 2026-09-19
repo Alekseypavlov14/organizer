@@ -1,10 +1,11 @@
 import { useGroupCreationSelectActionModal, useGroupFeedModalStack } from '../modals.feature'
+import { useGroupActions, type GroupEntity } from '@/entities/groups'
 import { useGroupFeedGroupExplorer } from '../group.explorer'
 import { useGroupCreationModal } from '@/widgets/groups/GroupCreationModal'
+import { useGroupFeedGroupFeed } from '../group.feed'
 import { useColorSelection } from '@/features/colors/selection'
 import { useNotionEdition } from '@/features/notions/edition'
 import { useGroupEdition } from '@/features/groups/edition'
-import { useGroupActions } from '@/entities/groups'
 import { useNavigation } from '@/app/navigation'
 import { useGroupForm } from '@/features/groups/form'
 
@@ -15,6 +16,7 @@ export function useGroupFeedCreation() {
   const groupFeedExplorer = useGroupFeedGroupExplorer()
   const currentGroupId = groupFeedExplorer.store.currentGroup?.id ?? null
 
+  const groupFeed = useGroupFeedGroupFeed()
   const groupEdition = useGroupEdition()
   const notionEdition = useNotionEdition()
   const groupForm = useGroupForm()
@@ -44,6 +46,7 @@ export function useGroupFeedCreation() {
     
     notionEdition.updateOnNotionSaveCallback(notion => {
       if (!currentGroupId) return
+
       groupActions.addNotionToGroupById(currentGroupId, notion.id)
     })
 
@@ -51,10 +54,16 @@ export function useGroupFeedCreation() {
     groupFeedModalStack.clear()
   }
 
+  function createGroupHandler(group: GroupEntity) {
+    groupFeed.updateGroups(groupActions.getGroupChildrenById(group.parentId) ?? [])
+  }
+
   return ({
     openGroupCreationSelectActionModal,
 
     openGroupCreationModal,
     openNotionCreationPage,
+
+    createGroupHandler,
   })
 }
