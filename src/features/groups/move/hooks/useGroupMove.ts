@@ -21,6 +21,18 @@ export function useGroupMove() {
     return moved
   }
 
+  function moveNotionById(fromGroupId: Nullable<Id>, toGroupId: Nullable<Id>, notionId: Id): boolean {
+    const moved = groupActions.moveNotionById(fromGroupId, toGroupId, notionId)
+
+    if (!moved) {
+      notifications.createErrorNotification('The notion is not moved')
+      return false
+    }
+
+    notifications.createSuccessNotification('The notion is moved')
+    return true
+  }
+
   function getGroupMoveCandidatesById(groupId: Nullable<Id>) {
     return groups.filter(group => (
       group.id !== groupId && 
@@ -30,6 +42,8 @@ export function useGroupMove() {
 
   return ({
     moveGroupById,
+    moveNotionById,
+    
     getGroupMoveCandidatesById
   })
 }

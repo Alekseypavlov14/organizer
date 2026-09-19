@@ -155,7 +155,6 @@ export function GroupFeedPage() {
     const moved = groupMove.moveGroupById(groupExplorerFeedExplorer.store.currentGroup.id, parentGroupId)
     if (!moved) return
 
-    groupFeedModalStack.clear()
     groupExplorerFeedExplorer.navigateGroupById(moved.parentId)
   }
   function moveNotionHandler(group: Nullable<GroupEntity>) {
@@ -164,7 +163,8 @@ export function GroupFeedPage() {
     const toGroupId = group?.id ?? null
     const notionId = groupExplorerFeedNotionFeed.store.selectedNotion.id
 
-    groupActions.moveNotionById(currentGroupId, toGroupId, notionId)
+    const moved = groupMove.moveNotionById(currentGroupId, toGroupId, notionId)
+    if (!moved) return
 
     const parentGroupId = group?.id ?? null
     groupExplorerFeedExplorer.navigateGroupById(parentGroupId)
