@@ -11,7 +11,7 @@ import { Icon } from '@/shared/components/Icon'
 import { Main } from '@/shared/components/Main'
 
 export function HomePage() {
-  const { navigateNotionFeedPage, navigateGroupFeedPage } = useNavigation()
+  const { navigateNotionFeedPage, navigateGroupFeedRootPage } = useNavigation()
 
   const dateSelectionCalendar = useDateSelectionCalendar()
   const dateSelectionModal = useDateSelectionModal()
@@ -46,7 +46,7 @@ export function HomePage() {
           <Icon name="search" size='l' />
         </FloatingAction>
 
-        <FloatingAction onClick={navigateGroupFeedPage}>
+        <FloatingAction onClick={navigateGroupFeedRootPage}>
           <Icon name="folder" size='l' />
         </FloatingAction>
 

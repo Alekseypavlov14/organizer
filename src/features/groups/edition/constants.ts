@@ -7,9 +7,11 @@ export function createInitialGroup(): GroupEntity {
     id: generateId(),
 
     parentId: null,
+    
     title: '',
     color: defaultColorModel,
-    notions: [],
+
+    notionIds: [],
 
     savedAt: Date.now()
   })
