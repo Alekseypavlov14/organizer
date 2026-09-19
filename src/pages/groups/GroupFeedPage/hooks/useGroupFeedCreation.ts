@@ -46,6 +46,9 @@ export function useGroupFeedCreation() {
       if (!currentGroupId) return
       groupActions.addNotionToGroupById(currentGroupId, notion.id)
     })
+
+    groupFeedModalStack.close()
+    groupFeedModalStack.clear()
   }
 
   return ({
