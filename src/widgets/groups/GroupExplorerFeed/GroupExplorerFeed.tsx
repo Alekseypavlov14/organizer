@@ -44,7 +44,9 @@ export function GroupExplorerFeed({
   const notionFeed = useGroupExplorerFeedNotionFeed()
 
   useEffect(() => {
-    const currentGroupNotions = groupExplorer.store.currentGroup?.notions ?? groupActions.getRootGroupNotions()
+    const currentGroupId = groupExplorer.store.currentGroup?.id ?? null
+    const currentGroupNotions = groupActions.getGroupNotionsById(currentGroupId) ?? []
+    
     notionFeed.updateNotions(currentGroupNotions)
   }, [notions, groupExplorer.store.currentGroup])
 

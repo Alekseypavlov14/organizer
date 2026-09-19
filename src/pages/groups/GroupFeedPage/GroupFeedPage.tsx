@@ -151,7 +151,6 @@ export function GroupFeedPage() {
     if (!groupExplorerFeedExplorer.store.currentGroup) return
 
     const parentGroupId = group?.id ?? null
-
     const moved = groupMove.moveGroupById(groupExplorerFeedExplorer.store.currentGroup.id, parentGroupId)
     if (!moved) return
 
@@ -184,7 +183,7 @@ export function GroupFeedPage() {
     const deleted = notionEdition.deleteNotionById(groupExplorerFeedNotionFeed.store.selectedNotion.id)
     if (deleted && !isNull(currentGroupId)) groupActions.removeNotionFromGroupById(currentGroupId, deleted.id)
 
-    const children = groupExplorerFeedExplorer.store.currentGroup?.notions ?? groupActions.getRootGroupNotions()
+    const children = groupActions.getGroupNotionsById(currentGroupId) ?? []
     groupExplorerFeedNotionFeed.updateNotions(children)
   }
   function selectColor(color: ColorModel) {

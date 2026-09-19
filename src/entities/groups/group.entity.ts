@@ -1,4 +1,3 @@
-import type { NotionEntity } from '@/entities/notions'
 import type { ColorModel } from '../shared'
 import type { Nullable } from '@/shared/types/nullable'
 import type { Entity } from '@/shared/types/entity'
@@ -10,9 +9,5 @@ export interface GroupEntity extends Entity {
   title: string
   color: ColorModel
   
-  notions: NotionEntity[]
-}
-
-export interface GroupRecord extends Omit<GroupEntity, 'notions'> {
-  notions: Id[]
+  notionIds: Id[]
 }

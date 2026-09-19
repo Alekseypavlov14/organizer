@@ -7,9 +7,11 @@ export const defaultGroupEntity: GroupEntity = {
   id: 0,
 
   parentId: null,
+  
   title: '',
   color: defaultColorModel,
-  notions: [],
+
+  notionIds: [],
 
   savedAt: 0,
 }

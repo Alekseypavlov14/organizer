@@ -1,23 +1,22 @@
-import type { GroupEntity, GroupRecord } from './group.entity'
+import type { GroupEntity } from './group.entity'
 import type { Id } from '@/shared/types/id'
-import { notionEntityStorage, type NotionEntity } from '@/entities/notions'
-import { EntityStorage } from '@/shared/utils/storages'
+import { notionEntityStorage } from '@/entities/notions'
 import { groupValidator } from './group.validator'
+import { EntityStorage } from '@/shared/utils/storages'
 
-export class GroupEntityStorage extends EntityStorage<GroupEntity, GroupRecord> {
-  public deserialize(record: GroupRecord): GroupEntity {
-    const notions: NotionEntity[] = record.notions
-      .map(id => notionEntityStorage.getById(id))
-      .filter(Boolean) as NotionEntity[]
+export class GroupEntityStorage extends EntityStorage<GroupEntity> {
+  public deserialize(record: GroupEntity): GroupEntity {
+    const notionIds: Id[] = record.notionIds
+      .filter(id => notionEntityStorage.getById(id))
 
-    return ({ ...record, notions })
+    return ({ ...record, notionIds })
   }
 
-  public serialize(record: GroupEntity): GroupRecord {
-    const notions: Id[] = record.notions
-      .map(notion => notion.id)
+  public serialize(entity: GroupEntity): GroupEntity {
+    const notionIds: Id[] = entity.notionIds
+      .filter(id => notionEntityStorage.getById(id))
 
-    return ({ ...record, notions })
+    return ({ ...entity, notionIds })
   }
 
   public validate(entity: GroupEntity): boolean {

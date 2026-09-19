@@ -4,7 +4,6 @@ import type { Id } from '@/shared/types/id'
 import { notionsSelector, useNotionActions, useNotionsStore, type NotionEntity } from '../notions'
 import { groupsSelector, updateGroupsSelector, useGroupsStore } from './group.store'
 import { groupEntityStorage } from './group.storage'
-import { validateId } from '@/shared/utils/id'
 import { isNull } from '@/shared/utils/validation'
 
 export function useGroupActions() {
@@ -29,7 +28,7 @@ export function useGroupActions() {
     const group = getGroupById(id)
     if (!group) return null
 
-    const deletedNotions = group.notions.map(notion => notionActions.deleteNotionById(notion.id))
+    const deletedNotions = group.notionIds.map(notionActions.deleteNotionById)
     if (deletedNotions.some(isNull)) return null
 
     const children = getGroupChildrenById(id) ?? []
@@ -47,8 +46,8 @@ export function useGroupActions() {
     const group = getGroupById(groupId)
     if (!group) return null
     
-    if (isSubgroupOf(parentId, groupId)) return null
     if (groupId === parentId) return null
+    if (isSubgroupOf(parentId, groupId)) return null
 
     const moved = groupEntityStorage.save({ ...group, parentId })
     revalidate()
@@ -57,22 +56,23 @@ export function useGroupActions() {
   }
 
   function getGroupPathById(id: Nullable<Id>): Nullable<GroupEntity[]> {
-    const groups: GroupEntity[] = []
+    const segments: GroupEntity[] = []
     let currentGroupId: Nullable<Id> = id
 
     while (true) {
-      if (isNull(currentGroupId) || !validateId(currentGroupId)) break
+      if (isNull(currentGroupId)) break
 
       const currentGroup = getGroupById(currentGroupId)
       if (!currentGroup) return null
 
-      if (groups.some(group => group.id === currentGroup.id)) return null
+      const isGroupInSegments = segments.some(group => group.id === currentGroup.id)
+      if (isGroupInSegments) return null
 
-      groups.push(currentGroup)
+      segments.push(currentGroup)
       currentGroupId = currentGroup.parentId
     }
 
-    return groups.reverse()
+    return segments.reverse()
   }
 
   function getGroupChildrenById(id: Nullable<Id>): Nullable<GroupEntity[]> {
@@ -87,8 +87,8 @@ export function useGroupActions() {
 
   function isSubgroupOf(groupId: Nullable<Id>, parentId: Nullable<Id>): boolean {
     if (groupId === parentId) return false
-    if (isNull(groupId)) return false
     if (isNull(parentId)) return true
+    if (isNull(groupId)) return false
 
     const group = getGroupById(groupId)
     if (!group) return false
@@ -120,12 +120,12 @@ export function useGroupActions() {
     const group = groupEntityStorage.getById(id)
     if (!group) return null
 
-    if (group.notions.some(notion => notion.id === notionId)) return group
+    if (group.notionIds.some(id => id === notionId)) return group
 
     const notion = notionActions.getNotionById(notionId)
     if (!notion) return null
 
-    const newGroup: GroupEntity = { ...group, notions: group.notions.concat([ notion ]) }
+    const newGroup: GroupEntity = { ...group, notionIds: group.notionIds.concat([ notionId ]) }
 
     const updated = groupEntityStorage.save(newGroup)
     revalidate()
@@ -137,8 +137,8 @@ export function useGroupActions() {
     const group = groupEntityStorage.getById(id)
     if (!group) return null
 
-    const newNotions = group.notions.filter(notion => notion.id !== notionId)
-    const newGroup: GroupEntity = { ...group, notions: newNotions }
+    const newNotionIds = group.notionIds.filter(id => id !== notionId)
+    const newGroup: GroupEntity = { ...group, notionIds: newNotionIds }
 
     const updated = groupEntityStorage.save(newGroup)
     revalidate()
@@ -146,12 +146,23 @@ export function useGroupActions() {
     return updated
   }
 
+  function getGroupNotionsById(id: Nullable<Id>): Nullable<NotionEntity[]> {
+    if (isNull(id)) return getRootGroupNotions()
+
+    const group = getGroupById(id)
+    if (!group) return null
+
+    const receivedNotions = group.notionIds.map(notionActions.getNotionById)
+    const notions = receivedNotions.filter(notion => !isNull(notion))
+
+    return notions
+  }
+
   function getRootGroupNotions(): NotionEntity[] {
     const rootNotions = notions.filter(notion => {
-      const anyGroupHasNotion = groups.some(group => {
-        const groupIncludesNotion = group.notions.some(groupNotion => groupNotion.id === notion.id)
-        return groupIncludesNotion
-      })
+      const anyGroupHasNotion = groups.some(group => (
+        group.notionIds.includes(notion.id)
+      ))
 
       return !anyGroupHasNotion
     })
@@ -180,6 +191,8 @@ export function useGroupActions() {
     moveNotionById,
     addNotionToGroupById,
     removeNotionFromGroupById,
+    
+    getGroupNotionsById,
     getRootGroupNotions,
 
     getGroupsBySearchQuery,
