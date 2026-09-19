@@ -1,16 +1,14 @@
 import type { GroupEntity } from './group.entity'
 import type { Nullable } from '@/shared/types/nullable'
 import type { Id } from '@/shared/types/id'
-import { notionsSelector, useNotionActions, useNotionsStore, type NotionEntity } from '../notions'
-import { groupsSelector, updateGroupsSelector, useGroupsStore } from './group.store'
+import { notionEntityStorage, useNotionActions, type NotionEntity } from '../notions'
+import { updateGroupsSelector, useGroupsStore } from './group.store'
 import { groupEntityStorage } from './group.storage'
 import { isNull } from '@/shared/utils/validation'
 
 export function useGroupActions() {
-  const groups = useGroupsStore(groupsSelector)
   const updateGroups = useGroupsStore(updateGroupsSelector)
 
-  const notions = useNotionsStore(notionsSelector)
   const notionActions = useNotionActions()
 
   function saveGroup(group: GroupEntity): Nullable<GroupEntity> {
@@ -76,6 +74,8 @@ export function useGroupActions() {
   }
 
   function getGroupChildrenById(id: Nullable<Id>): Nullable<GroupEntity[]> {
+    const groups = groupEntityStorage.getAll()
+
     if (isNull(id)) return groups.filter(group => group.parentId === id)
 
     const group = getGroupById(id)
@@ -159,6 +159,9 @@ export function useGroupActions() {
   }
 
   function getRootGroupNotions(): NotionEntity[] {
+    const groups = groupEntityStorage.getAll()
+    const notions = notionEntityStorage.getAll()
+
     const rootNotions = notions.filter(notion => {
       const anyGroupHasNotion = groups.some(group => (
         group.notionIds.includes(notion.id)
@@ -171,6 +174,8 @@ export function useGroupActions() {
   }
 
   function getGroupsBySearchQuery(query: string): GroupEntity[] {
+    const groups = groupEntityStorage.getAll()
+
     return groups.filter(group => group.title.toLowerCase().includes(query.toLowerCase()))
   }
 
