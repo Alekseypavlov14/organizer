@@ -89,6 +89,9 @@ export function GroupFeedPage() {
   function clickNotionDetailsHandler(notion: NotionEntity) {
     notionDetails.openNotionDetailsSelectActionModal(notion)
   }
+  function onNotionUpdate() {
+    notionFeed.updateNotions(groupActions.getGroupNotionsById(currentGroupId) ?? [])
+  } 
 
   function selectGroupHandler(group: Nullable<GroupEntity>) {
     groupSelectionDynamicAction.callback(group)
@@ -139,6 +142,7 @@ export function GroupFeedPage() {
                       notion={notion}
                       onClick={clickNotionHandler} 
                       onDetailsClick={clickNotionDetailsHandler}
+                      onUpdate={onNotionUpdate}
                       showDetails
                     />
                   )}

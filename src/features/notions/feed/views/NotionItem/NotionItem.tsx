@@ -14,6 +14,7 @@ interface NotionItemProps {
   notion: NotionEntity
   onClick?: (notion: NotionEntity) => void
   onDetailsClick?: (notion: NotionEntity) => void
+  onUpdate?: (notion: NotionEntity) => void
   showDetails?: boolean
 }
 
@@ -21,6 +22,7 @@ export function NotionItem({
   notion,
   onClick = () => {},
   onDetailsClick = () => {},
+  onUpdate = () => {},
   showDetails
 }: NotionItemProps) {
   const { saveNotion } = useNotionActions()
@@ -40,6 +42,11 @@ export function NotionItem({
     onDetailsClick && onDetailsClick(notion)
   }
 
+  function clickTodoHandler(done: boolean) {
+    const saved = saveNotion({ ...notion, done })
+    if (saved) onUpdate(notion)
+  }
+
   return (
     <Palette 
       className={classNames} 
@@ -55,7 +62,7 @@ export function NotionItem({
           {!isNull(notion.done) ? (
             <StopPropagation>
               <Checkbox
-                onCheckedChange={(done) => saveNotion({ ...notion, done })}
+                onCheckedChange={clickTodoHandler}
                 checked={notion.done}
               />
             </StopPropagation>
